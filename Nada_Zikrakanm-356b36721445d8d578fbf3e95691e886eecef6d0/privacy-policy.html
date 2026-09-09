@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیاسەتی تایبەتمەندی | Privacy Policy - نەدا (Nada)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #15803d;
+            --primary-light: #22c55e;
+            --primary-soft: #f0fdf4;
+            --primary-border: #bbf7d0;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-page: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #14532d 0%, #15803d 100%);
+            color: #ffffff;
+            padding: 45px 35px;
+            text-align: center;
+            position: relative;
+        }
+
+        .app-badge { 
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .header .update-date {
+            font-size: 0.85rem;
+            opacity: 0.75;
+            margin-top: 12px;
+        }
+
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 25px;
+            background: var(--primary-soft);
+            border-bottom: 1px solid var(--primary-border);
+        }
+
+        .lang-btn {
+            background: #ffffff;
+            border: 1px solid var(--primary-border);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .content {
+            padding: 40px 35px;
+        }
+
+        .highlight-card {
+            background: var(--primary-soft);
+            border: 1px solid var(--primary-border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .highlight-card .icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .highlight-card p {
+            font-size: 0.98rem;
+            color: #166534;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.28rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .section-num {
+            background: var(--primary);
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 16px 0;
+        }
+
+        li {
+            position: relative;
+            padding-right: 24px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .ltr li {
+            padding-right: 0;
+            padding-left: 24px;
+        }
+
+        .ltr li::before {
+            right: auto;
+            left: 0;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #334155;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 2px 4px;
+            font-family: monospace;
+        }
+
+        .footer {
+            background: #f8fafc;
+            border-top: 1px solid var(--border);
+            padding: 30px 35px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .ltr {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            border-top: 3px dashed var(--border);
+            margin-top: 50px;
+            padding-top: 45px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+            .header {
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            .content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="app-badge">ئەپی نەدا | Nada App</div>
+        <h1>سیاسەتی تایبەتمەندی</h1>
+        <div class="subtitle">نەدا – زیکرەکانم و کاتەکانی نوێژ</div>
+        <div class="update-date">دواین نوێکردنەوە: ١٠ی ئەیلوولی ٢٠٢٦ (September 10, 2026)</div>
+    </header>
+
+    <!-- QUICK SWITCH -->
+    <div class="lang-switch">
+        <a href="#kurdish-section" class="lang-btn active">کوردی (Kurdish)</a>
+        <a href="#english-section" class="lang-btn">English (Google Play)</a>
+    </div>
+
+    <!-- MAIN CONTENT (KURDISH) -->
+    <div class="content" id="kurdish-section">
+
+        <div class="highlight-card">
+            <div class="icon">🛡️</div>
+            <div>
+                <p><strong>گرنگترین بەڵێن:</strong> ئێمە هیچ کام لە زانیارییە کەسییەکانت کۆناکەینەوە، نایفرۆشین، و بەکاری ناهێنین بۆ ڕیکلام. هەموو زانیاری و ژماردن و ڕێکخستنەکانت بە تەواوی لەسەر مۆبایلەکەت خۆت دەمێننەوە.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">١</span>
+                پێشەکی و مەبەست
+            </h2>
+            <p>
+                بەخێربێیت بۆ ئەپی <strong>نەدا (Nada – Zikrakanm)</strong>. ئەم ئەپە دروستکراوە بۆ یارمەتیدانی موسڵمانان لە خوێندنی زیکر و ویردەکان، زانینی کاتەکانی نوێژ بە وردی، و ڕووگەی قیبلە. پاراستنی تایبەتمەندی تۆ لای ئێمە ئەرکێکی سەرەکییە، و ئەم بەڵگەنامەیە بە ڕوونی باس لە چۆنیەتی کارکردنی مۆڵەتەکان دەکات.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٢</span>
+                مۆڵەتی شوێن (Location Permission)
+            </h2>
+            <p>
+                ئەپەکە دەتوانێت داوای مۆڵەتی شوێنی جوگرافی بکات (<span class="badge-tag">ACCESS_FINE_LOCATION</span> و <span class="badge-tag">ACCESS_COARSE_LOCATION</span>):
+            </p>
+            <ul>
+                <li><strong>تەنها بۆ دوو مەبەست:</strong> هەژمارکردنی کاتەکانی نوێژ بە پێی شوێنەکەت، و ئاڕاستەکردنی دەرزی کۆمپاس بۆ قیبلەی پیرۆز.</li>
+                <li><strong>تەنها لەسەر ئامێرەکەت (On-Device):</strong> زانیاریی شوێنەکەت ناگوازرێتەوە بۆ هیچ سێرڤەرێکی دەرەکی، لە هیچ شوێنێک پاشەکەوت ناکرێت، و لەگەڵ کەسی سێیەم هاوبەشی پێ ناکرێت.</li>
+                <li><strong>ئارەزوومەندانە:</strong> ئەگەر مۆڵەتەکە نەدەیت، هێشتا دەتوانیت شارەکەت بە دەستی هەڵبژێریت و تەواوی بەشەکانی زیکر و تەسبیح بەکاربهێنیت.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٣</span>
+                هەستەوەرەکانی ئامێر و کۆمپاس (Compass & Sensors)
+            </h2>
+            <p>
+                بۆ دیاریکردنی ڕووگەی دروستی قیبلە، ئەپەکە هەستەوەرەکانی مۆبایل (Magnetometer / Accelerometer) دەخوێنێتەوە بە شێوەی خۆجێیی. ئەم داتایانە لە هیچ جێگایەک کۆناکریتەوە و تەنها لە کاتی کارکردنی شاشەی قیبلە بەکاردێت.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٤</span>
+                پاشەکەوتکردنی داتا لەسەر مۆبایلەکەت (Local Storage)
+            </h2>
+            <p>
+                هەموو ئەزموونی بەکارهێنان لە مۆبایلەکەت پارێزراوە:
+            </p>
+            <ul>
+                <li>ژمارەی تەسبیحات و ئامارەکانی زیکر.</li>
+                <li>زیکرە دڵخوازەکان (Favorites) و ڕێکخستنی دەنگ و خێرایی.</li>
+                <li>هیچ پێویست بە هەژمار (Account) و ناونوسین ناکات؛ هیچ کەس دەستی بە ئامارەکانت ناگات.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٥</span>
+                ئاگادارکردنەوە و هۆشیارکردنەوەکان (Notifications & Alarms)
+            </h2>
+            <p>
+                ئەپەکە مۆڵەتەکانی <span class="badge-tag">POST_NOTIFICATIONS</span> و <span class="badge-tag">SCHEDULE_EXACT_ALARM</span> بەکاردەهێنێت:
+            </p>
+            <ul>
+                <li>تەنها بە مەبەستی لێدانی بانگ یان ئاگادارکردنەوە لە کاتی نوێژەکان و زیکرەکانی بەیانی و ئێواران کە خۆت دیاریت کردوون.</li>
+                <li>دەتوانیت لە هەر کاتێکدا ئاگادارکردنەوەکان لە ڕێکخستنەکانی ئەپ یان سیستەمدا بکوژێنیتەوە.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٦</span>
+                هێڵی ئینتەرنێت (Internet Access)
+            </h2>
+            <p>
+                ئەپەکە پێویستی بە ئینتەرنێت دەبێت (<span class="badge-tag">INTERNET</span>) تەنها بۆ پەخشکردنی دەنگی قورئانی پیرۆز بە شێوەی ڕاستەوخۆ (Streaming). هیچ زانیارییەکی بەکارهێنەر لەگەڵ ئەم داواکارییەدا نانێردرێت.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٧</span>
+                ڕیکلام و لایەنی سێیەم (Advertising & Third-Parties)
+            </h2>
+            <p>
+                ئەپی نەدا <strong>بە تەواوی بێ بەرامبەر و بێ هیچ ڕیکلامێکە (No Ads)</strong>. هیچ خزمەتگوزارییەکی شوێنپێهەڵگرتن (Tracking SDK) یان فرۆشتنی زانیاری لە ناو ئەپەکەدا بوونی نییە.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">
+                <span class="section-num">٨</span>
+                پەیوەندی (Contact Us)
+            </h2>
+            <p>
+                بۆ هەر پرسیارێک، سەرنجێک، یان پێشنیارێک سەبارەت بەم سیاسەتە یان ئەپەکە، دەتوانیت پەیوەندیمان پێوە بکەیت لە ڕێگەی ئیمەیڵ:
+                <br>
+                <strong>ئیمەیڵ:</strong> <a href="mailto:support@zikrakanm.com">support@zikrakanm.com</a>
+            </p>
+        </section>
+
+        <!-- ENGLISH VERSION FOR GOOGLE PLAY CONSOLE REVIEWERS -->
+        <div class="ltr" id="english-section">
+            <h2 style="font-size: 1.8rem; margin-bottom: 8px; color: var(--primary);">Privacy Policy (English)</h2>
+            <p style="color: #64748b; margin-bottom: 25px;">Official Privacy Policy for Google Play Store & User Compliance</p>
+
+            <div class="highlight-card">
+                <div class="icon">🔒</div>
+                <div>
+                    <p style="color: #166534;"><strong>Summary:</strong> Nada does NOT collect, sell, or monetize any personal data. All prayer times calculations and Zikr counters operate locally on your device.</p>
+                </div>
+            </div>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">1</span> Overview</h3>
+                <p>This Privacy Policy applies to the <strong>Nada (نەدا – Zikrakanm)</strong> mobile application. We are committed to protecting your privacy. We do not require account registration and do not harvest user personal data.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">2</span> Location Data Usage</h3>
+                <p>The app may request access to location (<span class="badge-tag">ACCESS_FINE_LOCATION</span> and <span class="badge-tag">ACCESS_COARSE_LOCATION</span>):</p>
+                <ul>
+                    <li><strong>Purpose:</strong> Strictly to calculate accurate local Islamic prayer times (Salah) and the precise Qibla compass bearing towards Makkah.</li>
+                    <li><strong>Processing:</strong> Location data is processed <strong>ephemerally on-device</strong> only. It is never transmitted to any external server, database, or third-party service.</li>
+                    <li><strong>Optional:</strong> Users may choose to deny permission and manually select their city.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">3</span> Sensors & Compass</h3>
+                <p>The app accesses the device's hardware sensors (accelerometer & magnetometer) solely to render the real-time Qibla compass needle. Sensor values are processed in volatile memory on the device and are never recorded or transmitted.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">4</span> Notifications & Alarms</h3>
+                <p>We use <span class="badge-tag">POST_NOTIFICATIONS</span> and <span class="badge-tag">SCHEDULE_EXACT_ALARM</span> strictly for local scheduled Adhan (prayer calls) and optional daily Dhikr reminders configured by the user. All alarm events are scheduled directly on the local Android AlarmManager.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">5</span> Network Access (Internet)</h3>
+                <p>Internet access (<span class="badge-tag">INTERNET</span>) is utilized solely for streaming online Quran recitation audio when initiated by the user. No telemetry or tracking information is transmitted.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">6</span> Third Parties & Advertisements</h3>
+                <p>Nada is completely ad-free. It does not include advertising SDKs, behavioral analytics, or third-party trackers. We do not sell, rent, or trade your information with any third party.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">7</span> Children's Privacy</h3>
+                <p>Our app does not knowingly solicit or collect personal information from children under 13.</p>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title"><span class="section-num">8</span> Contact Us</h3>
+                <p>If you have any questions regarding this Privacy Policy, please contact us at: <a href="mailto:support@zikrakanm.com">support@zikrakanm.com</a></p>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 <strong>نەدا (Nada – Zikrakanm)</strong>. هەموو مافەکان پارێزراون. All rights reserved.</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
