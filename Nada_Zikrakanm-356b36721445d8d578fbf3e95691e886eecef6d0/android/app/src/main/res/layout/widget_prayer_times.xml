@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/widget_bg"
+    android:padding="12dp">
+
+    <!-- Top Header: App Name, City, and Hijri Date -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/widget_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="نەدا"
+            android:textColor="#FFE5B84B"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" • "
+            android:textColor="#80E5B84B"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/widget_city_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="کوردستان"
+            android:textColor="#CCF3E8D2"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/widget_hijri_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#80F3E8D2"
+            android:textSize="10sp"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <!-- Next Prayer Highlight Card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:background="@drawable/widget_card_bg"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/widget_next_prayer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بانگی داهاتوو"
+                android:textColor="#FFE5B84B"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/widget_next_prayer_remaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text=""
+                android:textColor="#CCF3E8D2"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/widget_next_prayer_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--:--"
+            android:textColor="#FFE5B84B"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 6 Prayer Times (2 Rows x 3 Columns) - Clean & Minimal (No Emojis) -->
+    <!-- Row 1: Fajr, Sunrise, Dhuhr -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <!-- Fajr -->
+        <LinearLayout
+            android:id="@+id/widget_cell_fajr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_fajr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بەیانی"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_fajr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Sunrise -->
+        <LinearLayout
+            android:id="@+id/widget_cell_sunrise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_sunrise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="خۆرهەڵات"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_sunrise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Dhuhr -->
+        <LinearLayout
+            android:id="@+id/widget_cell_dhuhr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_dhuhr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نیوەڕۆ"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_dhuhr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Row 2: Asr, Maghrib, Isha -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <!-- Asr -->
+        <LinearLayout
+            android:id="@+id/widget_cell_asr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_asr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="عەسر"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_asr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Maghrib -->
+        <LinearLayout
+            android:id="@+id/widget_cell_maghrib"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_maghrib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="شێوان"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_maghrib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Isha -->
+        <LinearLayout
+            android:id="@+id/widget_cell_isha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/widget_item_bg"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/widget_name_isha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="خەوتنان"
+                android:textColor="#B3F3E8D2"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/widget_time_isha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="--:--"
+                android:textColor="#FFF3E8D2"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

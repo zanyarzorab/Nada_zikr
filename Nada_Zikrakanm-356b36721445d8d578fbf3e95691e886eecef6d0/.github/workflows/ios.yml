@@ -1,0 +1,135 @@
+
+name: Flutter iOS Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build Flutter iOS IPA
+    runs-on: macos-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'  # Pinned for reproducible builds — update intentionally
+          channel: stable
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Check Podfile
+        run: |
+          echo "========== IOS DIRECTORY =========="
+          ls -la ios
+
+          echo "========== PODFILE =========="
+          cat ios/Podfile
+
+      - name: Generate iOS configuration
+        run: |
+          flutter build ios \
+            --config-only \
+            --no-codesign
+
+      - name: Install CocoaPods
+        working-directory: ios
+        run: |
+          echo "========== RUNNING POD INSTALL =========="
+          pod install --repo-update
+          echo "========== POD INSTALL DONE =========="
+          ls -la
+
+      - name: Verify iOS workspace
+        run: |
+          test -d ios/Runner.xcworkspace
+          echo "Runner.xcworkspace exists."
+
+      - name: Build iOS
+        run: |
+          flutter build ios \
+            --release \
+            --no-codesign
+
+      - name: Check application
+        run: |
+          echo "========== BUILD OUTPUT =========="
+          ls -lah build/ios/iphoneos/
+
+          test -d build/ios/iphoneos/Runner.app
+          echo "Runner.app successfully created."
+
+          echo "========== WIDGET EXTENSION =========="
+          if [ -d "build/ios/iphoneos/Runner.app/PlugIns/PrayerTimesWidget.appex" ]; then
+            echo "SUCCESS: PrayerTimesWidget.appex is embedded in the app bundle."
+            ls -lah build/ios/iphoneos/Runner.app/PlugIns/
+          else
+            echo "WARNING: PrayerTimesWidget.appex not found in PlugIns/"
+            ls -lah build/ios/iphoneos/Runner.app/ || true
+          fi
+
+      - name: Check Bundle ID
+        run: |
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" build/ios/iphoneos/Runner.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :CFBundleName" build/ios/iphoneos/Runner.app/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :CFBundleDisplayName" build/ios/iphoneos/Runner.app/Info.plist
+
+
+      - name: Create IPA
+        run: |
+          echo "================================"
+          echo "CREATING IPA"
+          echo "================================"
+
+          rm -rf Payload
+          rm -f zikrakan.ipa
+
+          mkdir -p Payload
+
+          cp -R \
+            build/ios/iphoneos/Runner.app \
+            Payload/Runner.app
+
+          echo "========== PAYLOAD =========="
+          ls -la Payload
+
+          echo "========== CREATING IPA =========="
+
+          zip -r -9 \
+            zikrakan.ipa \
+            Payload
+
+          echo "========== IPA =========="
+          ls -lh zikrakan.ipa
+
+          echo "========== VERIFYING IPA =========="
+
+          unzip -l zikrakan.ipa | head -30
+
+          if unzip -l zikrakan.ipa | grep -q "Payload/Runner.app"; then
+            echo "SUCCESS: Payload/Runner.app found!"
+          else
+            echo "ERROR: Payload/Runner.app NOT found!"
+            exit 1
+          fi
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: zikrakan-iOS
+          path: ${{ github.workspace }}/zikrakan.ipa
+          if-no-files-found: error
+          retention-days: 30
+

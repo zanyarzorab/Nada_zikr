@@ -1,0 +1,81 @@
+name: nada_zikrakanm
+description: A simple Zikr/Tasbeeh Flutter app with Kurdish and Arabic support.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State & data persistence
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.0.11
+  
+  # Notifications & audio
+  flutter_local_notifications: ^22.0.1
+  timezone: ^0.11.1
+  flutter_timezone: ^5.1.0
+  just_audio: ^0.10.5
+  audio_session: ^0.2.4
+  
+  # Localization & internationalization
+  intl: ^0.20.2
+  flutter_localizations:
+    sdk: flutter
+
+  # Share and mood-card export
+  share_plus: ^11.0.0
+  
+  # Google Fonts for better Arabic support
+  google_fonts: ^6.1.0
+  geolocator: ^10.1.0
+  flutter_compass: ^0.8.0
+  http: ^1.2.0
+  home_widget: ^0.9.3
+  url_launcher: ^6.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  # Optional for generating type adapters
+  hive_generator: ^2.0.0
+  build_runner: ^2.3.3
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icon/
+    - assets/azan/
+    - assets/lang/
+    - assets/dhikr/
+    - assets/quran/
+    - assets/quran/tafsir/
+    - assets/hadith/
+    - node_modules/imanikurd/data/dhikr.json
+    - node_modules/imanikurd/data/names_of_allah.json
+    - node_modules/imanikurd-prayer/data/prayer_times.json
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/icon/nada_app_icon_squircle.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icon/nada_app_icon_squircle.png"
+  windows:
+    generate: true
+    image_path: "assets/icon/nada_app_icon_squircle.png"
+  macos:
+    generate: true
+    image_path: "assets/icon/nada_app_icon_squircle.png"
+
+

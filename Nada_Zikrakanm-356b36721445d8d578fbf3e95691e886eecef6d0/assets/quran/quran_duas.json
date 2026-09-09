@@ -1,0 +1,640 @@
+{
+  "dataset_info": {
+    "title": "Quranic Duas Dataset with Tafsiri Asan (Dua-Specific Isolation)",
+    "tafsir_source": "تەفسیری ئاسان (Tafsiri Asan - Burhan Muhammad Amin)",
+    "description": "Exclusively isolates and aligns the specific supplication (Dua) portion of each Ayah with its exact corresponding phrasing from Tafsiri Asan and an easy Tajweed phonetic guide.",
+    "total_entries": 70
+  },
+  "duas": [
+    {
+      "id": 1,
+      "surah": "Al-Fatihah",
+      "ayah": "1:6-7",
+      "arabic": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ * صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+      "easy_tajweed": "Ihdinas-siraatal-mustaqeem, siraatalladheena an'amta 'alayhim ghayril-maghdoobi 'alayhim walad-daaaalleen",
+      "asan_tafsir": "هیدایەتمان بدە و ڕێنموونیمان بکە بۆ ڕێگەی ڕاست، ڕێگەی ئەوانەی نیعمەتی (ئیمان و چاکەت) پێ بەخشیوون، نەک ڕێگەی ئەوانەی خەشم و تووڕەییت لێ گرتوون (وەک جولەکەکان) و نەک ڕێگەی گومڕابووان (وەک گاوڕەکان).",
+      "english": "Guide us to the straight path - The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray."
+    },
+    {
+      "id": 2,
+      "surah": "Al-Baqarah",
+      "ayah": "2:126",
+      "arabic": "رَبِّ اجْعَلْ هَذَا بَلَدًا آمِنًا وَارْزُقْ أَهْلَهُ مِنَ الثَّمَرَاتِ مَنْ آمَنَ مِنْهُمْ بِاللَّهِ وَالْيَوْمِ الْآخِرِ",
+      "easy_tajweed": "Rabbij-'al haadhaa baladan aaminanw-warzuq ahlahoo minath-thamaraati man aamana minhum billaahi wal-yawmil-aakhir",
+      "asan_tafsir": "ئەی پەروەردگارم! ئەم شوێنە بکە بە شارێکی هێمن و ئارام (کە مەککەیە)، و خەڵکەکەی بەهرەمەند بکە لە هەموو جۆرە بەروبووم و میوەیەک، بەتایبەت ئەوانەی باوەڕیان بە خوا و بە ڕۆژی دوایی هێناوە.",
+      "english": "My Lord, make this a secure city and provide its people with fruits - whoever of them believes in Allah and the Last Day."
+    },
+    {
+      "id": 3,
+      "surah": "Al-Baqarah",
+      "ayah": "2:127",
+      "arabic": "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+      "easy_tajweed": "Rabbanaa taqabbal minnaa, innaka antas-Samee'ul-'Aleem",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئەم کارەمان لێ وەرگرە و قبووڵی فەرموو، چونکە بێگومان تۆی بیسەری دوعاکان و زانای بە نیازەکان.",
+      "english": "Our Lord, accept [this] from us. Indeed You are the Hearing, the Knowing."
+    },
+    {
+      "id": 4,
+      "surah": "Al-Baqarah",
+      "ayah": "2:128",
+      "arabic": "رَبَّنَا وَاجْعَلْنَا مُسْلِمَيْنِ لَكَ وَمِنْ ذُرِّيَّتِنَا أُمَّةً مُسْلِمَةً لَكَ وَأَرِنَا مَنَاسِكَنَا وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ",
+      "easy_tajweed": "Rabbanaa waj'alnaa muslimayni laka wa min dhurriyyatinaaa ummatam-muslimatal-lak, wa arinaa manaasikanaa wa tub 'alaynaa, innaka antat-Tawwaabur-Raheem",
+      "asan_tafsir": "ئەی پەروەردگارمان! هەردوکمان بکە بە دوو بەندەی ملکەچ و فەرمانبەرداری خۆت، و لە نەوەکانیشمان کۆمەڵێکی موسڵمانی ملکەچ بۆ خۆت پەیدا بکە، و ڕێوڕەسمی حەج و پەرستنمان نیشان بدە و لێمان خۆش ببە، چونکە بەڕاستی هەر تۆیت زۆر تۆبەپەسەندکەر و دلۆڤان.",
+      "english": "Our Lord, and make us submissive [in Islam] to You and from our descendants a Muslim nation [in submission] to You. And show us our rites and accept our repentance. Indeed, You are the Accepting of repentance, the Merciful."
+    },
+    {
+      "id": 5,
+      "surah": "Al-Baqarah",
+      "ayah": "2:129",
+      "arabic": "رَبَّنَا وَابْعَثْ فِيهِمْ رَسُولًا مِنْهُمْ يَتْلُو عَلَيْهِمْ آيَاتِكَ وَيُعَلِّمُهُمُ الْكِتَابَ وَالْحِكْمَةَ وَيُزَكِّيهِمْ إِنَّكَ أَنْتَ الْعَزِيزُ الْحَكِيمُ",
+      "easy_tajweed": "Rabbanaa wab'ath feehim Rasoolam-minhum yatloo 'alayhim aayaatika wa yu'allimuhumul-kitaaba wal-hikmata wa yuzakkeehim, innaka antal-'Azeezul-Hakeem",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە نێویاندا پێغەمبەرێک لە خۆیان بنێرە تا ئایەتەکانی تۆیان بەسەردا بخوێنێتەوە و فێری قورئان و حیکمەتیان بکات و لە شیرک و خراپە پاکیان بکاتەوە، چونکە بەڕاستی هەر تۆیت باڵادەست و کاربەجێ.",
+      "english": "Our Lord, and send among them a messenger from themselves who will recite to them Your verses and teach them the Book and wisdom and purify them. Indeed, You are the Exalted in Might, the Wise."
+    },
+    {
+      "id": 6,
+      "surah": "Al-Baqarah",
+      "ayah": "2:201",
+      "arabic": "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      "easy_tajweed": "Rabbanaaa aatinaa fid-dunyaa hasanatanw-wa fil-aakhirati hasanatanw-wa qinaa 'adhaaban-naar",
+      "asan_tafsir": "ئەی پەروەردگارمان! لەم دنیایەدا هەموو چاکە و بەهرەیەکی بەسوودمان پێ ببەخشە، و لە ڕۆژی دواییشدا بەهەشت و چاکەمان پێ ببەخشە، و لە سزای ئاگری دۆزەخ بمانپارێزە.",
+      "english": "Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire."
+    },
+    {
+      "id": 7,
+      "surah": "Al-Baqarah",
+      "ayah": "2:250",
+      "arabic": "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+      "easy_tajweed": "Rabbanaaa afrigh 'alaynaa sabranw-wa thabbit aqdaamanaa wansurnaa 'alal-qawmil-kaafireen",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئارامگرییەکی زۆرمان بەسەردا بڕێژە و هەنگاوەکانمان جێگیر و قایم بکە لە گۆڕەپاندا، و سەرکەوتنمان پێ ببەخشە بەسەر کۆمەڵی بێباوەڕاندا.",
+      "english": "Our Lord, pour upon us patience and plant firmly our feet and give us victory over the disbelieving people."
+    },
+    {
+      "id": 8,
+      "surah": "Al-Baqarah",
+      "ayah": "2:286",
+      "arabic": "رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِنْ قَبْلِنَا رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا أَنْتَ مَوْلَانَا فَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+      "easy_tajweed": "Rabbanaa laa tu'aakhidhnaaa in-naseenaaa aw akhta'naa, Rabbanaa wa laa tahmil 'alaynaaa isran kamaa hamaltahoo 'alalladheena min qablinaa, Rabbanaa wa laa tuhammilnaa maa laa taaqata lanaa bih, wa'fu 'annaa waghfir lanaa warhamnaaa, anta mawlaanaa fansurnaa 'alal-qawmil-kaafireen",
+      "asan_tafsir": "ئەی پەروەردگارمان! لێمان مەگرە ئەگەر فەرمانێکمان لەبیرچوو یان بە نەزانی هەڵەمان کرد. پەروەردگارمان! فەرمانی قورس و گرانمان بەسەردا مەسەپێنە وەک ئەوانەی پێش ئێمە. پەروەردگارمان! بارگرانی و تاقیکردنەوەیەکمان مەخەرە سەر کە تاقەتی هەڵگرتنیمان نەبێت، لە تاوانەکانمان ببورە و لێمان خۆش ببە و بەزەییت پێماندا بێتەوە، تۆ سەرپەرشتیاری ئێمەیت، کەواتە سەرکەوتنمان پێ ببەخشە بەسەر کۆمەڵی کافران و بێباوەڕاندا.",
+      "english": "Our Lord, do not impose blame upon us if we have forgotten or erred. Our Lord, and lay not upon us a burden like that which You laid upon those before us. Our Lord, and burden us not with that which we have no ability to bear. And pardon us; and forgive us; and have mercy upon us. You are our protector, so give us victory over the disbelieving people."
+    },
+    {
+      "id": 9,
+      "surah": "Ali 'Imran",
+      "ayah": "3:8",
+      "arabic": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ",
+      "easy_tajweed": "Rabbanaa laa tuzigh quloobanaa ba'da idh hadaytanaa wa hab lanaa mil-ladunka rahmah, innaka antal-Wahhaab",
+      "asan_tafsir": "ئەی پەروەردگارمان! دڵەکانمان لە حەق دامەماڵە و لامەدە دوای ئەوەی ڕێنموونیت کردووین بۆ سەر ئیمان، و لە لایەن خۆتەوە بەزەیی و نیعمەتی تایبەتمان پێ ببەخشە، چونکە بەڕاستی تۆ بەخشندەی بێسنووریت.",
+      "english": "Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower."
+    },
+    {
+      "id": 10,
+      "surah": "Ali 'Imran",
+      "ayah": "3:9",
+      "arabic": "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لَا رَيْبَ فِيهِ إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ",
+      "easy_tajweed": "Rabbanaaa innaka jaami'un-naasi li-yawmil-laa rayba feeh, innallaaha laa yukhliful-mee'aad",
+      "asan_tafsir": "ئەی پەروەردگارمان! بەڕاستی تۆ کۆکەرەوەی هەموو خەڵکیت بۆ ڕۆژێک (ڕۆژی قیامەت) کە هیچ گومانێکی تێدا نییە، بێگومان خوا لە بەڵێنی خۆی پەشیمان نابێتەوە.",
+      "english": "Our Lord, surely You will gather the people for a Day about which there is no doubt. Indeed, Allah does not fail in His promise."
+    },
+    {
+      "id": 11,
+      "surah": "Ali 'Imran",
+      "ayah": "3:16",
+      "arabic": "رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ",
+      "easy_tajweed": "Rabbanaaa innanaaa aamannaa faghfir lanaa dhunoobanaa wa qinaa 'adhaaban-naar",
+      "asan_tafsir": "ئەی پەروەردگارمان! بەڕاستی ئێمە باوەڕمان هێناوە بە تۆ و پەیامەکەت، کەواتە لە تاوانەکانمان خۆش ببە و لە سزای ئاگری دۆزەخ بمانپارێزە.",
+      "english": "Our Lord, indeed we have believed, so forgive us our sins and protect us from the punishment of the Fire."
+    },
+    {
+      "id": 12,
+      "surah": "Ali 'Imran",
+      "ayah": "3:26-27",
+      "arabic": "قُلِ اللَّهُمَّ مَالِكَ الْمُلْكِ تُؤْتِي الْمُلْكَ مَنْ تَشَاءُ وَتَنْزِعُ الْمُلْكَ مِمَّنْ تَشَاءُ وَتُعِزُّ مَنْ تَشَاءُ وَتُذِلُّ مَنْ تَشَاءُ بِيَدِكَ الْخَيْرُ إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "easy_tajweed": "Qulillaahumma maalikal-mulki tu'til-mulka man tashaaa'u wa tanzi'ul-mulka mimman tashaaa'u wa tu'izzu man tashaaa'u wa tudhillu man tashaaa', biyadikal-khayr, innaka 'alaa kulli shay'in Qadeer",
+      "asan_tafsir": "ئەی خوای خاوەنی هەموو گەردوون و دەسەڵاتێک! دەسەڵات و پاشایەتی دەدەیت بە هەرکەس کە بتەوێت و لێی دەستێنیتەوە لە هەرکەس بتەوێت، و هەرکەس بتەوێت پایەبەرز و سەربەرزی دەکەیت و هەرکەس بتەوێت سەرشۆڕ و خوارژێری دەکەیت، هەموو خێر و چاکەیەک هەر بە دەستی تۆیە، چونکە تۆ بەسەر هەموو شتێکدا بەتوانایت.",
+      "english": "Say, \"O Allah, Owner of Sovereignty, You give sovereignty to whom You will and You take sovereignty away from whom You will. You honor whom You will and You humble whom You will. In Your hand is [all] good. Indeed, You are over all things competent.\""
+    },
+    {
+      "id": 13,
+      "surah": "Ali 'Imran",
+      "ayah": "3:38",
+      "arabic": "رَبِّ هَبْ لِي مِنْ لَدُنْكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ",
+      "easy_tajweed": "Rabbi hab lee mil-ladunka dhurriyyatan tayyibah, innaka Samee'ud-du'aaa'",
+      "asan_tafsir": "ئەی پەروەردگارم! لە لایەن خۆتەوە نەوە و منداڵێکی پاک و چاکم پێ ببەخشە، بێگومان تۆ بیسەر و وەڵامدەرەوەی دوعایت.",
+      "english": "My Lord, grant me from Yourself a good offspring. Indeed, You are the Hearer of supplication."
+    },
+    {
+      "id": 14,
+      "surah": "Ali 'Imran",
+      "ayah": "3:53",
+      "arabic": "رَبَّنَا آمَنَّا بِمَا أَنْزَلْتَ وَاتَّبَعْنَا الرَّسُولَ فَاكْتُبْنَا مَعَ الشَّاهِدِينَ",
+      "easy_tajweed": "Rabbanaaa aamannaa bimaaa anzalta wattaba'nar-rasoola faktubnaa ma'ash-shaahideen",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئێمە باوەڕمان هێنا بەوەی کە ناردووتە خوارەوە (لە کتێبە پیرۆزەکان) و شوێنی پێغەمبەرەکەت کەوتین، کەواتە ناومان لەگەڵ شایەتیدەرانی یەکتاپەرستیدا بنووسە.",
+      "english": "Our Lord, we have believed in what You revealed and have followed the messenger, so register us among the witnesses [to truth]."
+    },
+    {
+      "id": 15,
+      "surah": "Ali 'Imran",
+      "ayah": "3:147",
+      "arabic": "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ",
+      "easy_tajweed": "Rabbanagh-fir lanaa dhunoobanaa wa israafanaa feee amrinaa wa thabbit aqdaamanaa wansurnaa 'alal-qawmil-kaafireen",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە گوناهەکانمان و لە هەر زیارەڕۆییەک کە لە کارەکانماندا کردوومانە ببورە، پێیەکانمان جێگیر بکە لە کاتی ڕووبەڕووبوونەوەدا، و سەرکەوتنمان بەسەر کۆمەڵی بێباوەڕاندا پێ ببەخشە.",
+      "english": "Our Lord, forgive us our sins and the excess [committed] in our affairs and plant firmly our feet and give us victory over the disbelieving people."
+    },
+    {
+      "id": 16,
+      "surah": "Ali 'Imran",
+      "ayah": "3:191",
+      "arabic": "رَبَّنَا مَا خَلَقْتَ هَذَا بَاطِلًا سُبْحَانَكَ فَقِنَا عَذَابَ النَّارِ",
+      "easy_tajweed": "Rabbanaa maa khalaqta haadhaa baatilan subhaanaka faqinaa 'adhaaban-naar",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئەم دروستکراوانەت بە پووچی و بێ سوود دروست نەکردووە، پاکی و بێگەردی بۆ تۆ، ئێمە لە سزای ئاگری دۆزەخ بپارێزە.",
+      "english": "Our Lord, You did not create this aimlessly; exalted are You [above such a thing]; then protect us from the punishment of the Fire."
+    },
+    {
+      "id": 17,
+      "surah": "Ali 'Imran",
+      "ayah": "3:192",
+      "arabic": "رَبَّنَا إِنَّكَ مَنْ تُدْخِلِ النَّارَ فَقَدْ أَخْزَيْتَهُ وَمَا لِلظَّالِمِينَ مِنْ أَنْصَارٍ",
+      "easy_tajweed": "Rabbanaaa innaka man tudkhilin-naara faqad akhzaytah, wa maa liz-zaalimeena min ansaar",
+      "asan_tafsir": "ئەی پەروەردگارمان! بەڕاستی هەرکەس تۆ بیخەیتە ئاگرەوە، بێگومان ڕسوا و بێڕێزت کردووە، و ستەمکاران هیچ یارمەتیدەرێکیان نابێت تا لە سزات ڕزگاریان بکات.",
+      "english": "Our Lord, indeed whoever You admit to the Fire - You have disgraced him, and for the wrongdoers there are no helpers."
+    },
+    {
+      "id": 18,
+      "surah": "Ali 'Imran",
+      "ayah": "3:193",
+      "arabic": "رَبَّنَا إِنَّنَا سَمِعْنَا مُنَادِيًا يُنَادِي لِلْإِيمَانِ أَنْ آمِنُوا بِرَبِّكُمْ فَآمَنَّا رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا وَتَوَفَّنَا مَعَ الْأَبْرَارِ",
+      "easy_tajweed": "Rabbanaaa innanaa sami'naa munaadiyan-yunaadee lil-eemaani an aaminoo bi-Rabbikum fa-aamannaa, Rabbanaa faghfir lanaa dhunoobanaa wa kaffir 'annaa sayyi'aatinaa wa tawaffanaa ma'al-abraar",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئێمە گوێمان لە بانگخوازێک بوو (پێغەمبەر) بانگی دەکرد بۆ باوەڕهێنان بە پەروەردگارتان، ئێمەش باوەڕمان هێنا، پەروەردگارمان! لە تاوانەکانمان خۆش ببە و خراپەکانمان بسڕەوە و گیانمان لەگەڵ پیاوچاکاندا بکێشە.",
+      "english": "Our Lord, indeed we have heard a caller calling to faith, [saying], \"Believe in your Lord,\" and we have believed. Our Lord, so forgive us our sins and remove from us our misdeeds and cause us to die with the righteous."
+    },
+    {
+      "id": 19,
+      "surah": "Ali 'Imran",
+      "ayah": "3:194",
+      "arabic": "رَبَّنَا وَآتِنَا مَا وَعَدْتَنَا عَلَى رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ",
+      "easy_tajweed": "Rabbanaa wa aatinaa maa wa'attanaa 'alaa rusulika wa laa tukhzinaa yawmal-qiyaamah, innaka laa yukhliful-mee'aad",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئەوەی لەسەر زمانی پێغەمبەرەکانت بەڵێنت پێداوین (لە سەرکەوتن و بەهەشت) پێمان ببەخشە، و لە ڕۆژی قیامەتدا شەرمەزارمان مەکە، بێگومان تۆ هەرگیز لە بەڵێنی خۆت پاشگەز نابیتەوە.",
+      "english": "Our Lord, and grant us what You promised us through Your messengers and do not disgrace us on the Day of Resurrection. Indeed, You do not fail in [Your] promise."
+    },
+    {
+      "id": 20,
+      "surah": "An-Nisa",
+      "ayah": "4:75",
+      "arabic": "رَبَّنَا أَخْرِجْنَا مِنْ هَذِهِ الْقَرْيَةِ الظَّالِمِ أَهْلُهَا وَاجْعَلْ لَنَا مِنْ لَدُنْكَ وَلِيًّا وَاجْعَلْ لَنَا مِنْ لَدُنْكَ نَصِيرًا",
+      "easy_tajweed": "Rabbanaaa akhrijnaa min haadhihil-qaryatiz-zaalimi ahluhaa waj'al lanaa mil-ladunka waliyyanw-waj'al lanaa mil-ladunka naseeraa",
+      "asan_tafsir": "ئەی پەروەردگارمان! لەم شارە ڕزگارمان بکە و دەرمانبهێنە کە خەڵکەکەی ستەمکارن بەرامبەر بڕواداران، و لە لایەن خۆتەوە سەرپەرشتیارێکمان بۆ بنێرە و لە لایەن خۆتەوە یارمەتیدەرێکمان پێ ببەخشە.",
+      "english": "Our Lord, take us out of this city of oppressive people and appoint for us from Yourself a protector and appoint for us from Yourself a helper."
+    },
+    {
+      "id": 21,
+      "surah": "Al-Ma'idah",
+      "ayah": "5:83",
+      "arabic": "رَبَّنَا آمَنَّا فَاكْتُبْنَا مَعَ الشَّاهِدِينَ",
+      "easy_tajweed": "Rabbanaaa aamannaa faktubnaa ma'ash-shaahideen",
+      "asan_tafsir": "ئەی پەروەردگارمان! باوەڕمان هێنا بەم قورئانە، کەواتە ناومان لەگەڵ ئوممەتی محەمەد تۆمار بکە کە شایەتی حەق دەدەن.",
+      "english": "Our Lord, we have believed, so register us among the witnesses."
+    },
+    {
+      "id": 22,
+      "surah": "Al-Ma'idah",
+      "ayah": "5:114",
+      "arabic": "اللَّهُمَّ رَبَّنَا أَنْزِلْ عَلَيْنَا مَائِدَةً مِنَ السَّمَاءِ تَكُونُ لَنَا عِيدًا لِأَوَّلِنَا وَآخِرِنَا وَآيَةً مِنْكَ وَارْزُقْنَا وَأَنْتَ خَيْرُ الرَّازِقِينَ",
+      "easy_tajweed": "Allaahumma Rabbanaaa anzil 'alaynaa maaa'idatam-minas-samaaa'i takoonu lanaa 'eedal-li-awwalinaa wa aakhirinaa wa aayatam-minka warzuqnaa wa anta Khayrur-raaziqeen",
+      "asan_tafsir": "ئەی خوای پەروەردگارمان! خوانێکی ڕازاوە لە ئاسمانەوە بۆمان دابەزێنە تا ببێتە جێژن و دڵخۆشی بۆ ئێمە و بۆ نەوەکانی دوای ئێمەش، و ببێتە موعجیزە و نیشانەیەک لە تۆوە، و ڕۆزیمان پێ ببەخشە کە تۆ باشترینی ڕۆزیدەرانیت.",
+      "english": "O Allah, our Lord, send down to us a table [spread with food] from the heaven to be for us a festival for the first of us and the last of us and a sign from You. And provide for us, and You are the best of providers."
+    },
+    {
+      "id": 23,
+      "surah": "Al-A'raf",
+      "ayah": "7:23",
+      "arabic": "رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+      "easy_tajweed": "Rabbanaa zalamnaaa anfusanaa wa illam taghfir lanaa wa tarhamnaa lanakoonanna minal-khaasireen",
+      "asan_tafsir": "ئەی پەروەردگارمان! ستەممان لە خۆمان کرد بەو سەرپێچییە، و ئەگەر لێمان خۆش نەبیت و بەزەییت پێماندا نەیەتەوە، بێگومان دەبین لە زەرەرمەند و دۆڕاوەکان لە دنیا و قیامەتدا.",
+      "english": "Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers."
+    },
+    {
+      "id": 24,
+      "surah": "Al-A'raf",
+      "ayah": "7:47",
+      "arabic": "رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الظَّالِمِينَ",
+      "easy_tajweed": "Rabbanaa laa taj'alnaa ma'al-qawmiz-zaalimeen",
+      "asan_tafsir": "ئەی پەروەردگارمان! مەمانخەرە ناو سزای کۆمەڵی ستەمکارانەوە لە دۆزەخدا.",
+      "english": "Our Lord, do not place us with the wrongdoing people."
+    },
+    {
+      "id": 25,
+      "surah": "Al-A'raf",
+      "ayah": "7:89",
+      "arabic": "رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِالْحَقِّ وَأَنْتَ خَيْرُ الْفَاتِحِينَ",
+      "easy_tajweed": "Rabbanaftah baynanaa wa bayna qawminaa bil-haqqi wa anta khayrul-faatiheen",
+      "asan_tafsir": "ئەی پەروەردگارمان! بە حەق و دادپەروەری لە نێوان ئێمە و گەلەکەماندا کێشەمان یەکلایی بکەرەوە، چونکە تۆ باشترین و دادپەروەرترینی دادوەرانیت.",
+      "english": "Our Lord, decide between us and our people in truth, and You are the best of those who give decision."
+    },
+    {
+      "id": 26,
+      "surah": "Al-A'raf",
+      "ayah": "7:126",
+      "arabic": "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ",
+      "easy_tajweed": "Rabbanaaa afrigh 'alaynaa sabranw-wa tawaffanaa muslimeen",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئارامگری و تەحەممولێکی زۆرمان بەسەردا بڕێژە لەسەر ئەم ئەشکەنجەیە، و بە موسڵمانی و لەسەر یەکتاپەرستی گیانمان بکێشە.",
+      "english": "Our Lord, pour upon us patience and cause us to die as Muslims [in submission to You]."
+    },
+    {
+      "id": 27,
+      "surah": "Al-A'raf",
+      "ayah": "7:151",
+      "arabic": "رَبِّ اغْفِرْ لِي وَلِأَخِي وَأَدْخِلْنَا فِي رَحْمَتِكَ وَأَنْتَ أَرْحَمُ الرَّاحِمِينَ",
+      "easy_tajweed": "Rabbigh-fir lee wa li-akhee wa adkhilnaa fee rahmatika wa anta Arhamur-raahimeen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە من و براکەم (هاروون) خۆش ببە، و بمانخەرە ناو ڕەحمەت و سایەی بەزەیی خۆتەوە، چونکە تۆ بەبەزەییترینی بەبەزەییەکانایت.",
+      "english": "My Lord, forgive me and my brother and admit us into Your mercy; and You are the most merciful of the merciful."
+    },
+    {
+      "id": 28,
+      "surah": "Al-A'raf",
+      "ayah": "7:155",
+      "arabic": "أَنْتَ وَلِيُّنَا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنْتَ خَيْرُ الْغَافِرِينَ",
+      "easy_tajweed": "Anta waliyyunaa faghfir lanaa warhamnaa wa anta khayrul-ghaafireen",
+      "asan_tafsir": "تۆیت پشتیوان و یاریدەدەری ئێمە، کەواتە لێمان خۆش ببە و بەزەییت پێماندا بێتەوە، چونکە تۆ باشترینی لێخۆشبووانیت بۆ گوناھ.",
+      "english": "You are our Protector, so forgive us and have mercy upon us; and You are the best of forgivers. And decree for us in this world [that which is] good and in the Hereafter."
+    },
+    {
+      "id": 29,
+      "surah": "Al-A'raf",
+      "ayah": "7:156",
+      "arabic": "وَاكْتُبْ لَنَا فِي هَذِهِ الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ إِنَّا هُدْنَا إِلَيْكَ",
+      "easy_tajweed": "Waktub lanaa fee haadhihid-dunyaa hasanatanw-wa fil-aakhirati innaa hudnaaa ilayk",
+      "asan_tafsir": "لە دنیادا ژیانێکی پڕ لە چاکە و لە دواڕۆژیشدا بەهەشتمان بۆ بنووسە و پێمان ببەخشە، بێگومان ئێمە تەوبەمان کرد و بە پەشیمانی گەڕاینەوە بۆ لای تۆ.",
+      "english": "Upon Allah we have relied. Our Lord, make us not [objects of] trial for the wrongdoing people, and save us by Your mercy from the disbelieving people."
+    },
+    {
+      "id": 30,
+      "surah": "Yunus",
+      "ayah": "10:85-86",
+      "arabic": "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِلْقَوْمِ الظَّالِمِينَ * وَنَجِّنَا بِرَحْمَتِكَ مِنَ الْقَوْمِ الْكَافِرِينَ",
+      "easy_tajweed": "Rabbanaa laa taj'alnaa fitnatal-lilqawmiz-zaalimeen, wa najjinaa bi-rahmatika minal-qawmil-kaafireen",
+      "asan_tafsir": "ئەی پەروەردگارمان! مەمانکە بە مایەی تاقیکردنەوە و زاڵبوونی ستەمکاران بەسەرماندا کە بە هۆیەوە لە خشتەمان ببەن، و بە ڕەحمەتی خۆت لە دەست و دەسەڵاتی کۆمەڵی بێباوەڕان ڕزگارمان بکە.",
+      "english": "My Lord, I seek refuge in You from asking that of which I have no knowledge. And unless You forgive me and have mercy upon me, I will be among the losers."
+    },
+    {
+      "id": 31,
+      "surah": "Hud",
+      "ayah": "11:47",
+      "arabic": "رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ وَإِلَّا تَغْفِرْ لِي وَتَرْحَمْنِي أَكُنْ مِنَ الْخَاسِرِينَ",
+      "easy_tajweed": "Rabbi inneee a'oodhu bika an as'alaka maa laysa lee bihee 'ilm, wa illaa taghfir lee wa tarhamneee akum-minal-khaasireen",
+      "asan_tafsir": "ئەی پەروەردگارم! پەنات پێ دەگرم لەوەی داوای شتێکت لێ بکەم کە زانست و شارەزاییم پێی نییە، و ئەگەر لێم خۆش نەبیت و ڕەحمم پێ نەکەیت لە ڕیزی دۆڕاو و خەسارەتمەندان دەبم.",
+      "english": "Creator of the heavens and earth, You are my protector in this world and in the Hereafter. Cause me to die a Muslim and join me with the righteous."
+    },
+    {
+      "id": 32,
+      "surah": "Yusuf",
+      "ayah": "12:101",
+      "arabic": "أَنْتَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
+      "easy_tajweed": "Anta waliyyee fid-dunyaa wal-aakhirati tawaffanee muslimanw-wa alhiqnee bis-saaliheen",
+      "asan_tafsir": "تۆ سەرپەرشتیار و خاوەنی منیت لە دنیا و لە دواڕۆژدا، بە ملکەچی و بە موسڵمانی بممرێنە و بمخەرە ڕیزی پێغەمبەران و پیاوچاکان لە بەهەشتدا.",
+      "english": "My Lord, make this city secure and keep me and my sons away from worshipping idols."
+    },
+    {
+      "id": 33,
+      "surah": "Ibrahim",
+      "ayah": "14:35",
+      "arabic": "رَبِّ اجْعَلْ هَذَا الْبَلَدَ آمِنًا وَاجْنُبْنِي وَبَنِيَّ أَنْ نَعْبُدَ الْأَصْنَامَ",
+      "easy_tajweed": "Rabbij-'al haadhal-balada aaminanw-wajnubnee wa baniyya an-na'budal-asnaam",
+      "asan_tafsir": "ئەی پەروەردگارم! ئەم شارە (مەککە) بکە بە شوێنێکی ئارام و پارێزراو، و من و منداڵەکانم دوور و پارێزراو بگرە لەوەی بتەکان بپەرستین.",
+      "english": "Our Lord, indeed You know what we conceal and what we declare, and nothing is hidden from Allah on the earth or in the heaven."
+    },
+    {
+      "id": 34,
+      "surah": "Ibrahim",
+      "ayah": "14:38",
+      "arabic": "رَبَّنَا إِنَّكَ تَعْلَمُ مَا نُخْفِي وَمَا نُعْلِنُ وَمَا يَخْفَى عَلَى اللَّهِ مِنْ شَيْءٍ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ",
+      "easy_tajweed": "Rabbanaaa innaka ta'lamu maa nukhfee wa maa nu'lin, wa maa yakhfaa 'alallaahi min shay'in fil-ardi wa laa fis-samaaa'",
+      "asan_tafsir": "ئەی پەروەردگارمان! بێگومان تۆ دەزانیت بەوەی لە دڵدا دەیشارینەوە و بەوەش کە ئاشکرای دەکەین، و هیچ شتێک لە زەوی و لە ئاسماندا لە خوا ناشاردرێتەوە.",
+      "english": "My Lord, make me an establisher of prayer, and [many] from my descendants. Our Lord, and accept my supplication."
+    },
+    {
+      "id": 35,
+      "surah": "Ibrahim",
+      "ayah": "14:40",
+      "arabic": "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِنْ ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ",
+      "easy_tajweed": "Rabbij-'alnee muqeemas-Salaati wa min dhurriyyatee, Rabbanaa wa taqabbal du'aaa'",
+      "asan_tafsir": "ئەی پەروەردگارم! من و هەندێک لە نەوەکانیشم بکە بە کەسانێک کە نوێژ بە تەواوی و چاکی بەجێدەهێنن، پەروەردگارمان! ئەم پاڕانەوە و دوعایەم لێ قبووڵ بفەرموو.",
+      "english": "Our Lord, forgive me and my parents and the believers the Day the account is established."
+    },
+    {
+      "id": 36,
+      "surah": "Ibrahim",
+      "ayah": "14:41",
+      "arabic": "رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ",
+      "easy_tajweed": "Rabbanagh-fir lee wa li-waalidayya wa lil-mu'mineena yawma yaqoomul-hisaab",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە من و لە دایک و باوکم و لە هەموو ئیمانداران خۆش ببە لەو ڕۆژەی کە لێپرسینەوە و حساب بەرپا دەبێت.",
+      "english": "My Lord, have mercy upon them [my parents] as they brought me up [when I was] small."
+    },
+    {
+      "id": 37,
+      "surah": "Al-Isra",
+      "ayah": "17:24",
+      "arabic": "رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+      "easy_tajweed": "Rabbir-hamhumaa kamaa rabbayaanee sagheeraa",
+      "asan_tafsir": "ئەی پەروەردگارم! بەزەییت پێیاندا بێتەوە (بە دایک و باوکم) هەروەک چۆن لە منداڵیمدا بە سۆز و بەزەییەوە پەروەردەیان کردم.",
+      "english": "My Lord, cause me to enter a sound entrance and to exit a sound exit and grant me from Yourself a supporting authority."
+    },
+    {
+      "id": 38,
+      "surah": "Al-Isra",
+      "ayah": "17:80",
+      "arabic": "رَّبِّ أَدْخِلْنِي مُدْخَلَ صِدْقٍ وَأَخْرِجْنِي مُخْرَجَ صِدْقٍ وَاجْعَل لِّي مِن لَّدُنكَ سُلْطَانًا نَّصِيرًا",
+      "easy_tajweed": "Rabbi adkhilnee mudkhala sidqinw-wa akhrijnee mukhraja sidqinw-waj'al lee mil-ladunka sultaanan-naseeraa",
+      "asan_tafsir": "ئەی پەروەردگارم! بە هاتنەژوورەوەیەکی پاک و ڕاست (بۆ مەدینە) بمبە ژوورەوە و بە دەرچوونێکی پاک و ڕاست (لە مەککە) دەرمبهێنە، و لە لایەن خۆتەوە بەڵگە و دەسەڵاتێکی یارمەتیدەرم پێ ببەخشە بەسەر نەیاراندا.",
+      "english": "Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance."
+    },
+    {
+      "id": 39,
+      "surah": "Al-Kahf",
+      "ayah": "18:10",
+      "arabic": "رَبَّنَا آتِنَا مِنْ لَدُنْكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا",
+      "easy_tajweed": "Rabbanaaa aatinaa mil-ladunka rahmatanw-wa hayyi' lanaa min amrinaa rashadaa",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە لایەن خۆتەوە بەزەیی و ڕەحمەتمان پێ ببەخشە، و لە کارەکەماندا هیدایەت و ڕێگەی ڕزگاری و دروستی بۆ ئامادە بکە.",
+      "english": "My Lord, indeed my bones have grown weak, and my head has filled with white, and never have I been in my supplication to You, my Lord, unblessed."
+    },
+    {
+      "id": 40,
+      "surah": "Maryam",
+      "ayah": "19:4-6",
+      "arabic": "رَبِّ إِنِّي وَهَنَ الْعَظْمُ مِنِّي وَاشْتَعَلَ الرَّأْسُ شَيْبًا وَلَمْ أَكُنْ بِدُعَائِكَ رَبِّ شَقِيًّا * فَهَبْ لِي مِنْ لَدُنْكَ وَلِيًّا",
+      "easy_tajweed": "Rabbi innee wahanal-'azmu minnee washta'alar-ra'su shaybanw-wa lam akum-bi-du'aaa'ika Rabbi shaqiyyaa. Fahab lee mil-ladunka waliyyaa",
+      "asan_tafsir": "ئەی پەروەردگارم! بێگومان ئێسقانەکانم لاواز بوون و مووی سەرم هەموو سپی بووەتەوە، و هەرگیز لە پاڕانەوە لێت بێ هیوا نەبووم، کەواتە لە لایەن خۆتەوە جێنشین و کوڕێکم پێ ببەخشە کە میراتگری ئایین بێت.",
+      "english": "My Lord, expand for me my breast [with assurance], and ease for me my task, and untie the knot from my tongue, that they may understand my speech."
+    },
+    {
+      "id": 41,
+      "surah": "Ta-Ha",
+      "ayah": "20:25-28",
+      "arabic": "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي * وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي * يَفْقَهُوا قَوْلِي",
+      "easy_tajweed": "Rabbish-rah lee sadree, wa yassir leee amree, wahlul 'uqdatam-mil-lisaanee, yafqahoo qawlee",
+      "asan_tafsir": "ئەی پەروەردگارم! سینگم بۆ فراوان بکە بە ئارامی و هێمنی، و کارەکەم بۆ ئاسان بکە، و گرێی سەر زمانم بکەرەوە تا لە قسە و وتەکانم تێبگەن بە چاکی.",
+      "english": "My Lord, increase me in knowledge."
+    },
+    {
+      "id": 42,
+      "surah": "Ta-Ha",
+      "ayah": "20:114",
+      "arabic": "رَّبِّ زِدْنِي عِلْمًا",
+      "easy_tajweed": "Rabbi zidnee 'ilmaa",
+      "asan_tafsir": "ئەی پەروەردگارم! زانست و زانیاری زیاترم پێ ببەخشە بە قورئان و شەرع.",
+      "english": "Indeed, adversity has touched me, and You are the Most Merciful of the merciful."
+    },
+    {
+      "id": 43,
+      "surah": "Al-Anbiya",
+      "ayah": "21:83",
+      "arabic": "أَنِّي مَسَّنِيَ الضُّرُّ وَأَنْتَ أَرْحَمُ الرَّاحِمِينَ",
+      "easy_tajweed": "Annee massaniyad-durru wa anta Arhamur-raahimeen",
+      "asan_tafsir": "بەڕاستی ناڕەحەتی و نەخۆشییەکی قورس تووشم بووە، و تۆ بەبەزەییترینی بەبەزەییەکانایت بەرامبەر بەندەکانت.",
+      "english": "There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers."
+    },
+    {
+      "id": 44,
+      "surah": "Al-Anbiya",
+      "ayah": "21:87",
+      "arabic": "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+      "easy_tajweed": "Laaa ilaaha illaaa anta subhaanaka innee kuntu minaz-zaalimeen",
+      "asan_tafsir": "هیچ پەرستراوێک نییە شایستەی پەرستن بێت جگە لە تۆ، پاکی و بێگەردی شایستەی تۆیە، بەڕاستی من لەوانە بووم کە ستەمیان لە خۆیان کرد.",
+      "english": "My Lord, do not leave me alone [with no heir], while You are the best of inheritors."
+    },
+    {
+      "id": 45,
+      "surah": "Al-Anbiya",
+      "ayah": "21:89",
+      "arabic": "رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنْتَ خَيْرُ الْوَارِثِينَ",
+      "easy_tajweed": "Rabbi laa tadharnee fardanw-wa anta Khayrul-waaritheen",
+      "asan_tafsir": "ئەی پەروەردگارم! بە تەنیا و بێ نەوە بەجێم مەهێڵە، لە کاتێکدا کە تۆ باشترین و تەمەندرێژترینی میراتگرانیت.",
+      "english": "My Lord, let me land at a blessed landing place, and You are the best to accommodate [us]."
+    },
+    {
+      "id": 46,
+      "surah": "Al-Anbiya",
+      "ayah": "21:112",
+      "arabic": "رَبِّ احْكُمْ بِالْحَقِّ وَرَبُّنَا الرَّحْمَنُ الْمُسْتَعَانُ عَلَى مَا تَصِفُونَ",
+      "easy_tajweed": "Rabbih-kum bil-haqq, wa Rabbunar-Rahmaanul-musta'aanu 'alaa maa tasifoon",
+      "asan_tafsir": "ئەی پەروەردگارم! بە حەق و ڕاستی دادوەری بکە لە نێوانماندا، و پەروەردگارمان خوای بەبەزەییە کە تەنها داوای یارمەتی لەو دەکرێت بەرامبەر ئەو بوختان و قسانەی دەیکەن.",
+      "english": "My Lord, then do not place me among the wrongdoing people."
+    },
+    {
+      "id": 47,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:26",
+      "arabic": "رَبِّ انْصُرْنِي بِمَا كَذَّبُونِ",
+      "easy_tajweed": "Rabbinsurnee bimaa kadh-dhaboon",
+      "asan_tafsir": "ئەی پەروەردگارم! سەرکەوتنم پێ ببەخشە بەرامبەر بەوەی کە ئەمانە پەیامەکەی منیان بە درۆ خستەوە.",
+      "english": "My Lord, I seek refuge in You from the incitements of the devils, and I seek refuge in You, my Lord, lest they be present with me."
+    },
+    {
+      "id": 48,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:29",
+      "arabic": "رَّبِّ أَنزِلْنِي مُنزَلًا مُّبَارَكًا وَأَنتَ خَيْرُ الْمُنزِلِينَ",
+      "easy_tajweed": "Rabbi anzilnee munzalam-mubaarakanw-wa anta khayrul-munzileen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە شوێنێکی پڕ لە پیت و بەرەکەت دامبەزێنە، چونکە تۆ چاکترینی دابەزێنەرانیت بۆ شوێنی ئارام.",
+      "english": "Our Lord, we have believed, so forgive us and have mercy upon us, and You are the best of the merciful."
+    },
+    {
+      "id": 49,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:94",
+      "arabic": "رَبِّ فَلَا تَجْعَلْنِي فِي الْقَوْمِ الظَّالِمِينَ",
+      "easy_tajweed": "Rabbi falaa taj'alnee fil-qawmiz-zaalimeen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە کاتی دابەزینی سزادا مەمانخەرە ڕیزی ئەو کۆمەڵە ستەمکارانەوە.",
+      "english": "My Lord, forgive and have mercy, and You are the best of the merciful."
+    },
+    {
+      "id": 50,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:97-98",
+      "arabic": "رَّبِّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ * وَأَعُوذُ بِكَ رَبِّ أَن يَحْضُرُونِ",
+      "easy_tajweed": "Rabbi a'oodhu bika min hamazaatish-shayaateen, wa a'oodhu bika Rabbi ay-yahduroon",
+      "asan_tafsir": "ئەی پەروەردگارم! پەنات پێ دەگرم لە فیتنە و وەسوەسەی شەیتانەکان، و پەنات پێ دەگرم ئەی پەروەردگارم لەوەی لە هیچ کارێکمدا لەلام ئامادە بن.",
+      "english": "Our Lord, avert from us the punishment of Hell. Indeed, its punishment is ever adhering; Indeed, it is evil as a settlement and residence."
+    },
+    {
+      "id": 51,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:109",
+      "arabic": "رَبَّنَا آمَنَّا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنْتَ خَيْرُ الرَّاحِمِينَ",
+      "easy_tajweed": "Rabbanaaa aamannaa faghfir lanaa warhamnaa wa anta Khayrur-raahimeen",
+      "asan_tafsir": "ئەی پەروەردگارمان! ئێمە باوەڕمان هێناوە بە تۆ، لێمان خۆش ببە و بەزەییت پێماندا بێتەوە، تۆ چاکترینی بەبەزەییەکانایت.",
+      "english": "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous."
+    },
+    {
+      "id": 52,
+      "surah": "Al-Mu'minun",
+      "ayah": "23:118",
+      "arabic": "رَّبِّ اغْفِرْ وَارْحَمْ وَأَنتَ خَيْرُ الرَّاحِمِينَ",
+      "easy_tajweed": "Rabbigh-fir warham wa anta Khayrur-raahimeen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە تاوانەکان ببورە و ڕەحم بکە، تۆ باشترین و چاکترینی بەبەزەییەکانایت.",
+      "english": "My Lord, grant me authority and join me with the righteous, and grant me a reputation of honor among later generations, and place me among the inheritors of the Garden of Pleasure."
+    },
+    {
+      "id": 53,
+      "surah": "Al-Furqan",
+      "ayah": "25:65-66",
+      "arabic": "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا * إِنَّهَا سَاءَتْ مُسْتَقَرًّا وَمُقَامًا",
+      "easy_tajweed": "Rabbanas-rif 'annaa 'adhaaba jahannama inna 'adhaabahaa kaana gharaamaa, innahaa saaa'at mustaqarranw-wa muqaamaa",
+      "asan_tafsir": "ئەی پەروەردگارمان! سزای ئاگری دۆزەخمان لەسەر لادە و لێمان دوور بخەرەوە، چونکە سزاکەی نەبڕاوە و هەتاهەتاییە، بەڕاستی دۆزەخ ناخۆشترین جێگەی حەوانەوە و مانەوەیە.",
+      "english": "And do not disgrace me on the Day they are [all] resurrected - The Day when there will not benefit [anyone] wealth or children, but only one who comes to Allah with a sound heart."
+    },
+    {
+      "id": 54,
+      "surah": "Al-Furqan",
+      "ayah": "25:74",
+      "arabic": "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+      "easy_tajweed": "Rabbanaa hab lanaa min azwaajinaa wa dhurriyyatinaa qurrata a'yuninw-waj'alnaa lil-muttaqeena imaamaa",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە هاوسەرەکانمان و لە منداڵەکانمان مایەی دڵخۆشی و چاوڕوونیمان پێ ببەخشە بەوەی لەسەر حەق بن، و بمانکە بە پێشەوا و چاو لێکراو بۆ پارێزکاران لە چاکەدا.",
+      "english": "My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to do righteousness of which You approve. And admit me by Your mercy into [the ranks of] Your righteous servants."
+    },
+    {
+      "id": 55,
+      "surah": "Ash-Shu'ara",
+      "ayah": "26:83-85",
+      "arabic": "رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ * وَاجْعَلْ لِي لِسَانَ صِدْقٍ فِي الْآخِرِينَ * وَاجْعَلْنِي مِنْ وَرَثَةِ جَنَّةِ النَّعِيمِ",
+      "easy_tajweed": "Rabbi hab lee hukmanw-wa alhiqnee bis-saaliheen, waj'al lee lisaana sidqin fil-aakhireen, waj'alnee minw-warathati jannatin-na'eem",
+      "asan_tafsir": "ئەی پەروەردگارم! زانست و حیکمەتم پێ ببەخشە و لەگەڵ پیاوچاکاندا کۆم بکەرەوە لە بەهەشتدا، و لە نێو نەوەکانی دوای خۆمدا ناوبانگی چاک و زمانی ستایشم بۆ دابنێ، و بمکە بە یەکێک لە میراتگرانی بەهەشتی پڕ لە نیعمەت.",
+      "english": "My Lord, indeed I have wronged myself, so forgive me."
+    },
+    {
+      "id": 56,
+      "surah": "Ash-Shu'ara",
+      "ayah": "26:87-89",
+      "arabic": "وَلَا تُخْزِنِي يَوْمَ يُبْعَثُونَ * يَوْمَ لَا يَنْفَعُ مَالٌ وَلَا بَنُونَ * إِلَّا مَنْ أَتَى اللَّهَ بِقَلْبٍ سَلِيمٍ",
+      "easy_tajweed": "Wa laa tukhzinee yawma yub'athoon, yawma laa yanfa'u maalunw-wa laa banoon, illaa man atallaaha bi-qalbin saleem",
+      "asan_tafsir": "لەو ڕۆژەی کە هەموو مردووەکان زیندوو دەکرێنەوە شەرمەزار و ڕسوایم مەکە، ئەو ڕۆژەی کە نە ماڵ و سەروەت و نە منداڵ سوودی نییە بۆ هیچ کەسێک، مەگەر کەسێک بە دڵێکی پاک لە شیرک و دووڕوویی هاتبێتە لای خوا.",
+      "english": "My Lord, save me from the wrongdoing people."
+    },
+    {
+      "id": 57,
+      "surah": "An-Naml",
+      "ayah": "27:19",
+      "arabic": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ",
+      "easy_tajweed": "Rabbi awzi'neee an ashkura ni'matakal-lateee an'amta 'alayya wa 'alaa waalidayya wa an a'mala saalihan tardahu wa adkhilnee bi-rahmatika fee 'ibaadikas-saaliheen",
+      "asan_tafsir": "ئەی پەروەردگارم! هێز و ئیلهامم پێ ببەخشە تا سوپاسگوزاری ئەو نیعمەتە گەورەیەت بم کە بەخشیوتە بە من و بە دایک و باوکم و کردەوەی چاکی وا بکەم کە تۆ لێی ڕازی بیت، و بە ڕەحمەتی خۆت بمخەرە ڕیزی بەندە چاکەکانت لە بەهەشتدا.",
+      "english": "Perhaps my Lord will guide me to the sound way."
+    },
+    {
+      "id": 58,
+      "surah": "Al-Qasas",
+      "ayah": "28:16",
+      "arabic": "رَبِّ إِنِّي ظَلَمْتُ نَفْسِي فَاغْفِرْ لِي",
+      "easy_tajweed": "Rabbi innee zalamtu nafsee faghfir lee",
+      "asan_tafsir": "ئەی پەروەردگارم! بەڕاستی من ستەمم لە خۆم کرد (بە کوشتنی ئەو پیاوە بە بێ مەبەست)، کەواتە لێم خۆش ببە.",
+      "english": "My Lord, indeed I am, for whatever good You would send down to me, in need."
+    },
+    {
+      "id": 59,
+      "surah": "Al-Qasas",
+      "ayah": "28:21",
+      "arabic": "رَبِّ نَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ",
+      "easy_tajweed": "Rabbi najjinee minal-qawmiz-zaalimeen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە دەست ئەم کۆمەڵە ستەمکارانەی فرعەون ڕزگارم بکە.",
+      "english": "My Lord, support me against the corrupting people."
+    },
+    {
+      "id": 60,
+      "surah": "Al-Qasas",
+      "ayah": "28:24",
+      "arabic": "رَبِّ إِنِّي لِمَا أَنْزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ",
+      "easy_tajweed": "Rabbi innee limaaa anzalta ilayya min khayrin faqeer",
+      "asan_tafsir": "ئەی پەروەردگارم! بێگومان من بە هەر خێر و ڕزقێک کە بۆم بنێریت زۆر هەژار و پێویستم.",
+      "english": "My Lord, grant me [a child] from among the righteous."
+    },
+    {
+      "id": 61,
+      "surah": "Al-Ankabut",
+      "ayah": "29:30",
+      "arabic": "رَبِّ انْصُرْنِي عَلَى الْقَوْمِ الْمُفْسِدِينَ",
+      "easy_tajweed": "Rabbinsurnee 'alal-qawmil-mufsideen",
+      "asan_tafsir": "ئەی پەروەردگارم! سەرم بخە بەسەر ئەم کۆمەڵە تێکدەر و خراپەکارانەدا بە دابەزاندنی سزا بەسەریاندا.",
+      "english": "My Lord, forgive me and grant me a kingdom such as will not belong to anyone after me. Indeed, You are the Bestower."
+    },
+    {
+      "id": 62,
+      "surah": "As-Saffat",
+      "ayah": "37:100",
+      "arabic": "رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ",
+      "easy_tajweed": "Rabbi hab lee minas-saaliheen",
+      "asan_tafsir": "ئەی پەروەردگارم! لە لایەن خۆتەوە منداڵێکی چاک و پیاوچاکم پێ ببەخشە.",
+      "english": "Our Lord, You have encompassed all things in mercy and knowledge, so forgive those who have repented and followed Your way and protect them from the punishment of Hellfire. Our Lord, and admit them to gardens of perpetual residence which You have promised them and whoever was righteous among their fathers, their spouses and their offspring. Indeed, it is You who is the Exalted in Might, the Wise. And protect them from the evil consequences [of their deeds]."
+    },
+    {
+      "id": 63,
+      "surah": "Sad",
+      "ayah": "38:35",
+      "arabic": "رَبِّ اغْفِرْ لِي وَهَبْ لِي مُلْكًا لَا يَنْبَغِي لِأَحَدٍ مِنْ بَعْدِي إِنَّكَ أَنْتَ الْوَهَّابُ",
+      "easy_tajweed": "Rabbigh-fir lee wa hab lee mulkal-laa yambaghee li-ahadim-mim-ba'dee, innaka antal-Wahhaab",
+      "asan_tafsir": "ئەی پەروەردگارم! لە هەڵەکەم خۆش ببە، و دەسەڵات و پاشایەتییەکی وام پێ ببەخشە کە بۆ هیچ کەسێکی دوای من نەگونجێت و نەبێت، چونکە بەڕاستی هەر تۆیت بەخشندەی بێسنوور.",
+      "english": "My Lord, enable me to be grateful for Your favor which You have bestowed upon me and upon my parents and to do righteousness of which You approve and make righteous for me my offspring. Indeed, I have repented to You, and indeed, I am of the Muslims."
+    },
+    {
+      "id": 64,
+      "surah": "Ghafir",
+      "ayah": "40:7-8",
+      "arabic": "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَحْمَةً وَعِلْمًا فَاغْفِرْ لِلَّذِينَ تَابُوا وَاتَّبَعُوا سَبِيلَكَ وَقِهِمْ عَذَابَ الْجَحِيمِ * رَبَّنَا وَأَدْخِلْهُمْ جَنَّاتِ عَدْنٍ الَّتِي وَعَدْتَهُمْ",
+      "easy_tajweed": "Rabbanaa wasi'ta kulla shay'ir-rahmatanw-wa 'ilman faghfir lilladheena taaboo wattaba'oo sabeelaka wa qihim 'adhaabal-jaheem. Rabbanaa wa adkhilhum jannaati 'adninil-latee wa'attahum",
+      "asan_tafsir": "ئەی پەروەردگارمان! ڕەحمەت و زانستەکەت هەموو شتێکی گرتووەتەوە، کەواتە لەوانە خۆش ببە کە تەوبەیان کردووە و شوێنی ڕێگەکەی تۆ کەوتوون، و لە سزای ئاگری دۆزەخ بیانپارێزە، و پەروەردگارمان بیانخەرە ناو باخەکانی بەهەشتی عەدنانەوە کە بەڵێنت پێداون.",
+      "english": "Indeed, I am overcome, so help [me]."
+    },
+    {
+      "id": 65,
+      "surah": "Al-Ahqaf",
+      "ayah": "46:15",
+      "arabic": "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَصْلِحْ لِي فِي ذُرِّيَّتِي إِنِّي تُبْتُ إِلَيْكَ وَإِنِّي مِنَ الْمُسْلِمِينَ",
+      "easy_tajweed": "Rabbi awzi'neee an ashkura ni'matakal-lateee an'amta 'alayya wa 'alaa waalidayya wa an a'mala saalihan tardahu wa aslih lee fee dhurriyyatee, innee tubtu ilayka wa innee minal-muslimeen",
+      "asan_tafsir": "ئەی پەروەردگارم! هانم بدە و تواناتم پێ ببەخشە تا سوپاسی ئەو نیعمەتە گەورەیەت بکەم کە بەخشیوتە بە من و بە باوانم، و کردەوەی چاکی وا بکەم کە تۆ لێی ڕازی بیت، و لە نێو نەوەکانمدا چاکە و ساڵحی بەرپا بکە بۆم، بەڕاستی من تەوبەم کرد بەرەو لای تۆ و من لە ملکەچ و موسڵمانانم.",
+      "english": "Our Lord, forgive us and our brothers who preceded us in faith and put not in our hearts [any] resentment toward those who have believed. Our Lord, indeed You are Kind and Merciful."
+    },
+    {
+      "id": 66,
+      "surah": "Al-Qamar",
+      "ayah": "54:10",
+      "arabic": "أَنِّي مَغْلُوبٌ فَانْتَصِرْ",
+      "easy_tajweed": "Annee maghloobun fantasir",
+      "asan_tafsir": "بەڕاستی من لە دەست ئەم کافرانە بەزێنراوم و لاوازم، کەواتە تۆ سەرم بخە بەسەریاندا و تۆڵەم بۆ بستێنە.",
+      "english": "Our Lord, upon You we have relied, and to You we have returned, and to You is the destination."
+    },
+    {
+      "id": 67,
+      "surah": "Al-Hashr",
+      "ayah": "59:10",
+      "arabic": "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَحِيمٌ",
+      "easy_tajweed": "Rabbanagh-fir lanaa wa li-ikhwaaninal-ladheena sabaqoonaa bil-eemaani wa laa taj'al fee quloobinaa ghillal-lilladheena aamanoo Rabbanaaa innaka Ra'oofur-Raheem",
+      "asan_tafsir": "ئەی پەروەردگارمان! لە ئێمە و لەو برا ئیماندارەکانمان خۆش ببە کە پێش ئێمە باوەڕیان هێناوە، و لە دڵماندا هیچ کینە و بوغز و حەسوودییەک دامەنێ بەرامبەر بڕواداران، پەروەردگارمان بێگومان تۆ زۆر دڵسۆز و میهرەبانیت.",
+      "english": "Our Lord, make us not [objects of] torment for the disbelievers and forgive us, our Lord. Indeed, it is You who is the Exalted in Might, the Wise."
+    },
+    {
+      "id": 68,
+      "surah": "Al-Mumtahanah",
+      "ayah": "60:4-5",
+      "arabic": "رَّبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ * رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا إِنَّكَ أَنتَ الْعَزِيزُ الْحَكِيمُ",
+      "easy_tajweed": "Rabbanaa 'alayka tawakkalnaa wa ilayka anabnaa wa ilaykal-maseer. Rabbanaa laa taj'alnaa fitnatal-lilladheena kafaroo waghfir lanaa Rabbanaaa innaka antal-'Azeezul-Hakeem",
+      "asan_tafsir": "ئەی پەروەردگارمان! هەر پشت بە تۆ دەبەستین و بەرەو لای تۆ دەگەڕێینەوە و گەڕانەوەی کۆتاییش هەر بۆ لای تۆیە. پەروەردگارمان! مەمانکە بە مایەی زاڵبوون و تاقیکردنەوەی بێباوەڕان بەسەرماندا، و لە تاوانەکانمان خۆش ببە پەروەردگارمان، بەڕاستی هەر تۆیت باڵادەست و کاربەجێ.",
+      "english": "Our Lord, perfect for us our light and forgive us. Indeed, You are over all things competent."
+    },
+    {
+      "id": 69,
+      "surah": "At-Tahrim",
+      "ayah": "66:8",
+      "arabic": "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "easy_tajweed": "Rabbanaaa atmim lanaa nooranaa waghfir lanaa, innaka 'alaa kulli shay'in Qadeer",
+      "asan_tafsir": "ئەی پەروەردگارمان! لەسەر پردی صراط نوور و ڕووناکییەکەمان بۆ تەواو بکە تا دەگەینە بەهەشت و لە گوناهەکانمان خۆش ببە، چونکە بێگومان تۆ بەسەر هەموو شتێکدا بەتوانایت.",
+      "english": "My Lord, build for me near You a house in Paradise and save me from Pharaoh and his deeds and save me from the wrongdoing people."
+    },
+    {
+      "id": 70,
+      "surah": "Nuh",
+      "ayah": "71:28",
+      "arabic": "رَّبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَن دَخَلَ بَيْتِيَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ وَلَا تَزِدِ الظَّالِمِينَ إِلَّا تَبَارًا",
+      "easy_tajweed": "Rabbigh-fir lee wa li-waalidayya wa liman dakhala baytiya mu'minanw-wa lil-mu'mineena wal-mu'minaati wa laa tazidiz-zaalimeena illaa tabaaraa",
+      "asan_tafsir": "ئەی پەروەردگارم! لە من و لە دایک و باوکم خۆش ببە، و لە هەر کەسێک کە بە ئیمانداری دێتە ماڵەکەم، و لە هەموو پیاوان و ژنانی ئیماندار، و بۆ ستەمکارانیش هیچ شتێک زیاد مەکە جگە لە هیلاکەت و لەناوچوون نەبێت.",
+      "english": "My Lord, forgive me and my parents and whoever enters my house a believer and the believing men and believing women. And do not increase the wrongdoers except in destruction."
+    }
+  ]
+}

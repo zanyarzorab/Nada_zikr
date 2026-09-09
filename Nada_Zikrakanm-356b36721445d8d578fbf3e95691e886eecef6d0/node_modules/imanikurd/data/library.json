@@ -1,0 +1,279 @@
+{
+    "books": [
+        {
+            "id": 1,
+            "title": "ڕەحیقی موختوم (ڕەحیقی مۆرکراو)",
+            "author": "صەفی الڕەحمان موبارکفووری",
+            "description": "سیرەی پێغەمبەر محمد ﷺ - کتێبی براوەی خەڵاتی یەکەمی پێشبڕکێی نێودەوڵەتی",
+            "category": "سیرە",
+            "downloadUrl": null,
+            "pages": 500
+        },
+        {
+            "id": 2,
+            "title": "ڕیاض الصالحین",
+            "author": "ئیمام نەوەوی",
+            "description": "کۆکراوەی حەدیسی سەحیح لە بابەتەکانی پەروەردە و ئاداب",
+            "category": "حەدیس",
+            "downloadUrl": null,
+            "pages": 600
+        },
+        {
+            "id": 3,
+            "title": "تەفسیری ئیبنی کەسیر",
+            "author": "ئیبنی کەسیر",
+            "description": "تەفسیری قورئانی پیرۆز بەپێی ڕیوایەت و عیلم",
+            "category": "تەفسیر",
+            "downloadUrl": null,
+            "pages": 1000
+        },
+        {
+            "id": 4,
+            "title": "فیقهی سوننە بە کوردی",
+            "author": "سەید سابیق",
+            "description": "فیقهی ئیسلامی بە شێوەیەکی ئاسان و ڕوون - وەرگێڕاوە بۆ کوردی",
+            "category": "فیقه",
+            "downloadUrl": "https://www.noor-book.com/en/ebook-Fiqh-of-the-Sunnah-in-Kurdish-1-pdf",
+            "pages": 747
+        },
+        {
+            "id": 5,
+            "title": "زادی معاد",
+            "author": "ئیبنی قەییم",
+            "description": "سیرە و ڕێنماییەکانی پێغەمبەر ﷺ لە ژیانی ڕۆژانەدا",
+            "category": "سیرە",
+            "downloadUrl": null,
+            "pages": 400
+        },
+        {
+            "id": 6,
+            "title": "کتابی تەوحید بە کوردی",
+            "author": "محمد بن عبدالوەههاب",
+            "description": "بنەماکانی باوەڕ و یەکتاپەرستی - وەرگێڕانی کوردی",
+            "category": "عەقیدە",
+            "downloadUrl": "https://archive.org/details/tawheed_kurdy",
+            "pages": 150
+        },
+        {
+            "id": 7,
+            "title": "صەحیح بوخاری (موختەسەر)",
+            "author": "ئیمام بوخاری",
+            "description": "کۆکراوەی حەدیسی سەحیح لە پێغەمبەرەوە ﷺ",
+            "category": "حەدیس",
+            "downloadUrl": null,
+            "pages": 800
+        },
+        {
+            "id": 8,
+            "title": "صەحیح موسلیم (موختەسەر)",
+            "author": "ئیمام موسلیم",
+            "description": "کۆکراوەی حەدیسی سەحیح - دووەمین کتێبی سەحیح",
+            "category": "حەدیس",
+            "downloadUrl": null,
+            "pages": 700
+        },
+        {
+            "id": 9,
+            "title": "العقیدة الواسطیة",
+            "author": "ئیبنی تەیمیە",
+            "description": "ڕوونکردنەوەی عەقیدەی ئەهلی سوننە و الجەماعە",
+            "category": "عەقیدە",
+            "downloadUrl": null,
+            "pages": 200
+        },
+        {
+            "id": 10,
+            "title": "حصن المسلم",
+            "author": "سەعید بن وەهف القەحتانی",
+            "description": "ئەزکار و دوعاکانی ڕۆژانە لە قورئان و سوننەوە",
+            "category": "ئەزکار",
+            "downloadUrl": null,
+            "pages": 150
+        },
+        {
+            "id": 11,
+            "title": "سەد فەرموودە لە زنجیرەی فەرموودە ڕاستەکان",
+            "author": "نەزانراو",
+            "description": "کۆمەڵێک لە فەرموودە ڕاستەکان کە لەلایەن زانایانی ئیسلامەوە ڕاگەیەندراون بە کوردی",
+            "category": "حەدیس",
+            "downloadUrl": "https://archive.org/details/100FrmwdaLeZnjyraiFrmwda",
+            "pages": 120
+        },
+        {
+            "id": 12,
+            "title": "فەرموودە هاوبەشەکانی بوخاری و موسلیم",
+            "author": "نەزانراو",
+            "description": "فەرموودەکانی کە لە هەردوو کۆکراوەی بوخاری و موسلیم تۆمارکراون - بە کوردی",
+            "category": "حەدیس",
+            "downloadUrl": "https://archive.org/details/FrmwdaHawbashakanyBuxariOMslim",
+            "pages": 200
+        },
+        {
+            "id": 13,
+            "title": "بەحری حەدیس بە کوردی",
+            "author": "نەزانراو",
+            "description": "کۆمەڵێکی گەورە لە فەرموودەکان کە وەرگێڕاون بۆ زمانی کوردی",
+            "category": "حەدیس",
+            "downloadUrl": "https://www.noor-book.com/en/ebook-Bahr-Al-Hadith-is-in-Kurdish-pdf",
+            "pages": 217
+        },
+        {
+            "id": 14,
+            "title": "بنەماکانی ئیسلام بە کوردی",
+            "author": "نەزانراو",
+            "description": "پێناسەکردنی ئەرکانی ئیسلام و بنەماکانی ئایینی پیرۆز",
+            "category": "عەقیدە",
+            "downloadUrl": "https://www.noor-book.com/en/ebook-Foundations-of-Islam-Kurdish-language-pdf",
+            "pages": 100
+        },
+        {
+            "id": 15,
+            "title": "کتێبی فیقهی ئاسان",
+            "author": "نەزانراو",
+            "description": "کتێبێکی ئاسان بۆ فێربوونی حوکمەکانی ئیسلام لە ژێر ڕۆشنایی سوننەت و قورئان",
+            "category": "فیقه",
+            "downloadUrl": "https://www.kurdipedia.org/books/103929",
+            "pages": 250
+        }
+    ],
+    "articles": [
+        {
+            "id": 1,
+            "title": "چۆن نوێژ بکەم؟",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ڕێنمایی تەواو بۆ فێربوونی نوێژ بە شێوەی دروست"
+        },
+        {
+            "id": 2,
+            "title": "فەزیلەتی ڕۆژوو لە مانگی ڕەمەزاندا",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "سوود و پاداشتەکانی ڕۆژوو لە ئیسلامدا"
+        },
+        {
+            "id": 3,
+            "title": "چۆن قورئان بخوێنمەوە؟",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ڕێنمایی فێربوونی تەجوید و خوێندنەوەی قورئان"
+        },
+        {
+            "id": 4,
+            "title": "ئادابی موسڵمان لە ژیانی ڕۆژانەدا",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ڕەفتار و ئاخاوتنی موسڵمان لە ماڵ و دەرەوە"
+        },
+        {
+            "id": 5,
+            "title": "حوکمی زەکات و چۆنیەتی دانی",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "زانیاری تەواو لەسەر زەکات و ڕێژەکانی"
+        },
+        {
+            "id": 6,
+            "title": "مامەڵە لەگەڵ دایک و باوک",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "گرنگی ڕێزگرتن لە دایک و باوک لە ئیسلامدا"
+        }
+    ],
+    "audio": [
+        {
+            "id": 1,
+            "title": "قورئانی پیرۆز - مشاری العفاسی",
+            "author": "مشاری العفاسی",
+            "description": "خوێندنەوەی تەواوی قورئان بە دەنگی جوان"
+        },
+        {
+            "id": 2,
+            "title": "قورئانی پیرۆز - عبدالباسط",
+            "author": "عبدالباسط عبدالصمد",
+            "description": "خوێندنەوەی قورئان بە شێوازی موڕەتتەل"
+        },
+        {
+            "id": 3,
+            "title": "دەرسەکانی عەقیدە",
+            "author": "زانایانی ئیسلامی",
+            "description": "دەرسی دەنگی لەسەر بنەماکانی باوەڕ"
+        },
+        {
+            "id": 4,
+            "title": "سیرەی پێغەمبەر ﷺ",
+            "author": "زانایانی ئیسلامی",
+            "description": "گێڕانەوەی ژیاننامەی پێغەمبەر بە دەنگ"
+        }
+    ],
+    "videos": [
+        {
+            "id": 1,
+            "title": "فێربوونی نوێژ بۆ سەرەتاییەکان",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ڤیدیۆی ئامۆژگاری بۆ فێربوونی نوێژ"
+        },
+        {
+            "id": 2,
+            "title": "چیرۆکی پێغەمبەران",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "گێڕانەوەی چیرۆکی پێغەمبەران بە ڤیدیۆ"
+        },
+        {
+            "id": 3,
+            "title": "فێربوونی تەجوید",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ڕێنمایی خوێندنەوەی دروستی قورئان"
+        },
+        {
+            "id": 4,
+            "title": "دەرسەکانی ڕەمەزان",
+            "author": "کۆمەڵەی ئیمان",
+            "description": "ئامادەکاری بۆ مانگی بەرەکەتی ڕەمەزان"
+        }
+    ],
+    "externalLibraries": [
+        {
+            "id": 1,
+            "name": "ئەکادیمیای بانگاواز",
+            "nameEn": "Bangawaz Academy",
+            "url": "https://bangawaz.net",
+            "description": "کتێبخانەی دیجیتاڵی ئیسلامی بە کوردی - فەرموودە، فیقه، عەقیدە",
+            "icon": "🏫"
+        },
+        {
+            "id": 2,
+            "name": "کورد پی دی ئێف",
+            "nameEn": "KurdPDF",
+            "url": "https://kurdpdf.com",
+            "description": "کتێبی کوردی بە فۆرماتی PDF - بەشی ئیسلامی",
+            "icon": "📄"
+        },
+        {
+            "id": 3,
+            "name": "کتێبستان",
+            "nameEn": "Ktebstan",
+            "url": "https://ktebstan.net",
+            "description": "گەورەترین کتێبخانەی ئەلیکترۆنی کوردی",
+            "icon": "📚"
+        },
+        {
+            "id": 4,
+            "name": "کتێبخانەی کوردیپێدیا",
+            "nameEn": "Kurdipedia Library",
+            "url": "https://kurdipedia.org/library.aspx",
+            "description": "کتێبخانەی فرەبواری کوردی لەوانە بابەتی ئایینی",
+            "icon": "🌐"
+        },
+        {
+            "id": 5,
+            "name": "ئەرشیفی ئینتەرنێت - PDF4Kurd",
+            "nameEn": "Archive.org - PDF4Kurd",
+            "url": "https://archive.org/details/@pdf4_kurd",
+            "description": "کۆمەڵێکی گەورە لە کتێبی ئیسلامی کوردی - دابەزاندنی ڕاستەوخۆ",
+            "icon": "🗄️"
+        },
+        {
+            "id": 6,
+            "name": "کتێبخانەی نوور",
+            "nameEn": "Noor Library",
+            "url": "https://www.noor-book.com",
+            "description": "کتێبی ئیسلامی بە زمانەکانی جیاواز لەوانە کوردی",
+            "icon": "💡"
+        }
+    ]
+}

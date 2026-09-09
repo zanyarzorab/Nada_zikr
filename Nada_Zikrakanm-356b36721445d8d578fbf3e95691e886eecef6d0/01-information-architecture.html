@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 - Information Architecture</title>
+    <style>
+      :root {
+        --bg: #07110d;
+        --panel: #12231b;
+        --panel-2: #183124;
+        --text: #f7f0e2;
+        --muted: #9eaf9f;
+        --gold: #b88c3e;
+        --teal: #4fae8d;
+        --violet: #7b6cf3;
+        --rose: #c96c44;
+        --blue: #4d94d6;
+        --green: #2e8b57;
+        --cream: #e9dcc4;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
+        background: linear-gradient(135deg, #07110d 0%, #10261a 100%);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 36px 28px 60px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+
+      .title-wrap h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .title-wrap p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 700px;
+        line-height: 1.6;
+      }
+
+      .pill {
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(255,255,255,0.06);
+        color: var(--cream);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 13px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .canvas {
+        position: relative;
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+        padding: 32px 26px 40px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+      }
+
+      .canvas::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at 20% 20%, rgba(184,140,62,0.12), transparent 24%),
+                          radial-gradient(circle at 80% 10%, rgba(79,174,141,0.12), transparent 24%);
+        pointer-events: none;
+      }
+
+      .root {
+        position: relative;
+        z-index: 2;
+        width: 220px;
+        margin: 0 auto 28px;
+        padding: 18px 20px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(184,140,62,0.22), rgba(184,140,62,0.08));
+        border: 1px solid rgba(184,140,62,0.3);
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      }
+
+      .root .label {
+        font-size: 17px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .root .name {
+        margin-top: 8px;
+        font-size: 34px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .module-grid {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      .module-card {
+        position: relative;
+        border-radius: 24px;
+        padding: 16px 16px 16px 18px;
+        border: 1px solid rgba(255,255,255,0.11);
+        background: rgba(255,255,255,0.04);
+        min-height: 210px;
+      }
+
+      .module-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 12px;
+        bottom: 12px;
+        width: 4px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .module-card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        color: var(--text);
+      }
+
+      .module-card ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 13px;
+      }
+
+      .module-card .meta {
+        margin-top: 10px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+      }
+
+      .connector {
+        position: absolute;
+        z-index: 1;
+        stroke: rgba(255,255,255,0.18);
+        stroke-width: 2;
+        stroke-linecap: round;
+        fill: none;
+      }
+
+      .home { --accent: var(--gold); }
+      .prayer { --accent: var(--teal); }
+      .quran { --accent: var(--rose); }
+      .dhikr { --accent: var(--violet); }
+      .tasbeeh { --accent: var(--blue); }
+      .learning { --accent: var(--green); }
+      .ai { --accent: #ff9b5e; }
+      .stats { --accent: #8c7b5d; }
+      .settings { --accent: #8fc4ff; }
+
+      @media (max-width: 1000px) {
+        .module-grid { grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+      }
+
+      @media (max-width: 680px) {
+        .module-grid { grid-template-columns: 1fr; }
+        .header { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="header">
+        <div class="title-wrap">
+          <h1>01 - Information Architecture</h1>
+          <p>A clear blueprint for Nûrî’s product structure, showing the major experience areas and how they connect without jumping into UI screens too early.</p>
+        </div>
+        <div class="pill">Product Structure · Navigation Blueprint</div>
+      </div>
+
+      <div class="canvas">
+        <svg class="connector" width="100%" height="100%" viewBox="0 0 1200 900" preserveAspectRatio="none">
+          <path d="M600 140 L600 220" />
+          <path d="M220 300 L220 360" />
+          <path d="M600 300 L600 360" />
+          <path d="M980 300 L980 360" />
+          <path d="M220 420 L220 490" />
+          <path d="M600 420 L600 490" />
+          <path d="M980 420 L980 490" />
+        </svg>
+
+        <div class="root">
+          <div class="label">Top Level</div>
+          <div class="name">Nûrî</div>
+        </div>
+
+        <div class="module-grid">
+          <div class="module-card home">
+            <h3>Home</h3>
+            <div class="meta">Daily Entry Point</div>
+            <ul>
+              <li>Daily Dashboard</li>
+              <li>Today’s Verse</li>
+              <li>Today’s Hadith</li>
+              <li>Prayer Countdown</li>
+              <li>Continue Reading</li>
+              <li>Daily Goals</li>
+            </ul>
+          </div>
+
+          <div class="module-card prayer">
+            <h3>Prayer</h3>
+            <div class="meta">Worship & Routine</div>
+            <ul>
+              <li>Prayer Times</li>
+              <li>Prayer Details</li>
+              <li>Prayer Tracker</li>
+              <li>Prayer History</li>
+              <li>Qibla</li>
+              <li>Mosque Finder</li>
+            </ul>
+          </div>
+
+          <div class="module-card quran">
+            <h3>Quran</h3>
+            <div class="meta">Reading & Reflection</div>
+            <ul>
+              <li>Surah List</li>
+              <li>Juz</li>
+              <li>Reading Screen</li>
+              <li>Audio Player</li>
+              <li>Tafsir</li>
+              <li>Bookmarks</li>
+            </ul>
+          </div>
+
+          <div class="module-card dhikr">
+            <h3>Dhikr</h3>
+            <div class="meta">Remembrance & Practice</div>
+            <ul>
+              <li>Categories</li>
+              <li>Morning</li>
+              <li>Evening</li>
+              <li>Prayer</li>
+              <li>Sleep</li>
+              <li>Favorites</li>
+            </ul>
+          </div>
+
+          <div class="module-card tasbeeh">
+            <h3>Tasbeeh</h3>
+            <div class="meta">Habit & Focus</div>
+            <ul>
+              <li>Counter</li>
+              <li>Full Screen</li>
+              <li>Sessions</li>
+              <li>Goals</li>
+              <li>Statistics</li>
+              <li>Achievements</li>
+            </ul>
+          </div>
+
+          <div class="module-card learning">
+            <h3>Learning</h3>
+            <div class="meta">Knowledge & Growth</div>
+            <ul>
+              <li>Library</li>
+              <li>Prophets</li>
+              <li>Companions</li>
+              <li>Prayer Guide</li>
+              <li>Wudu Guide</li>
+              <li>Daily Lesson</li>
+            </ul>
+          </div>
+
+          <div class="module-card ai">
+            <h3>AI</h3>
+            <div class="meta">Guidance & Support</div>
+            <ul>
+              <li>Chat</li>
+              <li>Quran Assistant</li>
+              <li>Dhikr Suggestions</li>
+              <li>Daily Advice</li>
+              <li>History</li>
+              <li>Suggested Questions</li>
+            </ul>
+          </div>
+
+          <div class="module-card stats">
+            <h3>Statistics</h3>
+            <div class="meta">Progress & Reflection</div>
+            <ul>
+              <li>Dashboard</li>
+              <li>Prayer</li>
+              <li>Quran</li>
+              <li>Dhikr</li>
+              <li>Streaks</li>
+              <li>Achievements</li>
+            </ul>
+          </div>
+
+          <div class="module-card settings">
+            <h3>Settings</h3>
+            <div class="meta">Personalization</div>
+            <ul>
+              <li>Appearance</li>
+              <li>Language</li>
+              <li>Notifications</li>
+              <li>Audio</li>
+              <li>Privacy</li>
+              <li>Accessibility</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

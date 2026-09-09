@@ -1,0 +1,596 @@
+[
+  {
+    "id": 1,
+    "arabic": "الله",
+    "kurdish": "ناوی هەرە تاک و گەورە و پیرۆزی دیار و زانراوی خودای گەورەیە",
+    "english": "The Name of Allah"
+  },
+  {
+    "id": 2,
+    "arabic": "الرحمن",
+    "kurdish": "بەخشندە و میهرەبان و بەسۆز و بەزەییە لەبەرامبەر بە هەموو شتێک لە بوونەوەردا",
+    "english": "The Exceedingly Compassionate, The Exceedingly Beneficent, The Exceedingly Gracious"
+  },
+  {
+    "id": 3,
+    "arabic": "الرحيم",
+    "kurdish": "بەخشندە و میهرەبان و بەسۆز و بەزەییە لە دواڕۆژدا بەرامبەر بە ئیمانداران و هەرشتێک خودا ڕەحمی پێ بکات",
+    "english": "The Exceedingly Merciful"
+  },
+  {
+    "id": 4,
+    "arabic": "الملك",
+    "kurdish": "هەمیشە پاشا و دەسەڵاتدار و سەرۆک و خاوەنی هەموو شتێکە لە بوونەوەر و دونیاو دوارۆژدا",
+    "english": "The King"
+  },
+  {
+    "id": 5,
+    "arabic": "القدوس",
+    "kurdish": "زۆر پاک و بێ گەرد و بێ کەم و کوڕی و بێ هەڵە و ناتەواوییە",
+    "english": "The Holy, The Pure, The Perfect"
+  },
+  {
+    "id": 6,
+    "arabic": "السلام",
+    "kurdish": "زۆر ساغ و بێ گەرد و بێ عەیب و ئاشتی خواز و ئاشتی دار و ئاشتی پەروەرە",
+    "english": "The Peace, The Source of Peace and Safety, The Savior"
+  },
+  {
+    "id": 7,
+    "arabic": "المؤمن",
+    "kurdish": "ئەمیندەر و دڵنیاکەری بڕوادار و درووستکراوەکانییەتی لە زەبر لێدان و زیان پێگەیاندنیان لە دنیاو دواڕۆژدا",
+    "english": "The Guarantor, The Affirming"
+  },
+  {
+    "id": 8,
+    "arabic": "المهيمن",
+    "kurdish": "زۆر ئاگادار و چاودێر و دەسەڵاتدارە بەسەر هەموو دروستکراو و بونەوەردا",
+    "english": "The Guardian"
+  },
+  {
+    "id": 9,
+    "arabic": "العزيز",
+    "kurdish": "هەمیشە زاڵ و دەسەڵاتدار و بەهێز و بە توانایە بەسەر بوونەوەردا",
+    "english": "The Almighty, The Invulnerable, The Honorable"
+  },
+  {
+    "id": 10,
+    "arabic": "الجبار",
+    "kurdish": "زۆر دەسەڵاتدار و زەبر بەدەست و بە توانا و ناچارکەر",
+    "english": "The Irresistible, The Compeller, The Lofty"
+  },
+  {
+    "id": 11,
+    "arabic": "المتكبر",
+    "kurdish": "زۆر خۆ بەگەورە زان و زل و بە توانا و خۆ گەورەگرە کە لە خۆی دەوەشێتەوە",
+    "english": "The Majestic, The Supreme"
+  },
+  {
+    "id": 12,
+    "arabic": "الخالق",
+    "kurdish": "دروستکەر و بەدیهێنەرە لە نەبوونەوە بۆ بوون",
+    "english": "The Creator"
+  },
+  {
+    "id": 13,
+    "arabic": "البارئ",
+    "kurdish": "بەدیهێنەر و پارێزەری بونەوەری بەدیهێنراوە",
+    "english": "The Evolver, The Fashioner, The Designer"
+  },
+  {
+    "id": 14,
+    "arabic": "المصور",
+    "kurdish": "وێنە کێش و نیگار کێش و نەخشە کێشە بە جوانترین شێوە",
+    "english": "The Fashioner of Forms"
+  },
+  {
+    "id": 15,
+    "arabic": "الغفار",
+    "kurdish": "لێخۆشبەر و داپۆشەری گوناهـ و تاوانەکانە لە دونیا و دواڕۆژدا",
+    "english": "The Repeatedly Forgiving"
+  },
+  {
+    "id": 16,
+    "arabic": "القهار",
+    "kurdish": "زۆر بە زەبر و بە دەسەڵات و بە توانا و بە حوکمە",
+    "english": "The Subduer"
+  },
+  {
+    "id": 17,
+    "arabic": "الوهاب",
+    "kurdish": "بەخشەر و بدەری بێ ئەندازە بە هەموو درووستکراوەکانی",
+    "english": "The Bestower"
+  },
+  {
+    "id": 18,
+    "arabic": "الرزاق",
+    "kurdish": "ڕزق و ڕۆزی و بژێوی دەری بێ سنوور و کۆتا بە هەموو درووستکراوەکانی",
+    "english": "The Provider"
+  },
+  {
+    "id": 19,
+    "arabic": "الفتاح",
+    "kurdish": "دەروو کەرەوە و واڵاکەری هەموو گەنجینە و دەروویەک",
+    "english": "The Opener, The Victory Giver"
+  },
+  {
+    "id": 20,
+    "arabic": "العليم",
+    "kurdish": "زانا و ئاگادار و بێ سنور بە هەمووشتە ئاشکرا و پەنهاکانی ژیان و بونەوەر",
+    "english": "The All Knowing, The Omniscient"
+  },
+  {
+    "id": 21,
+    "arabic": "القابض",
+    "kurdish": "بگر و پێکهێنەر و گوشەری هەموو شتێکی بوونەوەر",
+    "english": "The Restrainer, The Straightener"
+  },
+  {
+    "id": 22,
+    "arabic": "الباسط",
+    "kurdish": "ڕاکێشەر و فراوانکەر و لە دوودەری ڕزق و ڕۆزی و پێوویستییەکانی درووستکراوەکان",
+    "english": "The Extender / Expander"
+  },
+  {
+    "id": 23,
+    "arabic": "الخافض",
+    "kurdish": "دابەزێنەر و دانەوێنەر و نەویکەری هەموو پاشا و دەسەڵاتدار و زەبر بە دەستانە",
+    "english": "The Abaser"
+  },
+  {
+    "id": 24,
+    "arabic": "الرافع",
+    "kurdish": "بڵندکەر و بەرزکەرەوە و سەرخەر و دەستگر و بارگری هەموو شتەکانە",
+    "english": "The Exalter"
+  },
+  {
+    "id": 25,
+    "arabic": "المعز",
+    "kurdish": "بەهێزکەر و زاڵکەر، هێز و دەسەڵات بەخش بە هەر شتێک بیەوێت",
+    "english": "The Giver of Honour"
+  },
+  {
+    "id": 26,
+    "arabic": "المذل",
+    "kurdish": "زەلیل و زەبوونکەر و سەرشۆرکەر و ڕیسواکەر و ملکەچ پێ کەر و سەرپێ دانەوێن",
+    "english": "The Giver of Dishonour"
+  },
+  {
+    "id": 27,
+    "arabic": "السميع",
+    "kurdish": "بیسەر و گوێگری بێ سنوری هەموو بوونەوەر",
+    "english": "The All Hearing"
+  },
+  {
+    "id": 28,
+    "arabic": "البصير",
+    "kurdish": "بینەر و دیدەی بێ سنوری هەموو شتەکانی بوونەوەر",
+    "english": "The All Seeing"
+  },
+  {
+    "id": 29,
+    "arabic": "الحكم",
+    "kurdish": "دادوەر و دادگەر و فەرمانڕەوا و ناوبژیوانی بە حەق و ڕاست",
+    "english": "The Judge, The Arbitrator"
+  },
+  {
+    "id": 30,
+    "arabic": "العدل",
+    "kurdish": "دادگەر و دادپەروەری بە حەق و ڕاستی بێ ستەم",
+    "english": "The Utterly Just"
+  },
+  {
+    "id": 31,
+    "arabic": "اللطيف",
+    "kurdish": "زۆر بە سۆز و لوتف و بەخشندە و میهرەبانە",
+    "english": "The Gentle, The Subtly Kind"
+  },
+  {
+    "id": 32,
+    "arabic": "الخبير",
+    "kurdish": "زۆر زانا و پسپۆڕ و شارەزا لە هەموو شتەکانی ژیان و بوونەوەر",
+    "english": "The All Aware"
+  },
+  {
+    "id": 33,
+    "arabic": "الحليم",
+    "kurdish": "زۆر نەرم و نیان و هێدی و هێواش و بە ئارام و لەسەرخۆ و بێ پەلە",
+    "english": "The Forbearing, The Indulgent"
+  },
+  {
+    "id": 34,
+    "arabic": "العظيم",
+    "kurdish": "زۆر گەورە و مەزن و بەتوانا وبەهێز و بەدەسەڵات و شکۆدار",
+    "english": "The Magnificent"
+  },
+  {
+    "id": 35,
+    "arabic": "الغفور",
+    "kurdish": "لێبوردە و لێخۆشبەر و گوناهـ و نهێنی داپۆشەر",
+    "english": "The Much-Forgiving"
+  },
+  {
+    "id": 36,
+    "arabic": "الشكور",
+    "kurdish": "سوپاسگوزار و بەخشندەی خێر و چاکە و ناز و نیعمەت",
+    "english": "The Grateful"
+  },
+  {
+    "id": 37,
+    "arabic": "العلي",
+    "kurdish": "زۆر بەرز و بڵند و پایەدار و بە دەسەڵات",
+    "english": "The Sublime"
+  },
+  {
+    "id": 38,
+    "arabic": "الكبير",
+    "kurdish": "گەورە و بە دەسەڵاتی بێ سنور لە گەورەیی و دەسەڵاتدا",
+    "english": "The Great"
+  },
+  {
+    "id": 39,
+    "arabic": "الحفيظ",
+    "kurdish": "پارێزەری درووستکراوەکانی لە تیاچوون و لە لەناوچوون و لە زیان پێکەوتنیان",
+    "english": "The Preserver"
+  },
+  {
+    "id": 40,
+    "arabic": "المقيت",
+    "kurdish": "فریاد ڕەس و فریاد کەر و بە هانا چووی درووستکراوەکانی",
+    "english": "The Nourisher"
+  },
+  {
+    "id": 41,
+    "arabic": "الحسيب",
+    "kurdish": "ژمێریار و لێپرسەرەوە و نگاداری هەموو شتەکانی بوونەوەر",
+    "english": "The Bringer of Judgment"
+  },
+  {
+    "id": 42,
+    "arabic": "الجليل",
+    "kurdish": "بەرز و بەڕێز و شکۆدار لە سەر هەموو بونەوەر",
+    "english": "The Majestic"
+  },
+  {
+    "id": 43,
+    "arabic": "الكريم",
+    "kurdish": "زۆر سەخی و بەخشندە و بەڕێز و دەستکراوە و دەستەڕۆ و دەست واڵایە",
+    "english": "The Bountiful, The Generous"
+  },
+  {
+    "id": 44,
+    "arabic": "الرقيب",
+    "kurdish": "ئاگادار و چاودێر و پایەدار بەسەر هەموو بوونەوەردا",
+    "english": "The Watchful"
+  },
+  {
+    "id": 45,
+    "arabic": "المجيب",
+    "kurdish": "وەڵامدەرەوەی هەموو پرس و داخوازی و ئارەزووەکانی درووستکراوەکانییەتی",
+    "english": "The Responsive, The Answer"
+  },
+  {
+    "id": 46,
+    "arabic": "الواسع",
+    "kurdish": "زۆر فراوان و گوشاد و بە سەلیقە و بە توانا",
+    "english": "The Vast, The All-Embracing, The Omnipresent, The Boundless"
+  },
+  {
+    "id": 47,
+    "arabic": "الحكيم",
+    "kurdish": "زۆر دانا و کارزان و کاربەجێ و کار لە جێ و وورد و لێزان",
+    "english": "The Wise"
+  },
+  {
+    "id": 48,
+    "arabic": "الودود",
+    "kurdish": "زۆر بەسۆز وخۆشەویست و دۆستدار",
+    "english": "The Loving"
+  },
+  {
+    "id": 49,
+    "arabic": "المجيد",
+    "kurdish": "زۆر پایە بەرز و سەر بەرز و سەربڵند و شکۆدار و بەڕێز",
+    "english": "All-Glorious, The Majestic"
+  },
+  {
+    "id": 50,
+    "arabic": "الباعث",
+    "kurdish": "زیندووکەرەوە و ژێنەر و نێرەر و گۆڕەری سەرجەم درووستکراوەکانییەتی",
+    "english": "The Resurrecter"
+  },
+  {
+    "id": 51,
+    "arabic": "الشهيد",
+    "kurdish": "ئاگادار و زانا",
+    "english": "The Witness"
+  },
+  {
+    "id": 52,
+    "arabic": "الحق",
+    "kurdish": "ڕاست و درووست و حەق و حەقگۆ",
+    "english": "The Truth, The Real"
+  },
+  {
+    "id": 53,
+    "arabic": "الوكيل",
+    "kurdish": "پشت و پەناو، دابینکەرە و دەستبەر و فەراهەمهێنەرە",
+    "english": "The Trustee, The Dependable, The Advocate"
+  },
+  {
+    "id": 54,
+    "arabic": "القوي",
+    "kurdish": "زۆر بەتوانا و بەهێز و بەدەسەڵات و زاڵە بەسەر بوونەوەریدا",
+    "english": "The Strong"
+  },
+  {
+    "id": 55,
+    "arabic": "المتين",
+    "kurdish": "زۆر بەهێز و بتەو و بەتوانا و قایم و نەگۆڕە",
+    "english": "The Firm, The Steadfast"
+  },
+  {
+    "id": 56,
+    "arabic": "الولي",
+    "kurdish": "دۆست و پشتیوان و هاوکار و سەرپەریشتکار",
+    "english": "The Friend, Patron and Helper"
+  },
+  {
+    "id": 57,
+    "arabic": "الحميد",
+    "kurdish": "سوپاسکەری بەندەکانییەتی لەسەر چاکەکردن، وە بەندەکانیش سوپاسی خودا دەکەن لەسەر بەخششەکانی",
+    "english": "The All Praiseworthy"
+  },
+  {
+    "id": 58,
+    "arabic": "المحصي",
+    "kurdish": "ژمێرەر و ئامارکەری هەموو شتەکانی بوونەوەرە",
+    "english": "The Accounter, The Numberer of All"
+  },
+  {
+    "id": 59,
+    "arabic": "المبدئ",
+    "kurdish": "داهێنەر و درووستکەر و دەستپێکەری سەرەتای درووستکردن و بوونەوەر",
+    "english": "The Originator, The Producer, The Initiator"
+  },
+  {
+    "id": 60,
+    "arabic": "المعيد",
+    "kurdish": "گه‌رانه‌وه‌ی دروستكراوه‌كان له‌ ژیان بۆ مردن و له‌ مردن بۆ ژیان له‌ رۆژی دوایی",
+    "english": "The Restorer, The Reinstater Who Brings Back All"
+  },
+  {
+    "id": 61,
+    "arabic": "المحيي",
+    "kurdish": "دروستكه‌ری ژیان و به‌خشینی به‌ ویستی خۆی ، دروستكردنی ژیان له‌ نه‌بوون و له‌دوای مردن",
+    "english": "The Giver of Life"
+  },
+  {
+    "id": 62,
+    "arabic": "المميت",
+    "kurdish": "مرێنەر و لەناوبەری گیانلەبەرانی هەموو بوونەوەرە",
+    "english": "The Destroyer, The Bringer of Death"
+  },
+  {
+    "id": 63,
+    "arabic": "الحي",
+    "kurdish": "زیندووی بێ سەرەتاو کۆتایی",
+    "english": "The Living"
+  },
+  {
+    "id": 64,
+    "arabic": "القيوم",
+    "kurdish": "هەمیشە ڕاگر و بەرپا و ڕاوەستاو و ئامادەباش و ڕێکخەر و بەڕێوەبەری بوونەوەر",
+    "english": "The Subsisting, The Guardian"
+  },
+  {
+    "id": 65,
+    "arabic": "الواجد",
+    "kurdish": "درووستکەر و بەدیهێنەر و فەراهەمهێنەری سەرجەم بوونەوەر",
+    "english": "The Perceiver, The Finder, The Unfailing"
+  },
+  {
+    "id": 66,
+    "arabic": "الماجد",
+    "kurdish": "خاوەن پلە و پایە و شکۆ و ڕێزی بێ ژمار",
+    "english": "The Illustrious, The Magnificent"
+  },
+  {
+    "id": 67,
+    "arabic": "الواحد",
+    "kurdish": "تاک و تەنیا و بێ هاوەڵ و بێ وێنە لە خودی خۆی و لە سەرجەم ناو وکردار و سیفاتە بەرز و بەڕێزەکانی لە چاو درووستکراوەکانی خۆی",
+    "english": "The One, The Unique"
+  },
+  {
+    "id": 68,
+    "arabic": "الصمد",
+    "kurdish": "بێ نیاز و مەبەست و جێی نیاز و مەبەست و هیوا، لەهەموو درووستکراوەکانی بێ نیاز و مەبەست و بێ منەتە و پێوویستی بە هیچ شتێک نییە، جێی نیاز و مەبەستی هەموو درووستکراوێکە، هەموو شتێک لە بوونەوەردا پێوویستی بەوە",
+    "english": "The Eternal, The Absolute, The Self-Sufficient"
+  },
+  {
+    "id": 69,
+    "arabic": "القادر",
+    "kurdish": "زۆر بە توانا و بە دەسەڵاتە",
+    "english": "The Omnipotent, The All Able"
+  },
+  {
+    "id": 70,
+    "arabic": "المقتدر",
+    "kurdish": "سەرچاوەی هەموو هێز و دەسەڵات و توانایەک لە بوونەوەردا بۆ درووستراوەکانی",
+    "english": "The Determiner, The Dominant"
+  },
+  {
+    "id": 71,
+    "arabic": "المقدم",
+    "kurdish": "پێشخەر و پێشهێنەر، هەموو شتێک دەزانێت پێش هاتن و ڕوودانی، دەتوانێت هەموو شتێک پیش و دوا بخات",
+    "english": "The Expediter, He Who Brings Forward"
+  },
+  {
+    "id": 72,
+    "arabic": "المؤخر",
+    "kurdish": "دواخەری گشت ڕووداو و پێشهاتەکان، دەتوانێت هەموو شتێک لە کاتی خۆی ڕابگرێت و دوابخات و ڕوونەدات",
+    "english": "The Delayer, He Who Puts Far Away"
+  },
+  {
+    "id": 73,
+    "arabic": "الأول",
+    "kurdish": "سەرەتا و یەکەمی هەموو شتێکە لە بووندا، هیچ شتێک لە بوونەوەر نەبووە، ئەو هەر هەبووە و بێ سەرەتایە",
+    "english": "The First, The Beginning-less"
+  },
+  {
+    "id": 74,
+    "arabic": "الأخر",
+    "kurdish": "دوا کۆتای هەموو شتێکە لە بووندا و هیچ شتێک لە بوونەوەردا نامێنێت و کۆتای پێ دێت، کەچی خودای گەورە هەردەمێنێت و بێ کۆتایە و قەد لەناو ناچێت و دوای نایەت",
+    "english": "The Last, The Endless"
+  },
+  {
+    "id": 75,
+    "arabic": "الظاهر",
+    "kurdish": "دیار و ئاشکرای هەیە، لە ڕێگەی بوونەوەرەوە بوونی خۆی دەنوێنێت پەی پێ دەبرێت",
+    "english": "The Manifest, The Evident, The Outer"
+  },
+  {
+    "id": 76,
+    "arabic": "الباطن",
+    "kurdish": "نهێنی و نادیار و بزر و پەردەپۆش و شاراوە و نادیدەیە لە بەرچاوی درووستکراوەکانی",
+    "english": "The Hidden, The Unmanifest, The Inner"
+  },
+  {
+    "id": 77,
+    "arabic": "الوالي",
+    "kurdish": "سەرپەرشتیار و پاشا و خاوەنی هەموو بوون و بوونەوەر",
+    "english": "The Patron, The Protecting Friend, The Friendly Lord"
+  },
+  {
+    "id": 78,
+    "arabic": "المتعالي",
+    "kurdish": "زۆر بەرز و بەڕێز و پلەدار و بەدەسەڵات و خۆ بەرزگر",
+    "english": "The Supremely Exalted, The Most High"
+  },
+  {
+    "id": 79,
+    "arabic": "البر",
+    "kurdish": "چاکەکار و بەخشندەی بێ سنور",
+    "english": "The Good"
+  },
+  {
+    "id": 80,
+    "arabic": "التواب",
+    "kurdish": "زۆر لێخۆشبوو و تۆبە وەرگر و لێبووردەیە",
+    "english": "The Ever Returning, Ever Relenting"
+  },
+  {
+    "id": 81,
+    "arabic": "المنتقم",
+    "kurdish": "تۆڵە لێسێنەرەوەی ستەمکاران و تاوانبارانە",
+    "english": "The Avenger"
+  },
+  {
+    "id": 82,
+    "arabic": "العفو",
+    "kurdish": "لێبووردە لە گونا‌ه",
+    "english": "The Pardoner, The Effacer, The Forgiver"
+  },
+  {
+    "id": 83,
+    "arabic": "الرؤوف",
+    "kurdish": "زۆر بەسۆز و بەزەیی و بەڕەحمەت لەگەڵ هەموو درووستکراوەکانیدا",
+    "english": "The Kind, The Pitying"
+  },
+  {
+    "id": 84,
+    "arabic": "مالك الملك",
+    "kurdish": "خاوەن و پاشا و فەرمانڕەوای هەموو ماڵ و موڵک و سەروەت و سامان و بوونێک لە بوونەوەردا",
+    "english": "The Owner of all Sovereignty"
+  },
+  {
+    "id": 85,
+    "arabic": "ذو الجلال والإكرام",
+    "kurdish": "خاوەنی ئەو پەڕی ڕێز و پایە و شکۆ",
+    "english": "The Lord of Majesty and Generosity"
+  },
+  {
+    "id": 86,
+    "arabic": "المقسط",
+    "kurdish": "دادگەر و دادپەروەر و دادڕەو لە حوکم و دەسەڵات و بڕیار و دابەشکردندا",
+    "english": "The Equitable, The Requiter"
+  },
+  {
+    "id": 87,
+    "arabic": "الجامع",
+    "kurdish": "کۆکەرەوە و گردکەرەوە و گشتگیری هەموو شتەکانی بوونەوەر",
+    "english": "The Gatherer, The Unifier"
+  },
+  {
+    "id": 88,
+    "arabic": "الغني",
+    "kurdish": "زۆر دەوڵەمەند و بێ نیاز و بێ ئاتاج و پێوویستە لە هەموو شتێک",
+    "english": "The Rich, The Independent"
+  },
+  {
+    "id": 89,
+    "arabic": "المغني",
+    "kurdish": "دەوڵەمەندکەری خەلک و بوونەوەرە، هەموو بوونەوەر پێوویستی بە دەوڵەمندی ئەوە",
+    "english": "The Enricher, The Emancipator"
+  },
+  {
+    "id": 90,
+    "arabic": "المانع",
+    "kurdish": "بەرگری کار پارێزکار",
+    "english": "The Withholder, The Shielder, The Defender"
+  },
+  {
+    "id": 91,
+    "arabic": "الضار",
+    "kurdish": "زیانبەخش و زیانگەیەنەرە بە هەرشتێک کە دەیەوێت",
+    "english": "The Distressor, The Harmer, The Afflictor"
+  },
+  {
+    "id": 92,
+    "arabic": "النافع",
+    "kurdish": "بەسوود",
+    "english": "The Propitious, The Benefactor, The Source of Good"
+  },
+  {
+    "id": 93,
+    "arabic": "النور",
+    "kurdish": "نور و ڕووناکی و چرا و درەخشان و ڕووناککەرەوەی بوونەوەرە",
+    "english": "The Light"
+  },
+  {
+    "id": 94,
+    "arabic": "الهادي",
+    "kurdish": "هیدایەتدەر و ڕێنمای کەر و ڕاستکەر و ڕێنیشاندەری درووستکراوەکانە",
+    "english": "The Guide, The Way"
+  },
+  {
+    "id": 95,
+    "arabic": "البديع",
+    "kurdish": "ئافراندن و جوانکار و داهێنەری بوون و بوونەوەرە",
+    "english": "The Incomparable, The Unattainable"
+  },
+  {
+    "id": 96,
+    "arabic": "الباقي",
+    "kurdish": "هەمیشە بەردەوام و هەرماوەیە و قەت لە ناو ناچێت",
+    "english": "The Immutable, The Infinite, The Everlasting"
+  },
+  {
+    "id": 97,
+    "arabic": "الوارث",
+    "kurdish": "میراتگری هەموو بوون و بوونەوەر، هەموو شتێک لە نێو دەچێت هەر ئەو دەمێنێت",
+    "english": "The Heir, The Inheritor of All"
+  },
+  {
+    "id": 98,
+    "arabic": "الرشيد",
+    "kurdish": "سەر ڕاست و ڕێناس و شارەزا و ڕێنیشاندەر و ڕاستەڕێکارە",
+    "english": "The Guide to the Right Path"
+  },
+  {
+    "id": 99,
+    "arabic": "الصبور",
+    "kurdish": "زۆر بە ئارام و لەسەر خۆ و خۆڕاگرە",
+    "english": "The Timeless, The Patient"
+  }
+]

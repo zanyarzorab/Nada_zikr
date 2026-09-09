@@ -1,0 +1,1109 @@
+{
+  "dataset_info": {
+    "title": "Comprehensive Authentic Prophetic Duas & Adhkar (Complete 110 Hadith Collection)",
+    "description": "A curated dataset of 110 authentic, non-Quranic supplications and remembrances from Hadith literature. Each entry contains fully vocalized Arabic, easy Latin-based Tajweed phonetics, precise Sorani Kurdish meaning, clear English translation, and primary Hadith citations.",
+    "total_entries": 110
+  },
+  "adhkar_and_duas": [
+    {
+      "id": 1,
+      "category": "High-Reward Short Tasbih & Adhkar (زیکرە کورتە پڕ پاداشتەکان)",
+      "title": "Two Beloved Words to the Most Merciful (دوو وشەی سووک و خۆشەویست لەلای خوا)",
+      "arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+      "easy_tajweed": "Subhaanallaahi wa bihamdih, Subhaanallaahil-'Azeem",
+      "kurdish_meaning": "پاکی و ستایش بۆ خودا، پاکی بۆ خودای مەزن و پایەدار. (لەسەر زمان سووکن، لە تەرازوودا قورسن، و لەلای خوای میهرەبان خۆشەویستن).",
+      "english_meaning": "Glory be to Allah and His is the praise, glory be to Allah the Magnificent.",
+      "hadith_source": "صحيح البخاري (6406)، صحيح مسلم (2694)"
+    },
+    {
+      "id": 2,
+      "category": "High-Reward Short Tasbih & Adhkar (زیکرە کورتە پڕ پاداشتەکان)",
+      "title": "Treasure from the Treasures of Paradise (گەنجینەیەک لە گەنجینەکانی بەهەشت)",
+      "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "easy_tajweed": "Laa hawla wa laa quwwata illaa billaah",
+      "kurdish_meaning": "هیچ گۆڕانکاری و هیچ هێز و توانایەک نییە مەگەر بە دەسەڵاتی خودا نەبێت.",
+      "english_meaning": "There is no power and no strength except with Allah.",
+      "hadith_source": "صحيح البخاري (4205)، صحيح مسلم (2704)"
+    },
+    {
+      "id": 3,
+      "category": "High-Reward Short Tasbih & Adhkar (زیکرە کورتە پڕ پاداشتەکان)",
+      "title": "Four Most Beloved Words to Allah (چوار خۆشەویستترین وتە لای خودا)",
+      "arabic": "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ",
+      "easy_tajweed": "Subhaanallaah, wal-hamdu lillaah, wa laaa ilaaha illallaah, wallaahu Akbar",
+      "kurdish_meaning": "پاکی بۆ خودا، سوپاس و ستایش بۆ خودا، هیچ پەرستراوێک نییە بێجگە لە ئەڵڵا، و خودا لە هەموو شتێک گەورەترە.",
+      "english_meaning": "Glory be to Allah, all praise is due to Allah, there is no true deity except Allah, and Allah is the Greatest.",
+      "hadith_source": "صحيح مسلم (2137)"
+    },
+    {
+      "id": 4,
+      "category": "High-Reward Short Tasbih & Adhkar (زیکرە کورتە پڕ پاداشتەکان)",
+      "title": "Planting a Palm Tree in Jannah (چاندنی دارخورما لە بەهەشتدا)",
+      "arabic": "سُبْحَانَ اللَّهِ الْعَظِيمِ وَبِحَمْدِهِ",
+      "easy_tajweed": "Subhaanallaahil-'Azeemi wa bihamdih",
+      "kurdish_meaning": "پاکی و ستایش بۆ خودای گەورە و مەزن. (هەرکەس بیڵێت دارخورمایەکی بۆ دەڕوێنرێت لە بەهەشتدا).",
+      "english_meaning": "Glory be to Allah the Magnificent, and His is the praise.",
+      "hadith_source": "جامع الترمذي (3464) - حسن صحيح"
+    },
+    {
+      "id": 5,
+      "category": "High-Reward Short Tasbih & Adhkar (زیکرە کورتە پڕ پاداشتەکان)",
+      "title": "Comprehensive Daily Istighfar (داوای لێخۆشبوون بە ناوی زیندووی ڕاگیرکەر)",
+      "arabic": "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيَّ الْقَيُّومَ وَأَتُوبُ إِلَيْهِ",
+      "easy_tajweed": "Astaghfirullaahal-ladhee laaa ilaaha illaa Huwal-Hayyal-Qayyooma wa atoobu ilayh",
+      "kurdish_meaning": "داوای لێخۆشبوون دەکەم لەو خودایەی کە هیچ پەرستراوێک نییە بێجگە لە ئەو، هەمیشە زیندوو و ڕاگری گەردوونە، و تەوبە دەکەم و دەگەڕێمەوە بۆ لای.",
+      "english_meaning": "I seek the forgiveness of Allah, other than Whom there is no deity, the Ever-Living, the Sustainer of all, and I repent to Him.",
+      "hadith_source": "سنن أبي داود (1517)، جامع الترمذي (3577) - صحيح"
+    },
+    {
+      "id": 6,
+      "category": "Tawhid & Exaltation (تەوحید و شایەتیدان بە گەورەیی خودا)",
+      "title": "Affirmation of Complete Sovereign Power (تەوحید و تەسلیمبوونی ڕەها)",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "easy_tajweed": "Laaa ilaaha illallaahu wahdahoo laa shareeka lah, lahul-mulku wa lahul-hamdu wa Huwa 'alaa kulli shay'in Qadeer",
+      "kurdish_meaning": "هیچ پەرستراوێک نییە بێجگە لە ئەڵڵا بە تەنیا و بێ هاوەڵ، هەموو دەسەڵات و پاشایەتی بۆ ئەوە و هەموو ستایشێک بۆ ئەوە، و بەسەر هەموو شتێکدا بەتوانایە.",
+      "english_meaning": "There is no true deity except Allah alone, without partner. His is the sovereignty and His is all praise, and He is over all things competent.",
+      "hadith_source": "صحيح البخاري (3293)، صحيح مسلم (2691)"
+    },
+    {
+      "id": 7,
+      "category": "Tawhid & Exaltation (تەوحید و شایەتیدان بە گەورەیی خودا)",
+      "title": "Supplication with the Greatest Name of Allah (پاڕانەوە بە ناوی مەزنی خوا / الإسم الأعظم)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنَّ لَكَ الْحَمْدَ، لَا إِلَهَ إِلَّا أَنْتَ الْمَنَّانُ، بَدِيعُ السَّمَاوَاتِ وَالْأَرْضِ، يَا ذَا الْجَلَالِ وَالْإِكْرَامِ، يَا حَيُّ يَا قَيُّومُ",
+      "easy_tajweed": "Allaahumma innee as'aluka bi-anna lakal-hamd, laaa ilaaha illaaa Antal-Mannaan, Badee'us-samaawaati wal-ard, yaa Dhal-Jalaali wal-Ikraam, yaa Hayyu yaa Qayyoom",
+      "kurdish_meaning": "خودایە داوات لێ دەکەم بەوەی هەموو سوپاسێک بۆ تۆیە، هیچ پەرستراوێک نییە بێجگە لە تۆ، زۆر بەبەخششت، داهێنەری ئاسمانەکان و زەویت بە بێ وێنە، ئەی خاوەنی شکۆ و بەخشندەیی، ئەی ئەو زاتەی هەمیشە زیندوویت و ڕاگری گەردوونیت.",
+      "english_meaning": "O Allah, I ask You by virtue of the fact that all praise is due to You; there is no deity except You, the Bestower of Favors, Originator of the heavens and earth, O Owner of Majesty and Honor, O Ever-Living, O Sustainer.",
+      "hadith_source": "سنن أبي داود (1495)، سنن النسائي (1300) - صحيح"
+    },
+    {
+      "id": 8,
+      "category": "Tawhid & Exaltation (تەوحید و شایەتیدان بە گەورەیی خودا)",
+      "title": "Praise Equal to All Created Matter (تەسبیحاتی هاوتای هەموو بوونەوەران)",
+      "arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ",
+      "easy_tajweed": "Subhaanallaahi wa bihamdihee 'adada khalqih, wa ridaa nafsih, wa zinata 'arshih, wa midaada kalimaatih",
+      "kurdish_meaning": "پاکی و ستایش بۆ خودا بە ژمارەی دروستکراوەکانی، بە ئەندازەی ڕەزامەندی خودی زاتی خۆی، بە کێشی عەرشەکەی، و بە ئەندازەی مەرەکەبی وشە بێسنوورەکانی.",
+      "english_meaning": "Glory be to Allah and His is the praise, according to the number of His creation, according to His pleasure, according to the weight of His Throne, and according to the ink of His words.",
+      "hadith_source": "صحيح مسلم (2726)"
+    },
+    {
+      "id": 9,
+      "category": "Master Duas of Forgiveness (سەروەری داوای لێخۆشبوونەکان)",
+      "title": "Sayyid al-Istighfar (سەروەری داوای لێخۆشبوون)",
+      "arabic": "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
+      "easy_tajweed": "Allaahumma Anta Rabbee laaa ilaaha illaa Ant, khalaqtanee wa anaa 'abduk, wa anaa 'alaa 'ahdika wa wa'dika mas-tata'tu, a'oodhu bika min sharri maa sana'tu, aboo'u laka bini'matika 'alayy, wa aboo'u laka bidhambee faghfir lee, fa-innahoo laa yaghfirudh-dhunooba illaa Ant",
+      "kurdish_meaning": "خودایە تۆ پەروەردگاری منیت، هیچ پەرستراوێک نییە بێجگە لە تۆ، تۆ منت دروستکردووە و من بەندەی تۆم، لەسەر پەیمان و بەڵێنی تۆم تا ئەو پەڕی توانام. پەنات پێ دەگرم لە خراپەی کردەوەکانم، دان دەنێم بە نیعمەتەکانت بەسەرمەوە و دان دەنێم بە گوناهمدا، لێم خۆش ببە چونکە کەس لە گوناهەکان خۆش نابێت بێجگە لە تۆ.",
+      "english_meaning": "O Allah, You are my Lord; there is no deity except You. You created me and I am Your servant, and I remain on Your covenant and promise as much as I am able. I seek refuge in You from the evil of what I have done. I acknowledge Your favor upon me and I acknowledge my sin, so forgive me, for none forgives sins except You.",
+      "hadith_source": "صحيح البخاري (6306)"
+    },
+    {
+      "id": 10,
+      "category": "Master Duas of Forgiveness (سەروەری داوای لێخۆشبوونەکان)",
+      "title": "Comprehensive Forgiveness of All Sins (لێخۆشبوونی گشت گوناهە ورد و درشتەکان)",
+      "arabic": "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ: دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلَانِيَتَهُ وَسِرَّهُ",
+      "easy_tajweed": "Allaahummagh-fir lee dhambee kullah: diqqahoo wa jillah, wa awwalahoo wa aakhirah, wa 'alaaniyatahoo wa sirrah",
+      "kurdish_meaning": "خودایە لە هەموو گوناهەکانم خۆش ببە: وورد و درشتی، سەرەتا و کۆتایی، ئاشکرا و نهێنی.",
+      "english_meaning": "O Allah, forgive me all my sins: the minor and the major, the first and the last, the open and the hidden.",
+      "hadith_source": "صحيح مسلم (483)"
+    },
+    {
+      "id": 11,
+      "category": "Master Duas of Forgiveness (سەروەری داوای لێخۆشبوونەکان)",
+      "title": "Dua for Forgiveness Before the Final Tashahhud (دوعای فێرکراو بە ئەبوبەکر بۆ کۆتایی نوێژ)",
+      "arabic": "اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْمًا كَثِيرًا، وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ، فَاغْفِرْ لِي مَغْفِرَةً مِنْ عِنْدِكَ وَارْحَمْنِي، إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ",
+      "easy_tajweed": "Allaahumma innee zalamtu nafsee zulman katheeranw-wa laa yaghfirudh-dhunooba illaaa Ant, faghfir lee maghfiratam-min 'indika warhamnee, innaka Antal-Ghafoorur-Raheem",
+      "kurdish_meaning": "خودایە ستەمێکی زۆرم لە خۆم کرد، و کەس لە گوناهەکان خۆش نابێت بێجگە لە تۆ، کەواتە لێخۆشبوونێکی تایبەتی لە لایەن خۆتەوە پێم ببەخشە و ڕەحمم پێ بکە، بەڕاستی هەر تۆیت زۆر لێخۆشبوو و دلۆڤان.",
+      "english_meaning": "O Allah, I have wronged myself with extensive wrong, and none forgives sins except You, so grant me forgiveness directly from You and have mercy upon me; indeed You are the Oft-Forgiving, the Most Merciful.",
+      "hadith_source": "صحيح البخاري (834)، صحيح مسلم (2705)"
+    },
+    {
+      "id": 12,
+      "category": "Master Duas of Forgiveness (سەروەری داوای لێخۆشبوونەکان)",
+      "title": "Dua of Absolute Repentance (لێخۆشبوونی گوناهی ڕابردوو و داهاتوو)",
+      "arabic": "اللَّهُمَّ اغْفِرْ لِي مَا قَدَّمْتُ وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ وَمَا أَعْلَنْتُ، وَمَا أَسْرَفْتُ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّي، أَنْتَ الْمُقَدِّمُ وَأَنْتَ الْمُؤَخِّرُ، لَا إِلَهَ إِلَّا أَنْتَ",
+      "easy_tajweed": "Allaahummagh-fir lee maa qaddamtu wa maa akh-khart, wa maaa asrartu wa maaa a'lant, wa maaa asraft, wa maaa Anta a'lamu bihee minnee, Antal-Muqaddimu wa Antal-Mu'akh-khir, laaa ilaaha illaaa Ant",
+      "kurdish_meaning": "خودایە لێم خۆش ببە لەوەی لە پێشەوە کردوومە و لەوەی لە دواوە دەیکەم، لەوەی شاردوومەتەوە و لەوەی ئاشکرام کردووە، لەوەی زیارەڕۆیم تێدا کردووە، و لەوەی کە تۆ لێی زاناتریت لە من. هەر تۆیت پێشخەر و هەر تۆیت پاشخەر، هیچ پەرستراوێک نییە بێجگە لە تۆ.",
+      "english_meaning": "O Allah, forgive me what I have sent forward and what I have held back, what I have hidden and what I have proclaimed, what I have exceeded in, and that which You know better than I. You are the Advancer and You are the Delayer; there is no deity except You.",
+      "hadith_source": "صحيح مسلم (771)"
+    },
+    {
+      "id": 13,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Dua for Healing Heartbreak and Grief (دوعای لابردنی خەم و خەفەت و بەهاری دڵ)",
+      "arabic": "اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ، أَسْأَلُكَ بِكُلِّ اسْمٍ هُوَ لَكَ، سَمَّيْتَ بِهِ نَفْسَكَ، أَوْ عَلَّمْتَهُ أَحَدًا مِنْ خَلْقِكَ، أَوْ أَنْزَلْتَهُ فِي كِتَابِكَ، أَوِ اسْتَأْثَرْتَ بِهِ فِي عِلْمِ الْغَيْبِ عِنْدَكَ، أَنْ تَجْعَلَ الْقُرْآنَ رَبِيعَ قَلْبِي، وَنُورَ صَدْرِي، وَجَلَاءَ حُزْنِي، وَذَهَابَ هَمِّي",
+      "easy_tajweed": "Allaahumma innee 'abduk, ibnu 'abdik, ibnu amatik, naasiyatee bi-yadik, maadin fiyya hukmuk, 'adlun fiyya qadaaa'uk, as'aluka bikullis-min huwa laka sammayta bihee nafsak, aw 'allamtahoo ahadam-min khalqik, aw anzaltahoo fee kitaabik, awis-ta'tharta bihee fee 'ilmil-ghaybi 'indak, an taj'alal-Qur'aana rabee'a qalbee, wa noora sadree, wa jalaaa'a huznee, wa dhahaaba hammee",
+      "kurdish_meaning": "خودایە من بەندەی تۆم، کوڕی بەندەی تۆم، کوڕی کەنیزەی تۆم، چارەنووسم بە دەستی تۆیە، بڕیارت لەسەرم جێبەجێبووە و دادپەروەرانەیە. داوات لێ دەکەم بە هەموو ناوێکت کە هی تۆیە؛ کە ناوی خۆتت پێ ناوە، یان فێری یەکێک لە دروستکراوەکانت کردووە، یان لە کتێبەکەتدا داتبەزاندووە، یان لە زانستی پەنهاندا لە لای خۆت هێشتووتەتەوە؛ کە قورئان بکەیتە بەهاری دڵم و ڕووناکی سینگم و سڕێنەوەی خەمم و ڕۆیشتنی خەفەتم.",
+      "english_meaning": "O Allah, I am Your servant, son of Your male servant, son of Your female servant. My forelock is in Your hand, Your command over me is executed, and Your decree over me is just. I ask You by every name that belongs to You, which You have named Yourself with, revealed in Your Book, taught to any of Your creation, or preserved in the knowledge of the unseen with You: that You make the Quran the spring of my heart, the light of my chest, the banisher of my sorrow, and the reliever of my anxiety.",
+      "hadith_source": "مسند أحمد (3712)، صحيح ابن حبان (972) - صحيح"
+    },
+    {
+      "id": 14,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Supplication for Overwhelming Anguish (دوعای تەنگانە و قەیرانی گەورە)",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ",
+      "easy_tajweed": "Laaa ilaaha illallaahul-'Azeemul-Haleem, laaa ilaaha illallaahu Rabbul-'Arshil-'Azeem, laaa ilaaha illallaahu Rabbus-samaawaati wa Rabbul-ardi wa Rabbul-'Arshil-Kareem",
+      "kurdish_meaning": "هیچ پەرستراوێک نییە بێجگە لە ئەڵڵای مەزن و لەسەرخۆ، هیچ پەرستراوێک نییە بێجگە لە ئەڵڵای پەروەردگاری عەرشی گەورە، هیچ پەرستراوێک نییە بێجگە لە ئەڵڵای پەروەردگاری ئاسمانەکان و پەروەردگاری زەوی و پەروەردگاری عەرشی پیرۆز و بەڕێز.",
+      "english_meaning": "There is no true deity except Allah, the Magnificent, the Forbearing. There is no true deity except Allah, Lord of the Magnificent Throne. There is no true deity except Allah, Lord of the heavens, Lord of the earth, and Lord of the Noble Throne.",
+      "hadith_source": "صحيح البخاري (6346)، صحيح مسلم (2730)"
+    },
+    {
+      "id": 15,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Protection Against Helplessness, Laziness, and Financial Bondage (پەناگرتن لە قەرزداری و لاوازی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-hammi wal-hazan, wal-'ajzi wal-kasal, wal-bukhli wal-jubn, wa dala'id-dayni wa ghalabatir-rijaal",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە خەم و خەفەت، لە بێدەسەڵاتی و تەمبەڵی، لە ڕەزیلی و ترسنۆکی، لە قورسایی قەرز، و لە زاڵبوونی زۆردارانە بەسەرمدا.",
+      "english_meaning": "O Allah, I seek refuge in You from anxiety and sorrow, from helplessness and laziness, from miserliness and cowardice, from the heavy burden of debt, and from the overpowering oppression of men.",
+      "hadith_source": "صحيح البخاري (2893)"
+    },
+    {
+      "id": 16,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Supplication for Debt Repayment (دوعای حەڵاڵبوون و دانەوەی قەرز)",
+      "arabic": "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+      "easy_tajweed": "Allaahummak-finee bi-halaalika 'an haraamik, wa aghninee bi-fadlika 'amman siwaak",
+      "kurdish_meaning": "خودایە بە ڕزقی حەڵاڵی خۆت بێ نیازم بکە لە حەرامکراوەکانت، و بە فەزڵ و بەخششی خۆت دەوڵەمەند و بێ نیازم بکە لە هەر کەسێکی تر بێجگە لە خۆت.",
+      "english_meaning": "O Allah, suffice me with Your lawful provisions instead of Your unlawful prohibitions, and enrich me by Your grace so that I am independent of all besides You.",
+      "hadith_source": "جامع الترمذي (3563) - حسن"
+    },
+    {
+      "id": 17,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Supplication for Ease in Difficult Affairs (دوعای ئاسانکردنی ئەرکە سەختەکان)",
+      "arabic": "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا، وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا",
+      "easy_tajweed": "Allaahumma laa sahla illaa maa ja'altahoo sahlaa, wa Anta taj'alul-hazna idhaa shi'ta sahlaa",
+      "kurdish_meaning": "خودایە هیچ کارێک ئاسان نییە مەگەر ئەوەی تۆ ئاسانت کردبێت، و تۆیت کە کار و شوێنی سەخت و ناڕەحەت ئاسان دەکەیت ئەگەر ویستت لێ بێت.",
+      "english_meaning": "O Allah, there is nothing easy except what You have made easy, and You make difficulty easy if You will.",
+      "hadith_source": "صحيح ابن حبان (974) - صحيح"
+    },
+    {
+      "id": 18,
+      "category": "Relief from Distress, Anxiety, and Debt (خەم، ناڕەحەتی، قەرز و تەنگانە)",
+      "title": "Supplication in Moments of Calamity (دوعای کاتی ڕوودانی نەهامەتی و موسیبەت)",
+      "arabic": "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا",
+      "easy_tajweed": "Innaa lillaahi wa innaaa ilayhi raaji'oon, Allaahumma'-jurnee fee museebatee wa akhlif lee khayram-minhaa",
+      "kurdish_meaning": "بەڕاستی ئێمە موڵکی خوداین و بۆ لای ئەویش دەگەڕێینەوە. خودایە پاداشتم بدەرەوە لەم بەڵایەمدا، و شتێکی باشترم پێ ببەخشە لە جیاتی ئەوەی لەدەستم چوو.",
+      "english_meaning": "Indeed to Allah we belong, and to Him we are returning. O Allah, reward me in my affliction and grant me what is better than it.",
+      "hadith_source": "صحيح مسلم (918)"
+    },
+    {
+      "id": 19,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Supplication for Guidance, Piety, Modesty, and Inner Wealth (داوای هیدایەت و پاکدامەنی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+      "easy_tajweed": "Allaahumma innee as'alukal-hudaa wat-tuqaa wal-'afaafa wal-ghinaa",
+      "kurdish_meaning": "خودایە داوای هیدایەت و شارەزایی، لەخواترسی، پاکدامەنی لە حەرام، و بێ نیازی و دەوڵەمەندی دڵت لێ دەکەم.",
+      "english_meaning": "O Allah, I ask You for guidance, piety, chastity, and self-sufficiency.",
+      "hadith_source": "صحيح مسلم (2721)"
+    },
+    {
+      "id": 20,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Steadfastness of the Heart on Faith (جێگیربوونی دڵ لەسەر دین)",
+      "arabic": "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ",
+      "easy_tajweed": "Yaa Muqallibal-quloobi thabbit qalbee 'alaa deenik",
+      "kurdish_meaning": "ئەی وەرگێڕ و گۆڕەری دڵەکان! دڵم جێگیر و دامەزراو بکە لەسەر دینەکەت.",
+      "english_meaning": "O Turner of the hearts, keep my heart firm upon Your religion.",
+      "hadith_source": "جامع الترمذي (2140)، مسند أحمد (12107) - صحيح"
+    },
+    {
+      "id": 21,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Directing Hearts Toward Obedience (ڕووکردنی دڵ بەرەو گوێڕایەڵی خوا)",
+      "arabic": "اللَّهُمَّ مُصَرِّفَ الْقُلُوبِ صَرِّفْ قُلُوبَنَا عَلَى طَاعَتِكَ",
+      "easy_tajweed": "Allaahumma Musarrifal-quloobi sarrif quloobanaa 'alaa taa'atik",
+      "kurdish_meaning": "خودایە، ئەی وەرچەرخێنەری دڵەکان! دڵەکانمان وەرچەرخێنە بەرەو گوێڕایەڵی و پەرستنی خۆت.",
+      "english_meaning": "O Allah, Director of hearts, direct our hearts towards Your obedience.",
+      "hadith_source": "صحيح مسلم (2654)"
+    },
+    {
+      "id": 22,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Seeking Beneficial Knowledge, Sustenance, and Acceptance (زانستی بەسوود و ڕزقی حەڵاڵ)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا",
+      "easy_tajweed": "Allaahumma innee as'aluka 'ilman naafi'aa, wa rizqan tayyibaa, wa 'amalam-mutaqabbalaa",
+      "kurdish_meaning": "خودایە داوای زانستێکی بەسوود، ڕزق و بژێوییەکی پاک و حەڵاڵ، و کردەوەیەکی قبووڵکراوت لێ دەکەم.",
+      "english_meaning": "O Allah, I ask You for beneficial knowledge, good and pure provision, and deeds that are accepted.",
+      "hadith_source": "سنن ابن ماجه (925)، مسند أحمد (26521) - صحيح"
+    },
+    {
+      "id": 23,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Rectification of Worldly Life and the Hereafter (چاککردنی ژیان، دین و قیامەت)",
+      "arabic": "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَاجْعَلِ الْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ",
+      "easy_tajweed": "Allaahumma aslih lee deeniyal-ladhee huwa 'ismatu amree, wa aslih lee dunyaayal-latee feehaa ma'aashee, wa aslih lee aakhiratil-latee feehaa ma'aadee, waj'alil-hayaata ziyaadatal-lee fee kulli khayr, waj'alil-mawta raahatal-lee min kulli sharr",
+      "kurdish_meaning": "خودایە ئایینەکەم بۆ چاک بکە کە پارێزەری سەرجەم کارەکانمە، و دنیایەکەم بۆ چاک بکە کە ژیان و بژێویم تێدایە، و دواڕۆژەکەم بۆ چاک بکە کە گەڕانەوەم بۆ ئەوێیە، و ژیانم بکە بە مایەی زیادبوونی هەموو خێرێک، و مردنم بکە بە ئاسوودەیی لە هەموو شەڕ و ناخۆشییەک.",
+      "english_meaning": "O Allah, rectify for me my religion which is the safeguard of my affairs, rectify for me my world in which is my livelihood, and rectify for me my Hereafter to which is my return. Make life an increase for me in every good, and make death a relief for me from every evil.",
+      "hadith_source": "صحيح مسلم (2720)"
+    },
+    {
+      "id": 24,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Supplication for Seeking Refuge from Four Destructive Things (پەناگرتن لە چوار شتی لەناوبەر)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min 'ilmil-laa yanfa', wa min qalbil-laa yakhsha', wa min nafsil-laa tashba', wa min da'watil-laa yustajaabu lahaa",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە زانستێک کە سوودی نەبێت، لە دڵێک کە ملکەچ و ترسی خوای تێدا نەبێت، لە نەفسێک کە تێر نەبێت، و لە دوعایەک کە وەڵام نەدرێتەوە.",
+      "english_meaning": "O Allah, I seek refuge in You from knowledge that does not benefit, from a heart that does not fear You, from a soul that is never satisfied, and from a supplication that is not answered.",
+      "hadith_source": "صحيح مسلم (2722)"
+    },
+    {
+      "id": 25,
+      "category": "Comprehensive Prophetic Guidance (دوعا گشتگیرە پێغەمبەرانەکان)",
+      "title": "Seeking Complete Goodness and Refuge from All Evil (دوعای گشتگیری پێغەمبەر بۆ هەموو خێرێک)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ",
+      "easy_tajweed": "Allaahumma innee as'aluka minal-khayri kullihee 'aajilihee wa aajilih, maa 'alimtu minhu wa maa lam a'lam, wa a'oodhu bika minash-sharri kullihee 'aajilihee wa aajilih, maa 'alimtu minhu wa maa lam a'lam. Allaahumma innee as'aluka min khayri maa sa'alaka 'abduka wa Nabiyyuk, wa a'oodhu bika min sharri ma'aadha bihee 'abduka wa Nabiyyuk",
+      "kurdish_meaning": "خودایە داوای هەموو خێرێکت لێ دەکەم، چ پەلە بێت لە دنیادا چ دوابخرێت بۆ قیامەت، ئەوەی لێی دەزانم و ئەوەی لێی نازانم؛ و پەنات پێ دەگرم لە هەموو شەڕێک، چ پەلە بێت چ دوابخرێت، ئەوەی لێی دەزانم و ئەوەی لێی نازانم. خودایە داوای ئەو خێرەت لێ دەکەم کە پێغەمبەرەکەت داوای کردووە، و پەنات پێ دەگرم لەوەی پێغەمبەرەکەت پەنای لێ گرتووە.",
+      "english_meaning": "O Allah, I ask You for all good, both immediate and future, what I know of it and what I do not know. And I seek refuge in You from all evil, both immediate and future, what I know of it and what I do not know. O Allah, I ask You for the best of what Your servant and Prophet asked You for, and I seek refuge in You from the evil of what Your servant and Prophet sought refuge from.",
+      "hadith_source": "سنن ابن ماجه (3846)، مسند أحمد (25019) - صحيح"
+    },
+    {
+      "id": 26,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Supplication for Leaving Home with Divine Guarantee (دوعای چوونەدەرەوە لە ماڵ)",
+      "arabic": "بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      "easy_tajweed": "Bismillaahi tawakkaltu 'alallaahi wa laa hawla wa laa quwwata illaa billaah",
+      "kurdish_meaning": "بە ناوی خوا، پشتم بە خوا بەست، و هیچ توانست و هێزێک نییە بێجگە لە بە ویستی خودا نەبێت. (پێی دەوترێت: هیدایەت درایت، پارێزرایت و شەیتان لێت دوورکەوتەوە).",
+      "english_meaning": "In the name of Allah, I place my trust in Allah; there is no power and no strength except with Allah.",
+      "hadith_source": "سنن أبي داود (5095)، جامع الترمذي (3426) - صحيح"
+    },
+    {
+      "id": 27,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Entering the Mosque (دوعای چوونە ناو مزگەوت)",
+      "arabic": "بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
+      "easy_tajweed": "Bismillaahi was-salaatu was-salaamu 'alaa Rasoolillaah, Allaahummaf-tah lee abwaaba rahmatik",
+      "kurdish_meaning": "بە ناوی خوا، دروود و سڵاو لەسەر پێغەمبەری خوا، خودایە دەرگاکانی ڕەحمەتی خۆتم بۆ بکەرەوە.",
+      "english_meaning": "In the name of Allah, and peace and blessings be upon the Messenger of Allah. O Allah, open for me the gates of Your mercy.",
+      "hadith_source": "صحيح مسلم (713)، سنن ابن ماجه (771)"
+    },
+    {
+      "id": 28,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Exiting the Mosque (دوعای هاتنەدەرەوە لە مزگەوت)",
+      "arabic": "بِسْمِ اللَّهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللَّهِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ",
+      "easy_tajweed": "Bismillaahi was-salaatu was-salaamu 'alaa Rasoolillaah, Allaahumma innee as'aluka min fadlik",
+      "kurdish_meaning": "بە ناوی خوا، دروود و سڵاو لەسەر پێغەمبەری خوا، خودایە داوای فەزڵ و بەخششی تایبەتیت لێ دەکەم.",
+      "english_meaning": "In the name of Allah, and peace and blessings be upon the Messenger of Allah. O Allah, I ask You from Your bounty.",
+      "hadith_source": "صحيح مسلم (713)"
+    },
+    {
+      "id": 29,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Entering the Restroom (دوعای چوونە سەر ئاو)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-khubuthi wal-khabaaa'ith",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە شەیتانە نێرەکان و شەیتانە مێیەکان و لە هەموو پیسییەک.",
+      "english_meaning": "O Allah, I seek refuge in You from male and female devils and all impurity.",
+      "hadith_source": "صحيح البخاري (142)، صحيح مسلم (375)"
+    },
+    {
+      "id": 30,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Exiting the Restroom (دوعای دەرچوون لە سەر ئاو)",
+      "arabic": "غُفْرَانَكَ",
+      "easy_tajweed": "Ghufraanak",
+      "kurdish_meaning": "داوای لێخۆشبوونت لێ دەکەم ئەی پەروەردگارم.",
+      "english_meaning": "I seek Your forgiveness.",
+      "hadith_source": "سنن أبي داود (17)، جامع الترمذي (7) - صحيح"
+    },
+    {
+      "id": 31,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "After Wudu / Purification (دوعای دوای تەواوکردنی دەستنوێژ)",
+      "arabic": "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
+      "easy_tajweed": "Ash-hadu al-laaa ilaaha illallaahu wahdahoo laa shareeka lah, wa ash-hadu anna Muhammadan 'abduhoo wa Rasooluh. Allaahummaj-'alnee minat-tawwaabeena waj-'alnee minal-mutatahhireen",
+      "kurdish_meaning": "شایەتی دەدەم هیچ پەرستراوێک نییە بێجگە لە ئەڵڵا بە تەنیا بێ هاوەڵ، و شایەتی دەدەم محەمەد بەندە و نێردراوی ئەوە. خودایە بمکە لە تۆباکاران و بمکە لەوانەی بەردەوام خۆیان پاک ڕادەگرن.",
+      "english_meaning": "I bear witness that there is no true deity except Allah alone without partner, and I bear witness that Muhammad is His servant and Messenger. O Allah, make me of the repentant and make me of those who purify themselves.",
+      "hadith_source": "صحيح مسلم (234)، جامع الترمذي (55)"
+    },
+    {
+      "id": 32,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "After Completing a Meal (دوعای دوای تەواوکردنی نانخواردن)",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+      "easy_tajweed": "Alhamdu lillaahil-ladheee at'amanee haadhaa wa razaqaneehi min ghayri hawlim-minnee wa laa quwwah",
+      "kurdish_meaning": "سوپاس بۆ ئەو خوایەی ئەم خواردنەی پێ بەخشیم و کردی بە ڕزقم بە بێ هیچ هێز و توانایەکی خۆم.",
+      "english_meaning": "All praise is due to Allah Who has fed me this and provided it for me without any strength or power on my part.",
+      "hadith_source": "سنن أبي داود (4023)، جامع الترمذي (3458) - حسن"
+    },
+    {
+      "id": 33,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Travel Supplication (دوعای سەفەرکردن)",
+      "arabic": "اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ، وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ، اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى",
+      "easy_tajweed": "Allaahu Akbar (3x), Subhaanal-ladhee sakh-khara lanaa haadhaa wa maa kunnaa lahoo muqrineen, wa innaaa ilaa Rabbinaa lamunqaliboon. Allaahumma innaa nas'aluka fee safarinaa haadhal-birra wat-taqwaa, wa minal-'amali maa tardaa",
+      "kurdish_meaning": "خودا گەورەترینە (٣ جار)، پاکی بۆ ئەو زاتەی ئەمەی بۆ ڕامکردین لە کاتێکدا توانامان بەسەریدا نەبوو، و بێگومان بۆ لای پەروەردگارمان دەگەڕێینەوە. خودایە لەم سەفەرەماندا داوای چاکە و لەخواترسی و کردەوەی پەسەندت لێ دەکەین.",
+      "english_meaning": "Allah is the Greatest (3x). Glory to Him Who has brought this under our control though we were unable to subdue it, and to our Lord we shall surely return. O Allah, we ask You on this journey of ours for righteousness and piety, and for deeds that please You.",
+      "hadith_source": "صحيح مسلم (1342)"
+    },
+    {
+      "id": 34,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Kaffarat al-Majlis (دوعای کەفارەتی کۆڕ و دانیشتن)",
+      "arabic": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+      "easy_tajweed": "Subhaanakallaahumma wa bihamdika, ash-hadu al-laaa ilaaha illaaa Ant, astaghfiruka wa atoobu ilayk",
+      "kurdish_meaning": "پاکی و ستایش بۆ تۆیە خودایە، شایەتی دەدەم هیچ پەرستراوێک نییە بێجگە لە تۆ، داوای لێخۆشبوونت لێ دەکەم و دەگەڕێمەوە بۆ لای تۆ.",
+      "english_meaning": "Glory be to You, O Allah, and with Your praise; I bear witness that there is no true deity except You. I seek Your forgiveness and I repent to You.",
+      "hadith_source": "سنن أبي داود (4859)، جامع الترمذي (3433) - صحيح"
+    },
+    {
+      "id": 35,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Visiting and Comforting the Sick (دڵدانەوەی نەخۆش بە چاکبوونەوە)",
+      "arabic": "لَا بَأْسَ، طَهُورٌ إِنْ شَاءَ اللَّهُ",
+      "easy_tajweed": "Laa ba'sa tahoorun in shaaa'allaah",
+      "kurdish_meaning": "خەمت نەبێت، دەبێتە مایەی پاکبوونەوە لە گوناهـ بە پشتیوانی و ویستی خودا.",
+      "english_meaning": "Do not worry; it is a purification, if Allah wills.",
+      "hadith_source": "صحيح البخاري (3616)"
+    },
+    {
+      "id": 36,
+      "category": "Essential Daily Etiquette & Situations (هەڵوێستە ڕۆژانەییەکان)",
+      "title": "Ruqyah for Healing Severe Illness (دوعای داوای چاکبوونەوە بۆ نەخۆش)",
+      "arabic": "أَسْأَلُ اللَّهَ الْعَظِيمَ، رَبَّ الْعَرْشِ الْعَظِيمِ، أَنْ يَشْفِيَكَ",
+      "easy_tajweed": "As'alullaahal-'Azeem, Rabbal-'Arshil-'Azeem, ay-yashfiyak",
+      "kurdish_meaning": "داوا لە خوای مەزن دەکەم، کە پەروەردگاری عەرشی گەورەیە، کە شیفات بدات و چاکت بکاتەوە. (٧ جار دەخوێندرێت)",
+      "english_meaning": "I ask Allah the Almighty, Lord of the Magnificent Throne, to heal you.",
+      "hadith_source": "سنن أبي داود (3106)، جامع الترمذي (2083) - صحيح"
+    },
+    {
+      "id": 37,
+      "category": "Sleep, Night, and Awakening (خەوتن، شەو و بەخەبەرهاتن)",
+      "title": "Upon Waking Up (دوعای بەخەبەرهاتن لە خەو)",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+      "easy_tajweed": "Alhamdu lillaahil-ladheee ahyaanaa ba'da maaa amaatanaa wa ilayhin-nushoor",
+      "kurdish_meaning": "سوپاس بۆ ئەو خوایەی زیندووی کردینەوە دوای ئەوەی مراندبووینی بە خەو، و زیندووبوونەوەی سەرلەنوێ هەر بۆ لای ئەوە.",
+      "english_meaning": "All praise is due to Allah Who gave us life after having given us death, and unto Him is the resurrection.",
+      "hadith_source": "صحيح البخاري (6312)، صحيح مسلم (2711)"
+    },
+    {
+      "id": 38,
+      "category": "Sleep, Night, and Awakening (خەوتن، شەو و بەخەبەرهاتن)",
+      "title": "Entrusting the Soul Before Sleeping (پاڵکەوتن و سپاردنی ڕۆح بە خودا)",
+      "arabic": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فَإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
+      "easy_tajweed": "Bismika Rabbee wada'tu jambee, wa bika arfa'uh, fa-in amsakta nafsee farhamhaa, wa in arsaltahaa fahfazhaa bimaa tahfazu bihee 'ibaadakas-saaliheen",
+      "kurdish_meaning": "بە ناوی تۆوە پەروەردگارم پاڵم کەوت و تەنیشتم دانا، و هەر بە ناوی تۆوە سەری هەڵدەبڕم. ئەگەر لە خەودا ڕۆحم کێشا بەزەییت پێیدا بێتەوە، و ئەگەر ناردتەوە بۆ ژیان بیپارێزە بەو شێوەیەی بەندە چاکەکانتی پێ دەپارێزیت.",
+      "english_meaning": "In Your name, my Lord, I lay down my side and by You I raise it up. If You take my soul, have mercy upon it, and if You return it, protect it with that which You protect Your righteous servants.",
+      "hadith_source": "صحيح البخاري (6320)، صحيح مسلم (2714)"
+    },
+    {
+      "id": 39,
+      "category": "Sleep, Night, and Awakening (خەوتن، شەو و بەخەبەرهاتن)",
+      "title": "Complete Surrender of the Soul (تەسلیمبوونی تەواو پێش خەو)",
+      "arabic": "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأْتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلَا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ",
+      "easy_tajweed": "Allaahumma aslamtu nafseee ilayk, wa fawwadtu amreee ilayk, wa wajjahtu wajheee ilayk, wa alja'tu zahreee ilayk, raghbatanw-wa rahbatan ilayk, laa malja'a wa laa manjaa minka illaaa ilayk, aamantu bi-kitaabikal-ladheee anzalta wa bi-Nabiyyikal-ladheee arsalt",
+      "kurdish_meaning": "خودایە نەفسم تەسلیمی تۆ کرد، کارەکانم بە تۆ سپارد، ڕووم کردە تۆ، و پشتم بە تۆ بەست، بە ئومێد و بیمەوە بەرەو لای تۆ. هیچ پەناگە و ڕزگارگەیەک نییە لە تۆ مەگەر هەر لای خۆت نەبێت. باوەڕم هێنا بەو کتێبەی کە ناردووتە خوارەوە و بەو پێغەمبەرەی کە ڕەوانەت کردووە.",
+      "english_meaning": "O Allah, I have surrendered my soul to You, entrusted my affairs to You, turned my face to You, and relied completely upon You in hope and fear of You. There is no fleeing and no refuge from You except to You. I believe in Your Book which You revealed, and in Your Prophet whom You sent.",
+      "hadith_source": "صحيح البخاري (247)، صحيح مسلم (2710)"
+    },
+    {
+      "id": 40,
+      "category": "Special Occasions & Decision Making (بڕیاردان و کاتی تایبەت)",
+      "title": "Salat al-Istikharah Supplication (دوعای نوێژی ئیستخارە و داوای خێر)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ، وَتَعْلَمُ وَلَا أَعْلَمُ، وَأَنْتَ عَلَّامُ الْغُيُوبِ، اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ",
+      "easy_tajweed": "Allaahumma innee astakheeruka bi-'ilmik, wa astaqdiruka bi-qudratik, wa as'aluka min fadlikal-'azeem, fa-innaka taqdiru wa laaa aqdir, wa ta'lamu wa laaa a'lam, wa Anta 'Allaamul-ghuyoob. Allaahumma in kunta ta'lamu anna haadhal-amra khayrul-lee fee deenee wa ma'aashee wa 'aaqibati amree faqdurhu lee wa yassirhu lee thumma baarik lee feeh",
+      "kurdish_meaning": "خودایە داوای خێرت لێ دەکەم بە زانستی خۆت، و داوای توانست دەکەم بە دەسەڵاتی خۆت، و داوای فەزڵ و بەخششی گەورەت لێ دەکەم، چونکە تۆ بەتوانایت و من بێدەسەڵاتم، تۆ دەزانیت و من نازانم، و تۆ زانای بە هەموو نهێنییەکان. خودایە ئەگەر دەزانیت ئەم کارە خێرە بۆم لە دینم، ژیانم و دواڕۆژمدا ئەوا بۆم دیاری بکە و بۆم ئاسان بکە و بەرەکەتی تێدا بخە.",
+      "english_meaning": "O Allah, I seek Your counsel through Your knowledge, and I seek strength through Your power, and I ask of Your immense bounty. For You possess power and I do not, and You know and I do not, and You are the Knower of the unseen. O Allah, if You know that this matter is good for me in my religion, my livelihood, and the outcome of my affairs, then decree it for me, ease it for me, and then bless it for me.",
+      "hadith_source": "صحيح البخاري (1166)"
+    },
+    {
+      "id": 41,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Du'a al-Istiftah / Opening Supplication of Prayer (دوعای دەستپێکردنی نوێژ)",
+      "arabic": "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلَا إِلَهَ غَيْرُكَ",
+      "easy_tajweed": "Subhaanakallaahumma wa bihamdika, wa tabaarakas-muka, wa ta'aalaa jadduka, wa laaa ilaaha ghayruk",
+      "kurdish_meaning": "پاکی و بێگەردی و ستایش بۆ تۆیە خودایە، ناوی پیرۆزت پڕ لە بەرەکەتە، گەورەیی و دەسەڵاتت لە هەموو شتێک بەرزترە، و هیچ پەرستراوێک نییە بێجگە لە تۆ.",
+      "english_meaning": "Glory is to You, O Allah, and praise. Blessed is Your Name and Exalted is Your Majesty, and there is no deity worthy of worship besides You.",
+      "hadith_source": "سنن أبي داود (775)، جامع الترمذي (242) - صحيح"
+    },
+    {
+      "id": 42,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Supplication in Ruku' (دوعای کاتی ڕکوع بردن)",
+      "arabic": "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+      "easy_tajweed": "Subhaana Rabbiyal-'Azeem",
+      "kurdish_meaning": "پاکی و بێگەردی بۆ پەروەردگاری مەزن و پایەدارم. (٣ جار یان زیاتر لە ڕکوع دەوترێت).",
+      "english_meaning": "Glory be to my Lord, the Magnificent.",
+      "hadith_source": "صحيح مسلم (772)"
+    },
+    {
+      "id": 43,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Dhikr While Rising from Ruku' (زیکری هەستانەوە لە ڕکوع)",
+      "arabic": "رَبَّنَا وَلَكَ الْحَمْدُ، حَمْدًا كَثِيرًا طَيِّبًا مُبَارَكًا فِيهِ",
+      "easy_tajweed": "Rabbanaa wa lakal-hamd, hamdan katheeran tayyibam-mubaarakan feeh",
+      "kurdish_meaning": "پەروەردگارمان هەموو ستایش بۆ تۆیە، ستایشێکی زۆر و پاک و پڕ لە پیت و بەرەکەت. (زیاتر لە ٣٠ فریشتە پێشبڕکێیان کرد بۆ نووسینی پاداشتەکەی).",
+      "english_meaning": "Our Lord, to You belongs all praise, an abundant, good, and blessed praise.",
+      "hadith_source": "صحيح البخاري (799)"
+    },
+    {
+      "id": 44,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Supplication in Sujood (دوعای ناو کڕنۆش)",
+      "arabic": "سُبْحَانَ رَبِّيَ الْأَعْلَى",
+      "easy_tajweed": "Subhaana Rabbiyal-A'laa",
+      "kurdish_meaning": "پاکی و بێگەردی بۆ پەروەردگاری هەرە بەرز و بڵندم. (٣ جار یان زیاتر لە کڕنۆشدا).",
+      "english_meaning": "Glory be to my Lord, the Most High.",
+      "hadith_source": "صحيح مسلم (772)"
+    },
+    {
+      "id": 45,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Glorification of Angels and the Spirit in Ruku' and Sujood (تەسبیحاتی فریشتەکان و جبرائیل)",
+      "arabic": "سُبُّوحٌ قُدُّوسٌ، رَبُّ الْمَلَائِكَةِ وَالرُّوحِ",
+      "easy_tajweed": "Subboohun Quddoos, Rabbul-malaaa'ikati war-Rooh",
+      "kurdish_meaning": "زۆر پاک و بێگەردە، زۆر پیرۆزە، پەروەردگاری فریشتەکان و جبریلە.",
+      "english_meaning": "All-Glorious, All-Holy, Lord of the angels and the Spirit (Gabriel).",
+      "hadith_source": "صحيح مسلم (487)"
+    },
+    {
+      "id": 46,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Supplication Between the Two Prostrations (دوعای نێوان دوو کڕنۆشەکە)",
+      "arabic": "رَبِّ اغْفِرْ لِي، وَارْحَمْنِي، وَاهْدِنِي، وَاجْبُرْنِي، وَعَافِنِي، وَارْزُقْنِي، وَارْفَعْنِي",
+      "easy_tajweed": "Rabbigh-fir lee, warhamnee, wahdinee, wajburnee, wa 'aafinee, warzuqnee, warfa'nee",
+      "kurdish_meaning": "پەروەردگارم لێم خۆش ببە، ڕەحمم پێ بکە، هیدایەتم بدە، کەموکوڕیم قەرەبوو بکەرەوە، لەشساغم بکە، ڕزقم پێ ببەخشە، و پایەبەرزم بکە.",
+      "english_meaning": "My Lord, forgive me, have mercy on me, guide me, mend my shortcomings, grant me well-being, provide for me, and elevate my rank.",
+      "hadith_source": "سنن أبي داود (850)، جامع الترمذي (284) - صحيح"
+    },
+    {
+      "id": 47,
+      "category": "Prayer Postures & Opening (نوێژ و کڕنۆش و ڕکوع)",
+      "title": "Protection from Four Trials in Final Tashahhud (پەناگرتن لە چوار فیتنەکە لە تەحیاتی کۆتایی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ جَهَنَّمَ، وَمِنْ عَذَابِ الْقَبْرِ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min 'adhaabi Jahannama, wa min 'adhaabil-qabr, wa min fitnatil-mahyaa wal-mamaat, wa min sharri fitnatil-Maseehid-Dajjaal",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە سزای دۆزەخ، لە سزای ناو گۆڕ، لە تاقیکردنەوە و فیتنەی ژیان و مردن، و لە شەڕ و فیتنەی مەسیحی دەججال.",
+      "english_meaning": "O Allah, I seek refuge in You from the torment of Hellfire, from the punishment of the grave, from the trials of life and death, and from the evil trial of the False Messiah (Dajjal).",
+      "hadith_source": "صحيح البخاري (1377)، صحيح مسلم (588)"
+    },
+    {
+      "id": 48,
+      "category": "Repentance & Purity of Soul (تۆبە و پاککردنەوەی دەروون)",
+      "title": "Supplication for Purification of the Soul (دوعای پاککردنەوە و لەخواترسیی نەفس)",
+      "arabic": "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا",
+      "easy_tajweed": "Allaahumma aati nafsee taqwaahaa, wa zakkihaa Anta khayru man zakkaahaa, Anta Waliyyuhaa wa Mawlaahaa",
+      "kurdish_meaning": "خودایە لەخواترسی و پارێزکاری ببەخشە بە دەروونم، و پاکی بکەرەوە چونکە تۆ باشترینی پاککەرەوەکانیتی، تۆ سەرپەرشتیار و خاوەنی ئەویت.",
+      "english_meaning": "O Allah, grant my soul its piety and purify it, for You are the best of those who purify it; You are its Guardian and its Master.",
+      "hadith_source": "صحيح مسلم (2722)"
+    },
+    {
+      "id": 49,
+      "category": "Repentance & Purity of Soul (تۆبە و پاککردنەوەی دەروون)",
+      "title": "Supplication for Expiation of Inadvertent Sins (لێخۆشبوونی گوناهی نەزانی و کەمتەرخەمی)",
+      "arabic": "اللَّهُمَّ اغْفِرْ لِي خَطِيئَتِي وَجَهْلِي، وَإِسْرَافِي فِي أَمْرِي، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّي، اللَّهُمَّ اغْفِرْ لِي جِدِّي وَهَزْلِي، وَخَطَئِي وَعَمْدِي، وَكُلُّ ذَلِكَ عِنْدِي",
+      "easy_tajweed": "Allaahummagh-fir lee khatee'atee wa jahlee, wa israafee feee amree, wa maaa Anta a'lamu bihee minnee. Allaahummagh-fir lee jiddee wa hazlee, wa khata'ee wa 'amdee, wa kullu dhaalika 'indee",
+      "kurdish_meaning": "خودایە لێم خۆش ببە لە هەڵەکانم و نەزانینم، لە زیارەڕۆیی لە کارەکانمدا، و لەوەی کە تۆ زاناتریت لێی لە من. خودایە لێم خۆش ببە لە ڕاستیم و لە گاڵتەم، لە هەڵەی نەزانراوم و ئەوەی بە ئەنقەست کردوومە، و هەموو ئەمانە لە مندا ڕوویانداوە.",
+      "english_meaning": "O Allah, forgive my errors and my ignorance, my excesses in my affairs, and what You know better than I. O Allah, forgive my seriousness and my jest, my unintended mistakes and my deliberate acts, and all of that is within me.",
+      "hadith_source": "صحيح البخاري (6398)، صحيح مسلم (2719)"
+    },
+    {
+      "id": 50,
+      "category": "Repentance & Purity of Soul (تۆبە و پاککردنەوەی دەروون)",
+      "title": "Protection Against Subtle Shirk / Association (پەناگرتن لە هاوبەشبڕیاردانی شاراوە و ڕیا)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika an ushrika bika wa anaaa a'lam, wa astaghfiruka limaa laaa a'lam",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لەوەی هاوبەشت بۆ بڕیار بدەم لە کاتێکدا دەیزانم، و داوای لێخۆشبوونت لێ دەکەم لەوەی کە نایزانم.",
+      "english_meaning": "O Allah, I seek refuge in You from knowingly associating anything with You, and I seek Your forgiveness for that which I do not know.",
+      "hadith_source": "الأدب المفرد للبخاري (716)، مسند أحمد - صحيح"
+    },
+    {
+      "id": 51,
+      "category": "Health, Well-being & Bodily Protection (تەندروستی و لەشساغی)",
+      "title": "Supplication for Sound Health, Modesty, and Good Character (لەشساغی، دەستپاکی و ڕەوشتبەرزی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الصِّحَّةَ، وَالْعِفَّةَ، وَالْأَمَانَةَ، وَحُسْنَ الْخُلُقِ، وَالرِّضَا بِالْقَدَرِ",
+      "easy_tajweed": "Allaahumma innee as'alukas-sihhata, wal-'iffata, wal-amaanata, wa husnal-khuluqi, war-ridaa bil-qadar",
+      "kurdish_meaning": "خودایە داوای لەشساغی، داوێنپاکی، ئەمانەتپارێزی، ڕەوشتجوانی، و ڕازیبوون بە قەدەر و بڕیارەکانت لێ دەکەم.",
+      "english_meaning": "O Allah, I ask You for health, chastity, trustworthiness, good character, and contentment with divine decree.",
+      "hadith_source": "الأدب المفرد للبخاري (307) - حسن"
+    },
+    {
+      "id": 52,
+      "category": "Health, Well-being & Bodily Protection (تەندروستی و لەشساغی)",
+      "title": "Protection from Severe Afflictions and Epidemics (پەناگرتن لە نەخۆشییە سەختەکان)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْبَرَصِ، وَالْجُنُونِ، وَالْجُذَامِ، وَمِنْ سَيِّئِ الْأَسْقَامِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-barasi, wal-junooni, wal-judhaami, wa min sayyi'il-asqaam",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە پەڵەی پێست (بەهەک)، لە شێتی، لە گولی (جوزام)، و لە هەموو نەخۆشییە خراپ و کوشندەکان.",
+      "english_meaning": "O Allah, I seek refuge in You from vitiligo, madness, leprosy, and from all evil diseases.",
+      "hadith_source": "سنن أبي داود (1554)، سنن النسائي (5493) - صحيح"
+    },
+    {
+      "id": 53,
+      "category": "Health, Well-being & Bodily Protection (تەندروستی و لەشساغی)",
+      "title": "Protection Against Sudden Loss of Blessing (پەناگرتن لە نەمانی لەناکاوی نیعمەت)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min zawaali ni'matik, wa tahawwuli 'aafiyatik, wa fujaa'ati niqmatik, wa jamee'i sakhatik",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە نەمانی نیعمەتەکانت، لە گۆڕانی لەشساغیت بۆ نەخۆشی، لە تۆڵە و سزای لەناکاوت، و لە هەموو تووڕەیی و ناڕەزایەتییەکت.",
+      "english_meaning": "O Allah, I seek refuge in You from the withdrawal of Your favor, from the decline of the well-being You granted, from the suddenness of Your vengeance, and from all of Your wrath.",
+      "hadith_source": "صحيح مسلم (2739)"
+    },
+    {
+      "id": 54,
+      "category": "Health, Well-being & Bodily Protection (تەندروستی و لەشساغی)",
+      "title": "Prophetic Ruqyah for Bodily Pain (دوعای دانانی دەست لەسەر شوێنی ئازار)",
+      "arabic": "بِسْمِ اللَّهِ (٣) أَعُوذُ بِاللَّهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا أَجِدُ وَأُحَاذِرُ (٧)",
+      "easy_tajweed": "Bismillaah (3x). A'oodhu billaahi wa qudratihee min sharri maa ajidu wa uhaadhir (7x)",
+      "kurdish_meaning": "بە ناوی خودا (٣ جار). پەنا بە خودا و بە دەسەڵاتی دەگرم لە شەڕ و ئازاری ئەوەی هەستی پێ دەکەم و ترسم لێی هەیە (٧ جار دەستی لەسەر دادەنرێت).",
+      "english_meaning": "In the Name of Allah (3x). I seek refuge in Allah and in His Power from the evil of what I find and of what I fear (7x).",
+      "hadith_source": "صحيح مسلم (2202)"
+    },
+    {
+      "id": 55,
+      "category": "Protection from Trials & Foes (پاراستن لە فیتنە و دوژمن)",
+      "title": "Supplication When Fearing an Oppressive Authority (دوعای کاتی ترسان لە زاڵم و حاکمی ستەمکار)",
+      "arabic": "اللَّهُمَّ إِنَّا نَجْعَلُكَ فِي نُحُورِهِمْ، وَنَعُوذُ بِكَ مِنْ شُرُورِهِمْ",
+      "easy_tajweed": "Allaahumma innaa naj'aluka fee nuhoorihim, wa na'oodhu bika min shuroorihim",
+      "kurdish_meaning": "خودایە تۆ دەکەینە بەرپەرچدەرەوەی سینگیان، و پەنات پێ دەگرین لە هەموو شەڕ و پیلانەکانیان.",
+      "english_meaning": "O Allah, we place You before them (to defend us), and we seek refuge in You from their wickedness.",
+      "hadith_source": "سنن أبي داود (1537) - صحيح"
+    },
+    {
+      "id": 56,
+      "category": "Protection from Trials & Foes (پاراستن لە فیتنە و دوژمن)",
+      "title": "Supplication Against an Enemy Force (دوعای تێکشکاندنی دوژمنان)",
+      "arabic": "اللَّهُمَّ مُنْزِلَ الْكِتَابِ، سَرِيعَ الْحِسَابِ، اهْزِمِ الْأَحْزَابَ، اللَّهُمَّ اهْزِمْهُمْ وَزَلْزِلْهُمْ",
+      "easy_tajweed": "Allaahumma Munzilal-kitaab, Saree'al-hisaab, ihzimil-ahzaab, Allaahummah-zimhum wa zalzilhum",
+      "kurdish_meaning": "خودایە ئەی دابەزێنەری قورئان، ئەی خێرای لە لێپرسینەوەدا! کۆمەڵی دەستە و تاقمە کافرەکان تێکبشکێنە. خودایە تێکیانبشکێنە و پایەکانیان بلەرزێنە.",
+      "english_meaning": "O Allah, Revealer of the Book, Swift in taking account, defeat the allied forces; O Allah, defeat them and shake their foundation.",
+      "hadith_source": "صحيح البخاري (2933)، صحيح مسلم (1742)"
+    },
+    {
+      "id": 57,
+      "category": "Protection from Trials & Foes (پاراستن لە فیتنە و دوژمن)",
+      "title": "Seeking Refuge from the Four Destinies (پەناگرتن لە چوار چارەنووسی سەخت)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَهْدِ الْبَلَاءِ، وَدَرَكِ الشَّقَاءِ، وَسُوءِ الْقَضَاءِ، وَشَمَاتَةِ الْأَعْدَاءِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min jahdil-balaaa', wa darakish-shaqaaa', wa sooo'il-qadaaa', wa shamaatatil-a'daaa'",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە تاقیکردنەوەی زۆر توند، لە گەیشتن بە بەدبەختی، لە بڕیار و قەدەری خراپ، و لە خۆشحاڵبوونی دوژمنان بە ناڕەحەتیم.",
+      "english_meaning": "O Allah, I seek refuge in You from the severe burden of trials, from falling into misery, from an evil decree, and from the malicious joy of enemies.",
+      "hadith_source": "صحيح البخاري (6347)، صحيح مسلم (2707)"
+    },
+    {
+      "id": 58,
+      "category": "Protection from Trials & Foes (پاراستن لە فیتنە و دوژمن)",
+      "title": "Supplication for Shielding Children (دوعای پاراستنی منداڵ لە چاوەزار و شەیتان)",
+      "arabic": "أُعِيذُكُمَا بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ، وَمِنْ كُلِّ عَيْنٍ لَامَّةٍ",
+      "easy_tajweed": "U'eedhukumaa bi-kalimaatillaahit-taammati min kulli shaytaaninw-wa haaammah, wa min kulli 'aynil-laaammah",
+      "kurdish_meaning": "دەسپێرم بە وتە بێگەرد و تەواوەکانی خودا لە شەڕی هەموو شەیتانێک و گیانلەبەرێکی زیانبەخش، و لە شەڕی هەموو چاوێکی پیس و چاوەزارێک.",
+      "english_meaning": "I seek protection for you in the perfect words of Allah from every devil and poisonous creature, and from every evil, envious eye.",
+      "hadith_source": "صحيح البخاري (3371)"
+    },
+    {
+      "id": 59,
+      "category": "Character, Love, and Ethics (ڕەوشت، خۆشەویستی و ئاکار)",
+      "title": "Supplication for Bestowing Good Character (دوعای چاککردنی ڕەوشت و ئاکار)",
+      "arabic": "اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الْأَخْلَاقِ لَا يَهْدِي لِأَحْسَنِهَا إِلَّا أَنْتَ، وَاصْرِفْ عَنِّي سَيِّئَهَا لَا يَصْرِفُ عَنِّي سَيِّئَهَا إِلَّا أَنْتَ",
+      "easy_tajweed": "Allaahummah-dinee li-ahsanal-akhlaaqi laa yahdee li-ahsanihaaa illaaa Ant, wasrif 'annee sayyi'ahaa laa yasrifu 'annee sayyi'ahaaa illaaa Ant",
+      "kurdish_meaning": "خودایە هیدایەتم بدە بۆ جوانترین ڕەوشت چونکە کەس ڕێنموونی ناکات بۆ باشترینی مەگەر تۆ بیت، و ڕەوشتی خراپم لێ دوور بخەرەوە چونکە کەس دووری ناخاتەوە بێجگە لە تۆ.",
+      "english_meaning": "O Allah, guide me to the best of manners; none can guide to the best of them except You. And turn away from me bad manners; none can turn them away from me except You.",
+      "hadith_source": "صحيح مسلم (771)"
+    },
+    {
+      "id": 60,
+      "category": "Character, Love, and Ethics (ڕەوشت، خۆشەویستی و ئاکار)",
+      "title": "Supplication for Attaining Divine Love (داوای خۆشەویستی خودا و خۆشەویستانی خودا)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ، وَحُبَّ مَنْ يُحِبُّكَ، وَحُبَّ عَمَلٍ يُقَرِّبُنِي إِلَى حُبِّكَ",
+      "easy_tajweed": "Allaahumma innee as'aluka hubbak, wa hubba may-yuhibbuk, wa hubba 'amalin-yuqarribuneee ilaa hubbik",
+      "kurdish_meaning": "خودایە داوای خۆشەویستی تۆ دەکەم، و خۆشەویستی هەر کەسێک کە تۆی خۆش دەوێت، و خۆشەویستی ئەو کردەوانەی کە لە خۆشەویستی تۆ نزیکم دەکەنەوە.",
+      "english_meaning": "O Allah, I ask You for Your love, the love of those who love You, and the love of deeds that bring me closer to Your love.",
+      "hadith_source": "جامع الترمذي (3490) - حسن"
+    },
+    {
+      "id": 61,
+      "category": "Character, Love, and Ethics (ڕەوشت، خۆشەویستی و ئاکار)",
+      "title": "Supplication Upon Looking into a Mirror (دوعای سەیرکردنی ئاوێنە و جوانیی ڕەوشت)",
+      "arabic": "اللَّهُمَّ كَمَا حَسَّنْتَ خَلْقِي فَحَسِّنْ خُلُقِي",
+      "easy_tajweed": "Allaahumma kamaa hassanta khalqee fahassin khuluqee",
+      "kurdish_meaning": "خودایە هەروەک چۆن شێوە و ڕووخسارتم جوان دروستکردووە، ڕەوشت و ئاکاریشم جوان بکە.",
+      "english_meaning": "O Allah, just as You have made my physical form beautiful, beautify my character.",
+      "hadith_source": "مسند أحمد (24392)، صحيح ابن حبان - صحيح"
+    },
+    {
+      "id": 62,
+      "category": "Character, Love, and Ethics (ڕەوشت، خۆشەویستی و ئاکار)",
+      "title": "Protection from Reprehensible Morals and Desires (پەناگرتن لە ڕەوشتی خراپ و ئارەزووی گومڕاکەر)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ مُنْكَرَاتِ الْأَخْلَاقِ، وَالْأَعْمَالِ، وَالْأَهْوَاءِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min munkaraatil-akhlaaq, wal-a'maal, wal-ahwaaa'",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە ڕەوشتی ناپەسەند، لە کردەوەی خراپ، و لە ئارەزوو و هەوا و ئارەزووی نەشیاو.",
+      "english_meaning": "O Allah, I seek refuge in You from evil character traits, evil deeds, and evil desires.",
+      "hadith_source": "جامع الترمذي (3591) - صحيح"
+    },
+    {
+      "id": 63,
+      "category": "Natural Phenomena & Weather (دیاردە سروشتییەکان و کەشوهەوا)",
+      "title": "Dua When the Wind Blows Fiercely (دوعای کاتی هەڵکردنی رەشەبا)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَهَا، وَخَيْرَ مَا فِيهَا، وَخَيْرَ مَا أُرْسِلَتْ بِهِ، وَأَعُوذُ بِكَ مِنْ شَرِّهَا، وَشَرِّ مَا فِيهَا، وَشَرِّ مَا أُرْسِلَتْ بِهِ",
+      "easy_tajweed": "Allaahumma innee as'aluka khayrahaa, wa khayra maa feehaa, wa khayra maaa ursilat bih, wa a'oodhu bika min sharrihaa, wa sharri maa feehaa, wa sharri maaa ursilat bih",
+      "kurdish_meaning": "خودایە داوای خێری ئەم بایەت لێ دەکەم، و خێری ئەوەی تێیدایە، و خێری ئەوەی پێی نێردراوە؛ و پەنات پێ دەگرم لە شەڕی، و شەڕی ئەوەی تێیدایە، و شەڕی ئەوەی پێی نێردراوە.",
+      "english_meaning": "O Allah, I ask You for its good, the good that it contains, and the good with which it was sent; and I seek refuge in You from its evil, the evil that it contains, and the evil with which it was sent.",
+      "hadith_source": "صحيح مسلم (899)"
+    },
+    {
+      "id": 64,
+      "category": "Natural Phenomena & Weather (دیاردە سروشتییەکان و کەشوهەوا)",
+      "title": "Dua Upon Hearing Thunder (دوعای کاتی بیستنی هەورەگرمە)",
+      "arabic": "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلَائِكَةُ مِنْ خِيفَتِهِ",
+      "easy_tajweed": "Subhaanal-ladhee yusabbihur-ra'du bi-hamdihee wal-malaaa'ikatu min kheefatih",
+      "kurdish_meaning": "پاکی و بێگەردی بۆ ئەو زاتەی کە هەورەگرمە بە ستایشی ئەو تەسبیحات دەکات و فریشتەکانیش لە ترسی شکۆی ئەو تەسبیحاتی دەکەن.",
+      "english_meaning": "Glory is to Him Whom thunder glorifies with His praise, and likewise the angels in awe of Him.",
+      "hadith_source": "موطأ مالك (1808)، الأدب المفرد (723) - صحيح"
+    },
+    {
+      "id": 65,
+      "category": "Natural Phenomena & Weather (دیاردە سروشتییەکان و کەشوهەوا)",
+      "title": "Dua When Rain Descends (دوعای کاتی بارینی باران)",
+      "arabic": "اللَّهُمَّ صَيِّبًا نَافِعًا",
+      "easy_tajweed": "Allaahumma sayyiban naafi'aa",
+      "kurdish_meaning": "خودایە بیکەیتە بارانێکی زۆر و بەخێر و بەسوود بۆ بەندەکانت.",
+      "english_meaning": "O Allah, make it a beneficial downpour.",
+      "hadith_source": "صحيح البخاري (1032)"
+    },
+    {
+      "id": 66,
+      "category": "Natural Phenomena & Weather (دیاردە سروشتییەکان و کەشوهەوا)",
+      "title": "Dua When Sighting the New Crescent Moon (دوعای بینینی مانگی نوێ)",
+      "arabic": "اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالْإِيمَانِ، وَالسَّلَامَةِ وَالْإِسْلَامِ، رَبِّي وَرَبُّكَ اللَّهُ",
+      "easy_tajweed": "Allaahumma ahillahoo 'alaynaa bil-yumni wal-eemaan, was-salaamati wal-Islaam, Rabbee wa Rabbukallaah",
+      "kurdish_meaning": "خودایە ئەم مانگە نوێیە بکەرەوە بەسەرماندا بە بەرەکەت و ئیمان، بە سەلامەتی و ئیسلام. پەروەردگاری من و پەروەردگاری تۆش (ئەی مانگ) ئەڵڵایە.",
+      "english_meaning": "O Allah, bring this crescent over us with blessing and faith, peace and Islam. My Lord and your Lord is Allah.",
+      "hadith_source": "جامع الترمذي (3451) - حسن"
+    },
+    {
+      "id": 67,
+      "category": "Fasting & Gathering Etiquette (ڕۆژوو و کۆڕ و دانیشتن)",
+      "title": "Supplication Upon Breaking the Fast (دوعای کاتی بەربانگکردنەوە)",
+      "arabic": "ذَهَبَ الظَّمَأُ، وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ",
+      "easy_tajweed": "Dhahabadh-dhama'u, wabtallatil-'urooq, wa thabatal-ajru in shaaa'allaah",
+      "kurdish_meaning": "تینوویەتی شکا، دەمارەکان تەڕ بوونەوە، و پاداشت جێگیر بوو بە ویستی خودا.",
+      "english_meaning": "The thirst has gone, the veins are moistened, and the reward is confirmed, if Allah wills.",
+      "hadith_source": "سنن أبي داود (2357) - حسن"
+    },
+    {
+      "id": 68,
+      "category": "Fasting & Gathering Etiquette (ڕۆژوو و کۆڕ و دانیشتن)",
+      "title": "Dua for One's Host After Eating (دوعا بۆ خاوەن ماڵ دوای نانخواردن لە لایان)",
+      "arabic": "اللَّهُمَّ بَارِكْ لَهُمْ فِيمَا رَزَقْتَهُمْ، وَاغْفِرْ لَهُمْ، وَارْحَمْهُمْ",
+      "easy_tajweed": "Allaahumma baarik lahum feemaa razaqtahum, waghfir lahum, warhamhum",
+      "kurdish_meaning": "خودایە بەرەکەت بخەرە ناو ئەو ڕزقەی پێتان بەخشیوون، و لێیان خۆش ببە، و بەزەییت پێیاندا بێتەوە.",
+      "english_meaning": "O Allah, bless them in what You have provided them, forgive them, and have mercy on them.",
+      "hadith_source": "صحيح مسلم (2042)"
+    },
+    {
+      "id": 69,
+      "category": "Fasting & Gathering Etiquette (ڕۆژوو و کۆڕ و دانیشتن)",
+      "title": "Dua for Someone Who Does You a Favor (دوعا بۆ کەسێک کە چاکەیەکت لەگەڵدا دەکات)",
+      "arabic": "جَزَاكَ اللَّهُ خَيْرًا",
+      "easy_tajweed": "Jazaakallaahu khayraa",
+      "kurdish_meaning": "خودا پاداشتی خێرت بداتەوە. (هەرکەس ئەمە بڵێت ئەوپەڕی سوپاسگوزاریی دەربڕیوە).",
+      "english_meaning": "May Allah reward you with immense goodness.",
+      "hadith_source": "جامع الترمذي (2035) - صحيح"
+    },
+    {
+      "id": 70,
+      "category": "Fasting & Gathering Etiquette (ڕۆژوو و کۆڕ و دانیشتن)",
+      "title": "Supplication for the People of a Gathering (دوعای کۆتایی کۆڕ بۆ لەخواترسی)",
+      "arabic": "اللَّهُمَّ اقْسِمْ لَنَا مِنْ خَشْيَتِكَ مَا يَحُولُ بَيْنَنَا وَبَيْنَ مَعَاصِيكَ، وَمِنْ طَاعَتِكَ مَا تُبَلِّغُنَا بِهِ جَنَّتَكَ، وَمِنَ الْيَقِينِ مَا تُهَوِّنُ بِهِ عَلَيْنَا مُصِيبَاتِ الدُّنْيَا",
+      "easy_tajweed": "Allaahummaq-sim lanaa min khashyatika maa yahoolu baynanaa wa bayna ma'aaseek, wa min taa'atika maa tuballighunaa bihee jannatak, wa minal-yaqeeni maa tuhawwinu bihee 'alaynaa museebaatid-dunyaa",
+      "kurdish_meaning": "خودایە ئەوەندە ترسی خۆت بخەرە دڵمانەوە کە ببێتە بەربەست لە نێوان ئێمە و گوناهەکانتدا، و ئەوەندە گوێڕایەڵیمان پێ ببەخشە کە بمانگەیەنێتە بەهەشتەکەت، و ئەوەندە یەقین و باوەڕمان پێ بدە کە ناڕەحەتییەکانی دنیامان بۆ ئاسان بکات.",
+      "english_meaning": "O Allah, grant us such fear of You as will come between us and disobedience to You, such obedience to You as will lead us to Your Paradise, and such certainty as will make the misfortunes of this world easy for us to bear.",
+      "hadith_source": "جامع الترمذي (3502) - حسن"
+    },
+    {
+      "id": 71,
+      "category": "Family, Home & Entering Market (ماڵ، خێزان و بازاڕ)",
+      "title": "Supplication Upon Entering One's Home (دوعای چوونە ژوورەوە بۆ ناو ماڵ)",
+      "arabic": "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا",
+      "easy_tajweed": "Bismillaahi walajnaa, wa bismillaahi kharajnaa, wa 'alallaahi Rabbinaa tawakkalnaa",
+      "kurdish_meaning": "بە ناوی خواوە هاتینە ژوورەوە، و بە ناوی خواوە دەرچووین، و پشتمان بە خودای پەروەردگارمان بەست.",
+      "english_meaning": "In the Name of Allah we enter, in the Name of Allah we leave, and upon Allah our Lord we rely.",
+      "hadith_source": "سنن أبي داود (5096) - صحيح"
+    },
+    {
+      "id": 72,
+      "category": "Family, Home & Entering Market (ماڵ، خێزان و بازاڕ)",
+      "title": "Supplication for Entering the Market (دوعای چوونە ناو بازاڕ)",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ حَيٌّ لَا يَمُوتُ، بِيَدِهِ الْخَيْرُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      "easy_tajweed": "Laaa ilaaha illallaahu wahdahoo laa shareeka lah, lahul-mulku wa lahul-hamdu yuhyee wa yumeet, wa Huwa Hayyul-laa yamoot, bi-yadihil-khayr, wa Huwa 'alaa kulli shay'in Qadeer",
+      "kurdish_meaning": "هیچ پەرستراوێک نییە بێجگە لە ئەڵڵا بە تەنیا بێ هاوەڵ، دەسەڵات و ستایش بۆ ئەوە، دەمرێنێت و زیندوو دەکاتەوە، و ئەو زیندوویەکە هەرگیز نامرێت، هەموو خێرێک بە دەستی ئەوە، و بەسەر هەموو شتێکدا بەتوانایە. (ملیۆنێک چاکەی بۆ دەنووسرێت و ملیۆنێک گوناهی دەسڕدرێتەوە).",
+      "english_meaning": "There is no deity except Allah alone, without partner. His is the sovereignty, and His is all praise. He gives life and causes death, and He is Ever-Living and does not die. In His hand is all good, and He is over all things competent.",
+      "hadith_source": "جامع الترمذي (3428)، سنن ابن ماجه (2235) - حسن"
+    },
+    {
+      "id": 73,
+      "category": "Family, Home & Entering Market (ماڵ، خێزان و بازاڕ)",
+      "title": "Supplication for Marriage Blessing (دوعای پیرۆزبایی هاوسەرگیری)",
+      "arabic": "بَارَكَ اللَّهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
+      "easy_tajweed": "Baarakallaahu laka, wa baaraka 'alayka, wa jama'a baynakumaa fee khayr",
+      "kurdish_meaning": "خودا بەرەکەتت پێ ببەخشێت، و بەرەکەت بڕژێت بەسەرتاندا، و لە خێر و چاکەدا لەگەڵ یەکتردا کۆتان بکاتەوە.",
+      "english_meaning": "May Allah bless you, and bestow His blessings upon you, and unite you both in goodness.",
+      "hadith_source": "سنن أبي داود (2130)، جامع الترمذي (1091) - صحيح"
+    },
+    {
+      "id": 74,
+      "category": "Family, Home & Entering Market (ماڵ، خێزان و بازاڕ)",
+      "title": "Supplication When Sneezing and Replying (دوعای پژمین و وەڵامدانەوە)",
+      "arabic": "الْحَمْدُ لِلَّهِ -> يَرْحَمُكَ اللَّهُ -> يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ",
+      "easy_tajweed": "Alhamdu lillaah -> Yarhamukallaah -> Yahdeekumullaahu wa yuslihu baalakum",
+      "kurdish_meaning": "پژمەر دەڵێت: 'الْحَمْدُ لِلَّهِ'، بەرامبەر دەڵێت: 'یَرْحَمُکَ اللهُ' (خوا ڕەحمت پێ بکات)، ئەویش دەڵێت: 'یَهْدِیکُمُ اللهُ وَیُصْلِحُ بَالَکُمْ' (خوا هیدایەتتان بدات و دڵ و کارتان چاک بکات).",
+      "english_meaning": "The sneezer says: 'All praise is for Allah.' The listener responds: 'May Allah have mercy on you.' The sneezer replies: 'May Allah guide you and rectify your condition.'",
+      "hadith_source": "صحيح البخاري (6224)"
+    },
+    {
+      "id": 75,
+      "category": "Night Vigil & Seeking Light (شەونوێژ و داوای نوور)",
+      "title": "Supplication for Complete Divine Light (دوعای گشتگیری پێغەمبەر بۆ نوور لە هەموو لایەکەوە)",
+      "arabic": "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي بَصَرِي نُورًا، وَفِي سَمْعِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ يَسَارِي نُورًا، وَفَوْقِي نُورًا، وَتَحْتِي نُورًا، وَأَمَامِي نُورًا، وَخَلْفِي نُورًا، وَاجْعَلْ لِي نُورًا",
+      "easy_tajweed": "Allaahummaj-'al fee qalbee nooraa, wa fee basaree nooraa, wa fee sam'ee nooraa, wa 'an yameenee nooraa, wa 'an yasaaree nooraa, wa fawqee nooraa, wa tahtee nooraa, wa amaamee nooraa, wa khalfee nooraa, waj'al lee nooraa",
+      "kurdish_meaning": "خودایە نوور و ڕووناکی بخەرە ناو دڵم، لە ناو چاوم، لە ناو گوێم، لە دەستەڕاستمەوە، لە دەستەچەپمەوە، لە سەروومەوە، لە ژێرمەوە، لە پێشمەوە، لە پشتمەوە، و خۆم بکە بە خاوەن نوور.",
+      "english_meaning": "O Allah, place light in my heart, light in my sight, light in my hearing, light on my right, light on my left, light above me, light below me, light before me, light behind me, and grant me light.",
+      "hadith_source": "صحيح البخاري (6316)، صحيح مسلم (763)"
+    },
+    {
+      "id": 76,
+      "category": "Night Vigil & Seeking Light (شەونوێژ و داوای نوور)",
+      "title": "Tahajjud Exaltation Supplication (دوعای ستایشی پێغەمبەر لە دەستپێکی شەونوێژدا)",
+      "arabic": "اللَّهُمَّ لَكَ الْحَمْدُ أَنْتَ نُورُ السَّمَاوَاتِ وَالْأَرْضِ وَمَنْ فِيهِنَّ، وَلَكَ الْحَمْدُ أَنْتَ قَيِّمُ السَّمَاوَاتِ وَالْأَرْضِ وَمَنْ فِيهِنَّ، أَنْتَ الْحَقُّ، وَوَعْدُكَ الْحَقُّ، وَقَوْلُكَ الْحَقُّ، وَلِقَاؤُكَ حَقٌّ، وَالْجَنَّةُ حَقٌّ، وَالنَّارُ حَقٌّ",
+      "easy_tajweed": "Allaahumma lakal-hamdu Anta noorus-samaawaati wal-ardi wa man feehinn, wa lakal-hamdu Anta qayyimus-samaawaati wal-ardi wa man feehinn, Antal-Haqq, wa wa'dukal-haqq, wa qawlukal-haqq, wa liqaaa'uka haqq, wal-jannatu haqq, wan-naaru haqq",
+      "kurdish_meaning": "خودایە هەموو ستایش بۆ تۆیە، تۆیت ڕووناکی ئاسمانەکان و زەوی و هەموو ئەوانەی تێیاندایە؛ سوپاس بۆ تۆ، تۆیت ڕاگری ئاسمانەکان و زەوی و ئەوانەی تێیاندایە؛ تۆ حەقیت، بەڵێنت حەقە، وتەت حەقە، دیدارت حەقە، بەهەشت حەقە و ئاگری دۆزەخیش حەقە.",
+      "english_meaning": "O Allah, to You belongs all praise; You are the Light of the heavens and the earth and all that they contain. To You belongs all praise; You are the Sustainer of the heavens and the earth and all that they contain. You are the Truth, Your promise is true, Your speech is true, the meeting with You is true, Paradise is true, and Hellfire is true.",
+      "hadith_source": "صحيح البخاري (1120)، صحيح مسلم (769)"
+    },
+    {
+      "id": 77,
+      "category": "Funeral & Remembrance of the Deceased (جەنازە و سەردانی گۆڕستان)",
+      "title": "Supplication for the Deceased in Funeral Prayer (دوعای نوێژی جەنازە بۆ لێخۆشبوونی مردوو)",
+      "arabic": "اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعَافِهِ وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ، وَوَسِّعْ مُدْخَلَهُ، وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ، وَنَقِّهِ مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الْأَبْيَضَ مِنَ الدَّنَسِ",
+      "easy_tajweed": "Allaahummagh-fir lahoo warhamh, wa 'aafihee wa'fu 'anh, wa akrim nuzulah, wa wassi' mudkhalah, waghsilhu bil-maaa'i wath-thalji wal-barad, wa naqqihee minal-khataayaa kamaa naqqaytath-thawbal-abyada minad-danas",
+      "kurdish_meaning": "خودایە لێی خۆش ببە و ڕەحمی پێ بکە، پارێزراوی بکە و لێی ببورە، جێگەکەی بەڕێز بکە و گۆڕەکەی فراوان بکە، و بە ئاو و بەفر و تەرزە لە گوناهـ پاکی بکەرەوە وەک چۆن پۆشاکی سپی لە چڵک پاک دەکرێتەوە.",
+      "english_meaning": "O Allah, forgive him and have mercy on him, keep him safe and sound and pardon him, honor the place where he settles and expand his entrance, wash him with water, snow, and hail, and cleanse him of sin as a white garment is cleansed of filth.",
+      "hadith_source": "صحيح مسلم (963)"
+    },
+    {
+      "id": 78,
+      "category": "Funeral & Remembrance of the Deceased (جەنازە و سەردانی گۆڕستان)",
+      "title": "Greeting the Inhabitants of the Graveyard (سڵاوی چوونە سەر گۆڕستان)",
+      "arabic": "السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ، وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَاحِقُونَ، نَسْأَلُ اللَّهَ لَنَا وَلَكُمُ الْعَافِيَةَ",
+      "easy_tajweed": "As-salaamu 'alaykum ahlad-diyaari minal-mu'mineena wal-muslimeen, wa innaaa in shaaa'allaahu bikum laahiqoon, nas'alullaaha lanaa wa lakumul-'aafiyah",
+      "kurdish_meaning": "سڵاوی خواتان لێ بێت ئەی دانیشتوانی ئەم شوێنە لە باوەڕداران و موسڵمانان، و بێگومان ئێمەش بە ویستی خوا پێتان دەگەین، داوای لەشساغی و لێخۆشبوون بۆ خۆمان و بۆ ئێوەش لە خوا دەکەین.",
+      "english_meaning": "Peace be upon you, O inhabitants of these abodes from among the believers and Muslims. Verily, if Allah wills, we will join you. We ask Allah for well-being for ourselves and for you.",
+      "hadith_source": "صحيح مسلم (975)"
+    },
+    {
+      "id": 79,
+      "category": "Protection from Disbelief & Hypocrisy (پاراستن لە دووڕوویی و دەرووندزێوی)",
+      "title": "Supplication for Sincerity and Protection Against Hypocrisy (پەناگرتن لە دووڕوویی، شیرک و خراپەکاری)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الشِّقَاقِ، وَالنِّفَاقِ، وَسُوءِ الْأَخْلَاقِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minash-shiqaaqi, wan-nifaaqi, wa sooo'il-akhlaaq",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە دووبەرەکی و ناکۆکی، لە دووڕوویی و نیفاق، و لە ڕەوشت و ئاکاری پیس و ناشرین.",
+      "english_meaning": "O Allah, I seek refuge in You from discord, hypocrisy, and bad character.",
+      "hadith_source": "سنن أبي داود (1546)، سنن النسائي (5468) - صحيح"
+    },
+    {
+      "id": 80,
+      "category": "Salawat Upon the Prophet (درووددان لەسەر پێغەمبەری خوا)",
+      "title": "As-Salat al-Ibrahimiyyah / Complete Prophetic Salawat (دروودی ئیبراهیمی)",
+      "arabic": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
+      "easy_tajweed": "Allaahumma salli 'alaa Muhammadinw-wa 'alaaa aali Muhammad, kamaa sallayta 'alaaa Ibraaheema wa 'alaaa aali Ibraaheem, innaka Hameedum-Majeed. Allaahumma baarik 'alaa Muhammadinw-wa 'alaaa aali Muhammad, kamaa baarakta 'alaaa Ibraaheema wa 'alaaa aali Ibraaheem, innaka Hameedum-Majeed",
+      "kurdish_meaning": "خودایە دروود و ڕەحمەت بڕێژە بەسەر محەمەد و بەسەر بنەماڵەی محەمەددا، هەروەک چۆن دروودت ڕژاند بەسەر ئیبراهیم و بنەماڵەی ئیبراهیمدا، بێگومان تۆ شایستەی ستایش و مەزنییت. خودایە بەرەکەت بڕژە بەسەر محەمەد و بنەماڵەی محەمەددا، هەروەک چۆن بەرەکەتمان بەخشی بە ئیبراهیم و بنەماڵەی ئیبراهیمدا، بێگومان تۆ شایستەی ستایش و مەزنییت.",
+      "english_meaning": "O Allah, send prayers upon Muhammad and upon the family of Muhammad, as You sent prayers upon Abraham and upon the family of Abraham; indeed, You are Praiseworthy and Glorious. O Allah, send blessings upon Muhammad and upon the family of Muhammad, as You sent blessings upon Abraham and upon the family of Abraham; indeed, You are Praiseworthy and Glorious.",
+      "hadith_source": "صحيح البخاري (3370)، صحيح مسلم (406)"
+    },
+    {
+      "id": 81,
+      "category": "Paradise & Protection from Hellfire (داوای بەهەشت و پەناگرتن لە دۆزەخ)",
+      "title": "Asking for Jannah and Refuge from Jahannam (داوای بەهەشت و پەناگرتن لە ئاگر)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ، وَأَعُوذُ بِكَ مِنَ النَّارِ",
+      "easy_tajweed": "Allaahumma innee as'alukal-Jannah, wa a'oodhu bika minan-naar",
+      "kurdish_meaning": "خودایە داوای بەهەشتت لێ دەکەم، و پەنات پێ دەگرم لە ئاگری دۆزەخ. (ئەگەر ٣ جار بگوترێت بەهەشت و دۆزەخ داوا دەکەن خوا بیباتە بەهەشت و لە دۆزەخ بیپارێزێت).",
+      "english_meaning": "O Allah, I ask You for Paradise, and I seek refuge in You from the Fire.",
+      "hadith_source": "سنن أبي داود (792)، جامع الترمذي (2572)، سنن النسائي (5521) - صحيح"
+    },
+    {
+      "id": 82,
+      "category": "Paradise & Protection from Hellfire (داوای بەهەشت و پەناگرتن لە دۆزەخ)",
+      "title": "Asking for Jannah and Whatever Brings Near to It (بەهەشت و هەموو هۆکارەکانی گەیشتن پێی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ",
+      "easy_tajweed": "Allaahumma innee as'alukal-Jannata wa maa qarraba ilayhaa min qawlin aw 'amal, wa a'oodhu bika minan-naari wa maa qarraba ilayhaa min qawlin aw 'amal",
+      "kurdish_meaning": "خودایە داوای بەهەشتت لێ دەکەم و هەر وتە یان کردەوەیەک کە لێی نزیکم دەکاتەوە، و پەنات پێ دەگرم لە ئاگری دۆزەخ و هەر وتە یان کردەوەیەک کە لێی نزیکم دەکاتەوە.",
+      "english_meaning": "O Allah, I ask You for Paradise and every word or deed that brings one closer to it, and I seek refuge in You from the Fire and every word or deed that brings one closer to it.",
+      "hadith_source": "سنن ابن ماجه (3846)، مسند أحمد (25019) - صحيح"
+    },
+    {
+      "id": 83,
+      "category": "Protection of the Senses & Limbs (پاراستنی ئەندامەکانی جەستە)",
+      "title": "Seeking Refuge from the Evils of Hearing, Sight, and Tongue (پەناگرتن لە خراپەی گوێ، چاو، زمان و دڵ)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ سَمْعِي، وَمِنْ شَرِّ بَصَرِي، وَمِنْ شَرِّ لِسَانِي، وَمِنْ شَرِّ قَلْبِي، وَمِنْ شَرِّ مَنِيِّي",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min sharri sam'ee, wa min sharri basaree, wa min sharri lisaanee, wa min sharri qalbee, wa min sharri maniyyee",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە خراپەی بیستنم (گوێم)، لە خراپەی بینینم (چاوم)، لە خراپەی زمانم، لە خراپەی دڵم، و لە خراپەی ئارەزووی شەهوەتم.",
+      "english_meaning": "O Allah, I seek refuge in You from the evil of my hearing, from the evil of my sight, from the evil of my tongue, from the evil of my heart, and from the evil of my desires.",
+      "hadith_source": "سنن أبي داود (1551)، جامع الترمذي (3492)، سنن النسائي (5444) - صحيح"
+    },
+    {
+      "id": 84,
+      "category": "Character, Generosity & Steadfastness (ڕەوشت و دامەزراوی)",
+      "title": "Supplication for Courage and Avoiding Cowardice (پەناگرتن لە ترسنۆکی و ڕەزیلی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ مِنَ الْبُخْلِ، وَأَعُوذُ بِكَ مِنْ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-jubn, wa a'oodhu bika minal-bukhl, wa a'oodhu bika min an uradda ilaaa ardhalil-'umur",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە ترسنۆکی، و پەنات پێ دەگرم لە ڕەزیلی و چاوچنۆکی، و پەنات پێ دەگرم لەوەی بگەمە تەمەنی هەرە پیری و بێ هێزی و لەدەستدانی هۆش.",
+      "english_meaning": "O Allah, I seek refuge in You from cowardice, I seek refuge in You from miserliness, and I seek refuge in You from reaching the most decrepit old age.",
+      "hadith_source": "صحيح البخاري (2822)"
+    },
+    {
+      "id": 85,
+      "category": "Protection from Calamity & Affliction (پاراستن لە بەڵا و نەهامەتی)",
+      "title": "Dua When Seeing an Afflicted Person (دوعای کاتی بینینی کەسێکی تووشبوو بە بەڵا یان نەخۆشی)",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي مِمَّا ابْتَلَاكَ بِهِ، وَفَضَّلَنِي عَلَى كَثِيرٍ مِمَّنْ خَلَقَ تَفْضِيلًا",
+      "easy_tajweed": "Alhamdu lillaahil-ladhee 'aafaanee mimmab-talaaka bih, wa faddalanee 'alaa katheerim-mimman khalaqa tafdeelaa",
+      "kurdish_meaning": "سوپاس بۆ ئەو خوایەی کە پاراستمی لەو بەڵا و نەخۆشییەی تۆی پێ تاقیکردووەتەوە، و فەزڵ و ڕێزی دام بەسەر زۆرێک لە دروستکراوەکانیدا. (هەرکەس بیڵێت ئەو بەڵایەی تووش نابێت).",
+      "english_meaning": "All praise is for Allah Who has spared me from that with which He has tested you, and has favored me over much of what He created with marked preference.",
+      "hadith_source": "جامع الترمذي (3431)، سنن ابن ماجه (3892) - حسن"
+    },
+    {
+      "id": 86,
+      "category": "Seeking Righteousness & Good Deeds (کردەوەی چاک و پێشەنگی)",
+      "title": "Supplication for Doing Good and Abandoning Evil (ئەنجامدانی چاکە و خۆشویستنی هەژاران)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ، وَتَرْكَ الْمُنْكَرَاتِ، وَحُبَّ الْمَسَاكِينِ، وَإِذَا أَرَدْتَ بِعِبَادِكَ فِتْنَةً فَاقْبِضْنِي إِلَيْكَ غَيْرَ مَفْتُونٍ",
+      "easy_tajweed": "Allaahumma innee as'aluka fi'lal-khayraat, wa tarkal-munkaraat, wa hubbal-masaakeen, wa idhaaa aradta bi-'ibaadika fitnatan faqbidneee ilayka ghayra maftoon",
+      "kurdish_meaning": "خودایە داوای ئەنجامدانی کردەوە چاکەکانت لێ دەکەم، و دەستبەرداربوون لە کارە خراپەکان، و خۆشویستنی هەژاران؛ و ئەگەر ویستت فیتنە و تاقیکردنەوە بخەیتە نێو بەندەکانت، بە پاکی و بێ ئەوەی تووشی فیتنەکە بووبم گیانم بکێشە بۆ لای خۆت.",
+      "english_meaning": "O Allah, I ask You for the performance of good deeds, the abandonment of evil deeds, love for the needy, and if You intend a trial for Your servants, take my soul to You without being subjected to the trial.",
+      "hadith_source": "جامع الترمذي (3235)، مسند أحمد (22109) - صحيح"
+    },
+    {
+      "id": 87,
+      "category": "Steadfastness on the Sunnah (دامەزراوی لەسەر سوننەت)",
+      "title": "Dua for Faith and Steadfastness in Every Affair (جێگیربوون لەسەر سەرجەم کارەکان و هیدایەت)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الْأَمْرِ، وَالْعَزِيمَةَ عَلَى الرُّشْدِ، وَأَسْأَلُكَ مُوجِبَاتِ رَحْمَتِكَ، وَعَزَائِمَ مَغْفِرَتِكَ",
+      "easy_tajweed": "Allaahumma innee as'alukath-thabaata fil-amr, wal-'azeemata 'alar-rushd, wa as'aluka moojibaati rahmatik, wa 'azaa'ima maghfiratik",
+      "kurdish_meaning": "خودایە داوای دامەزراوی و چەسپاویت لێ دەکەم لە کارەکانمدا (لەسەر دین)، و ئیرادەی بەهێز لەسەر ڕێگای حەق و هیدایەت، و داوای ئەو هۆکارانەت لێ دەکەم کە ڕەحمەتی تۆ مسۆگەر دەکەن، و ئەو ئیرادەیەی کە لێخۆشبوونت بەدەستدەهێنێت.",
+      "english_meaning": "O Allah, I ask You for steadfastness in all affairs, resolve upon righteousness, and I ask You for the means that draw Your mercy and the deeds that secure Your forgiveness.",
+      "hadith_source": "سنن النسائي (1304)، سنن الترمذي (3407) - صحيح"
+    },
+    {
+      "id": 88,
+      "category": "Pure Heart & Truthful Tongue (دڵی پاک و زمانی ڕاستگۆ)",
+      "title": "Supplication for a Sound Heart and Truthful Tongue (دڵی ساغ و زمانی ڕاستبێژ)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا، وَلِسَانًا صَادِقًا، وَأَسْأَلُكَ مِنْ خَيْرِ مَا تَعْلَمُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا تَعْلَمُ",
+      "easy_tajweed": "Allaahumma innee as'aluka qalban saleemaa, wa lisaanan saadiqaa, wa as'aluka min khayri maa ta'lam, wa a'oodhu bika min sharri maa ta'lam",
+      "kurdish_meaning": "خودایە داوای دڵێکی پاک و سەلیم (لە شیرک و کینە) و زمانێکی ڕاستگۆت لێ دەکەم، و داوای ئەو خێرەت لێ دەکەم کە تۆ دەیزانیت، و پەنات پێ دەگرم لەو شەڕەی کە تۆ دەیزانیت.",
+      "english_meaning": "O Allah, I ask You for a sound and pure heart, a truthful tongue, I ask You of the good that You know, and I seek refuge in You from the evil that You know.",
+      "hadith_source": "سنن النسائي (1304)، مسند أحمد (17114) - صحيح"
+    },
+    {
+      "id": 89,
+      "category": "Anger Management (هێورکردنەوەی تووڕەیی)",
+      "title": "Supplication When Overcome by Anger (دوعای کاتی تووڕەبوون)",
+      "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ",
+      "easy_tajweed": "A'oodhu billaahi minash-Shaytaanir-Rajeem",
+      "kurdish_meaning": "پەنا بە خودا دەگرم لە شەیتانی نەفرەتلێکراو و دەرکراو لە ڕەحمەت. (پێغەمبەر د.خ فەرمووی: ئەگەر کەسێکی تووڕە بیڵێت ئەوەی هەیەتی لێی لادەچێت).",
+      "english_meaning": "I seek refuge in Allah from Satan the outcast.",
+      "hadith_source": "صحيح البخاري (6115)، صحيح مسلم (2610)"
+    },
+    {
+      "id": 90,
+      "category": "High Exaltation & Short Adhkar (زیکرە بەپێزە کورتەکان)",
+      "title": "Comprehensive Glorification (ستایشی پڕکردنەوەی ئاسمان و زەوی)",
+      "arabic": "سُبْحَانَ اللَّهِ مِلْءَ الْمِيزَانِ، وَمُنْتَهَى الْعِلْمِ، وَمَبْلَغَ الرِّضَا، وَزِنَةَ الْعَرْشِ",
+      "easy_tajweed": "Subhaanallaahi mil'al-meezaan, wa muntahal-'ilm, wa mablaghar-ridaa, wa zinatal-'arsh",
+      "kurdish_meaning": "پاکی و بێگەردی بۆ خودا بە ئەندازەی پڕیی تەرازوو، بە ئەوپەڕی زانست، بە تەواوی ڕەزامەندیی زاتی پیرۆزی، و بە کێشی عەرشە مەزنەکەی.",
+      "english_meaning": "Glory be to Allah to the full extent of the Scale, to the limit of knowledge, to the utmost reach of pleasure, and to the weight of the Throne.",
+      "hadith_source": "مسند أحمد (22894) - حسن"
+    },
+    {
+      "id": 91,
+      "category": "Protection from Bad Neighbors & Company (پاراستن لە دراوسێی خراپ)",
+      "title": "Seeking Refuge from a Wicked Permanent Neighbor (پەناگرتن لە دراوسێی خراپی نیشتەجێ)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَارِ السُّوءِ فِي دَارِ الْمُقَامَةِ؛ فَإِنَّ جَارَ الْبَادِيَةِ يَتَحَوَّلُ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika min jaaris-sooo'i fee daaril-muqaamah; fa-inna jaaral-baadiyati yatahawwal",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە دراوسێی خراپ لە شوێنی نیشتەجێبوونی هەمیشەییمدا، چونکە دراوسێی کاتی و سەفەر جێگۆڕکێ دەکات و دەڕوات.",
+      "english_meaning": "O Allah, I seek refuge in You from a bad neighbor in a permanent residence, for the nomad neighbor moves on.",
+      "hadith_source": "سنن النسائي (5502)، الأدب المفرد (117) - حسن صحيح"
+    },
+    {
+      "id": 92,
+      "category": "Protection Against Ingratitude (پاراستن لە بێشوکرانەیی)",
+      "title": "Supplication to Be a Constantly Grateful and Patient Servant (بەندەیەکی زۆر سوپاسگوزار و ئارامگر)",
+      "arabic": "اللَّهُمَّ اجْعَلْنِي شَكُورًا، وَاجْعَلْنِي صَبُورًا، وَاجْعَلْنِي فِي عَيْنِي صَغِيرًا، وَفِي أَعْيُنِ النَّاسِ كَبِيرًا",
+      "easy_tajweed": "Allaahummaj-'alnee shakooraa, waj-'alnee sabooraa, waj-'alnee feee 'aynee sagheeraa, wa feee a'yunin-naasi kabeeraa",
+      "kurdish_meaning": "خودایە بمکە بە بەندەیەکی زۆر شوکرگوزار، و بمکە بە بەندەیەکی زۆر ئارامگر، و لە چاوی نەفسی خۆمدا بە بچووک و بێفیزم دابنێ، و لە چاوی خەڵکیدا بە گەورە و بەڕێزم بکە.",
+      "english_meaning": "O Allah, make me deeply grateful, make me abundantly patient, make me humble in my own eyes, and honorable in the eyes of people.",
+      "hadith_source": "مجمع الزوائد للهيثمي (10/181)، البزار - حسن"
+    },
+    {
+      "id": 93,
+      "category": "Relief from Poverty & Debt (دەربازبوون لە هەژاری و دەستکورتی)",
+      "title": "Supplication Against Disbelief and Deprivation (پەناگرتن لە بێباوەڕی و هەژاری)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْفَقْرِ، وَالْقِلَّةِ، وَالذِّلَّةِ، وَأَعُوذُ بِكَ مِنْ أَنْ أَظْلِمَ أَوْ أُظْلَمَ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-faqr, wal-qillah, wadh-dhillah, wa a'oodhu bika min an azlima aw uzlam",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە هەژاری، لە کەمیی پێداویستی و سامان، و لە سەرشۆڕی و خوارژێری؛ و پەنات پێ دەگرم لەوەی ستەم لە کەس بکەم یان ستەمم لێ بکرێت.",
+      "english_meaning": "O Allah, I seek refuge in You from poverty, scarcity, and humiliation, and I seek refuge in You from wronging others or being wronged.",
+      "hadith_source": "سنن أبي داود (1544)، سنن النسائي (5460) - صحيح"
+    },
+    {
+      "id": 94,
+      "category": "Contentment & Blessed Sustenance (ڕازیبوون و بەرەکەتی ڕزق)",
+      "title": "Supplication for Contentment with Sustenance (ڕازیبوون بەوەی پێدراوە و بەرەکەت)",
+      "arabic": "اللَّهُمَّ قَنِّعْنِي بِمَا رَزَقْتَنِي، وَبَارِكْ لِي فِيهِ، وَاخْلُفْ عَلَى كُلِّ غَائِبَةٍ لِي بِخَيْرٍ",
+      "easy_tajweed": "Allaahumma qanni'nee bimaa razaqtanee, wa baarik lee feeh, wakhluf 'alaa kulli ghaa'ibatil-lee bi-khayr",
+      "kurdish_meaning": "خودایە دڵم پڕ بکە لە قەناعەت بەو ڕزقەی پێتم بەخشیوە، و بەرەکەتم بۆ تێدا بخە، و هەر شتێکم لەدەست چوو بە خێرتر بۆم قەرەبوو بکەرەوە.",
+      "english_meaning": "O Allah, make me content with what You have provided me, bless it for me, and replace anything I lose with what is better for me.",
+      "hadith_source": "المستدرك للحاكم (1/510)، الأدب المفرد (681) - صحيح"
+    },
+    {
+      "id": 95,
+      "category": "Remembrance in Difficult Decisions (داوای هیدایەت لە کاتی دوودڵیدا)",
+      "title": "Dua for Inspiration to Sound Judgment (ئیلهامی چاکە و پاراستن لە شەڕی نەفس)",
+      "arabic": "اللَّهُمَّ أَلْهِمْنِي رُشْدِي، وَأَعِذْنِي مِنْ شَرِّ نَفْسِي",
+      "easy_tajweed": "Allaahumma alhimnee rushdee, wa a'idhnee min sharri nafsee",
+      "kurdish_meaning": "خودایە ڕێگای حەق و دروستم بخەرە دڵ (ئیلهامم پێ ببەخشە)، و بمپارێزە لە شەڕ و خراپەی نەفسی خۆم.",
+      "english_meaning": "O Allah, inspire me with sound guidance, and protect me from the evil of my own self.",
+      "hadith_source": "جامع الترمذي (3483)، مسند أحمد - صحيح"
+    },
+    {
+      "id": 96,
+      "category": "Fear of Treachery & Breach of Trust (پاراستن لە خیانەت)",
+      "title": "Seeking Refuge from Hunger and Treachery (پەناگرتن لە برسییەتی و ناپاکی)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُوعِ، فَإِنَّهُ بِئْسَ الضَّجِيعُ، وَأَعُوذُ بِكَ مِنَ الْخِيَانَةِ، فَإِنَّهَا بِئْسَتِ الْبِطَانَةُ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minal-joo', fa-innahoo bi'sad-dajee', wa a'oodhu bika minal-khiyaanah, fa-innahaa bi'satil-bitaanall",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە برسییەتی چونکە بەڕاستی خراپترین هاونشینە، و پەنات پێ دەگرم لە خیانەت و ناپاکی چونکە بەڕاستی خراپترین خوو و خەسڵەتە.",
+      "english_meaning": "O Allah, I seek refuge in You from hunger, for it is an evil companion, and I seek refuge in You from treachery, for it is an evil inward trait.",
+      "hadith_source": "سنن أبي داود (1547)، سنن النسائي (5468) - حسن صحيح"
+    },
+    {
+      "id": 97,
+      "category": "Visiting Graves & Remembering Eternity (سەردانی گۆڕ و قیامەت)",
+      "title": "Short Greeting for the Graveyard (سڵاوی کورت لە ئەهلی گۆڕستان)",
+      "arabic": "السَّلَامُ عَلَيْكُمْ دَارَ قَوْمٍ مُؤْمِنِينَ، وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَاحِقُونَ",
+      "easy_tajweed": "As-salaamu 'alaykum daara qawmim-mu'mineen, wa innaaa in shaaa'allaahu bikum laahiqoon",
+      "kurdish_meaning": "سڵاوی خواتان لێ بێت ئەی ماڵی گەلی ئیمانداران، و بێگومان ئێمەش بە ویستی خودا پێتان دەگەینەوە.",
+      "english_meaning": "Peace be upon you, O abode of believing people, and indeed we, if Allah wills, shall join you.",
+      "hadith_source": "صحيح مسلم (249)"
+    },
+    {
+      "id": 98,
+      "category": "Dhikr While Dressing (پۆشینی جلوبەرگ)",
+      "title": "Supplication Upon Putting on a New Garment (دوعای پۆشینی جلوبەرگی نوێ)",
+      "arabic": "الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا الثَّوْبَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+      "easy_tajweed": "Alhamdu lillaahil-ladhee kasaanee haadhath-thawba wa razaqaneehi min ghayri hawlim-minnee wa laa quwwah",
+      "kurdish_meaning": "سوپاس بۆ ئەو خوایەی ئەم پۆشاکەی پێ بەخشیم و کردی بە ڕزقم بە بێ هیچ هێز و توانایەکی خۆم. (گوناهەکانی ڕابردووی دەسڕدرێتەوە).",
+      "english_meaning": "All praise is due to Allah Who clothed me with this garment and provided it for me without any power or strength on my part.",
+      "hadith_source": "سنن أبي داود (4023)، جامع الترمذي (3458) - حسن"
+    },
+    {
+      "id": 99,
+      "category": "Entering Cities or New Places (چوونە ناو شار و شوێنی نوێ)",
+      "title": "Supplication Upon Entering a Town or Territory (دوعای چوونە ناو شار یان گوندێکی نوێ)",
+      "arabic": "اللَّهُمَّ رَبَّ السَّمَاوَاتِ السَّبْعِ وَمَا أَظْلَلْنَ، وَرَبَّ الْأَرَضِينَ السَّبْعِ وَمَا أَقْلَلْنَ، أَسْأَلُكَ خَيْرَ هَذِهِ الْقَرْيَةِ وَخَيْرَ أَهْلِهَا، وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ أَهْلِهَا",
+      "easy_tajweed": "Allaahumma Rabbas-samaawaatis-sab'i wa maaa azlaln, wa Rabbal-aradeenas-sab'i wa maaa aqlaln, as'aluka khayra haadhihil-qaryati wa khayra ahlihaa, wa a'oodhu bika min sharrihaa wa sharri ahlihaa",
+      "kurdish_meaning": "خودایە، ئەی پەروەردگاری حەوت ئاسمانەکە و ئەوەی سێبەریان بەسەردا کردووە، و پەروەردگاری حەوت زەوییەکە و ئەوەی هەڵیانگرتووە؛ داوای خێری ئەم شارۆچکەیە و خێری دانیشتووانەکەیت لێ دەکەم، و پەنات پێ دەگرم لە شەڕی و لە شەڕی دانیشتووانەکەی.",
+      "english_meaning": "O Allah, Lord of the seven heavens and all they overshadow, Lord of the seven earths and all they carry; I ask You for the good of this town and the good of its people, and I seek refuge in You from its evil and the evil of its people.",
+      "hadith_source": "المستدرك للحاكم (2/100)، سنن النسائي الكبرى - حسن"
+    },
+    {
+      "id": 100,
+      "category": "Interpersonal Gratitude & Dua (دوعای چاکە لە نێوان باوەڕداران)",
+      "title": "Supplication for Someone Who Offers You Wealth (دوعا بۆ کەسێک کە دارایی پێشکەش دەکات)",
+      "arabic": "بَارَكَ اللَّهُ لَكَ فِي أَهْلِكَ وَمَالِكَ، إِنَّمَا جَزَاءُ السَّلَفِ الْحَمْدُ وَالْأَدَاءُ",
+      "easy_tajweed": "Baarakallaahu laka fee ahlika wa maalik, innamaa jazaaa'us-salafil-hamdu wal-adaaa'",
+      "kurdish_meaning": "خودا بەرەکەت بخاتە نێو خێزان و سامانەکەتەوە، بەڕاستی پاداشتی قەرز تەنها ستایش و دانەوەی تەواویەتی.",
+      "english_meaning": "May Allah bless you in your family and your wealth; the only reward for a loan is praise and repayment.",
+      "hadith_source": "سنن النسائي (4683)، سنن ابن ماجه (2424) - حسن"
+    },
+    {
+      "id": 101,
+      "category": "Protection in Open Nature & Lodging (دوعای دابەزین لە شوێنێک لە سەفەردا)",
+      "title": "Dua When Stopping at a House or Camp (دوعای حەوانەوە و مانەوە لە هەر شوێنێک)",
+      "arabic": "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",
+      "easy_tajweed": "A'oodhu bi-kalimaatillaahit-taammaati min sharri maa khalaq",
+      "kurdish_meaning": "پەنا دەگرم بە وتە تەواوەکانی خودا لە شەڕی هەر شتێک کە دروستی کردووە. (هیچ شتێک زیانی پێ ناگەیەنێت تا ئەو کاتەی لەو شوێنە دەڕوات).",
+      "english_meaning": "I seek refuge in the perfect words of Allah from the evil of what He has created.",
+      "hadith_source": "صحيح مسلم (2708)"
+    },
+    {
+      "id": 102,
+      "category": "Sacrifice & Slaughtering (سەربڕینی ئاژەڵ بە شەرعی)",
+      "title": "Dua When Slaughtering an Animal (دوعای کاتی سەربڕین)",
+      "arabic": "بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ، اللَّهُمَّ هَذَا مِنْكَ وَلَكَ، اللَّهُمَّ تَقَبَّلْ مِنِّي",
+      "easy_tajweed": "Bismillaahi wallaahu Akbar, Allaahumma haadhaa minka wa lak, Allaahumma taqabbal minnee",
+      "kurdish_meaning": "بە ناوی خودا، و خودا لە هەموو شتێک گەورەترە. خودایە ئەمە لە ڕزقی تۆوەیە و بۆ تۆشە، خودایە لێمی قبووڵ بفەرموو.",
+      "english_meaning": "In the Name of Allah, and Allah is the Greatest. O Allah, this is from You and for You. O Allah, accept it from me.",
+      "hadith_source": "صحيح مسلم (1967)، سنن أبي داود (2795)"
+    },
+    {
+      "id": 103,
+      "category": "Protection from Devil's Plotting in Prayer (وەسوەسەی شەیتان لە نوێژدا)",
+      "title": "Dua Against Whispering (Khinzab) During Salah (دوعای دەربازبوون لە وەسوەسەی نوێژ)",
+      "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ (وتَفْلٌ عَنْ يَسَارِهِ ثَلَاثًا)",
+      "easy_tajweed": "A'oodhu billaahi minash-Shaytaanir-Rajeem (wa taflun 'an yasaarihee thalaathaa)",
+      "kurdish_meaning": "پەنا دەگرم بە خودا لە شەیتانی نەفرەتلێکراو (و ٣ جار فوو دەکاتە لای چەپی بە بێ تف).",
+      "english_meaning": "I seek refuge in Allah from Satan the outcast (and spit dryly to the left three times).",
+      "hadith_source": "صحيح مسلم (2203)"
+    },
+    {
+      "id": 104,
+      "category": "Worry Over Injustice & Coercion (ترس لە زاڵم لە کاتی پێویست)",
+      "title": "Supplication for Overcoming Grievous Intimidation (خودا بەسە بۆ ڕزگاری لە ترسی ستەمکار)",
+      "arabic": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+      "easy_tajweed": "Hasbunallaahu wa ni'mal-Wakeel",
+      "kurdish_meaning": "خودامان بەسە و ئەو چاکترین سەرپەرشتیار و پشتیوانە. (ئیبراهیم لە ناو ئاگر و پێغەمبەر محەمەد لە کاتی کۆبوونەوەی دوژمنان فەرموویان).",
+      "english_meaning": "Allah is sufficient for us, and He is the best Disposer of affairs.",
+      "hadith_source": "صحيح البخاري (4563)"
+    },
+    {
+      "id": 105,
+      "category": "Seeking Refuge at the End of Life (پەناگرتن لە کۆتاییەکی ناپەسەند)",
+      "title": "Seeking Refuge from Tragic Deaths (پەناگرتن لە خنکان، سووتان، داڕمان و دەستبەسەرداگرتنی شەیتان)",
+      "arabic": "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ التَّرَدِّي، وَالْهَدْمِ، وَالْغَرَقِ، وَالْحَرِيقِ، وَأَعُوذُ بِكَ أَنْ يَتَخَبَّطَنِيَ الشَّيْطَانُ عِنْدَ الْمَوْتِ",
+      "easy_tajweed": "Allaahumma innee a'oodhu bika minat-taraddee, wal-hadm, wal-gharaq, wal-hareeq, wa a'oodhu bika ay-yatakhabbataniyash-Shaytaanu 'indal-mawt",
+      "kurdish_meaning": "خودایە پەنات پێ دەگرم لە کەوتنەخوارەوە لە بەرزایی، لە داڕمانی دیوار و خانوو بەسەرمدا، لە خنکان لە ئاودا، و لە سووتان بە ئاگر؛ و پەنات پێ دەگرم لەوەی شەیتان لە کاتی سەرەمەرگدا فریوم بدات و دەستم بەسەردا بگرێت.",
+      "english_meaning": "O Allah, I seek refuge in You from falling from a height, from being crushed under rubble, from drowning, from burning, and I seek refuge in You from Satan taking possession of me at the time of death.",
+      "hadith_source": "سنن أبي داود (1552)، سنن النسائي (5531) - صحيح"
+    },
+    {
+      "id": 106,
+      "category": "Expiation of Major Gatherings (تەسبیحات و کەفارەتی ئیمانداران)",
+      "title": "Praise of Repentance and Long Life (دوعای ستایش و داوای لێخۆشبوونی پێغەمبەر پێش وەفات)",
+      "arabic": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+      "easy_tajweed": "Subhaanallaahi wa bihamdih, astaghfirullaaha wa atoobu ilayh",
+      "kurdish_meaning": "پاکی و ستایش بۆ خودا، داوای لێخۆشبوون لە خودا دەکەم و دەگەڕێمەوە بۆ لای بە تۆبەکردن.",
+      "english_meaning": "Glory be to Allah and His is the praise; I seek the forgiveness of Allah and repent to Him.",
+      "hadith_source": "صحيح مسلم (484)"
+    },
+    {
+      "id": 107,
+      "category": "Visiting the Sick (نووشتە و دوعای پێغەمبەر بۆ ئازارلابردن)",
+      "title": "Supplication for Removing Pain from the Afflicted (دوعای دەستخشاندن بەسەر نەخۆشدا)",
+      "arabic": "أَذْهِبِ الْبَاسَ رَبَّ النَّاسِ، اشْفِ وَأَنْتَ الشَّافِي، لَا شِفَاءَ إِلَّا شِفَاؤُكَ، شِفَاءً لَا يُغَادِرُ سَقَمًا",
+      "easy_tajweed": "Adh-hibil-ba'sa Rabban-naas, ishfi wa Antash-Shaafee, laa shifaaa'a illaa shifaaa'uk, shifaaa'al-laa yughaadiru saqamaa",
+      "kurdish_meaning": "ئەی پەروەردگاری هەموو خەڵکی ئەم ئازار و ناڕەحەتییە لابەرە! شیفا ببەخشە چونکە تەنها هەر تۆیت شیفابەخش، هیچ شیفایەک نییە بێجگە لە شیفای تۆ نەبێت، شیفایەک کە هیچ نەخۆشی و دەردێک بەجێناهێڵێت.",
+      "english_meaning": "Remove the affliction, O Lord of mankind, and bring healing, for You are the Healer. There is no healing except Your healing—a healing that leaves behind no disease.",
+      "hadith_source": "صحيح البخاري (5743)، صحيح مسلم (2191)"
+    },
+    {
+      "id": 108,
+      "category": "Dua for Parents & Families (دوعای فەرموودە بۆ دایک و باوک و خێزان)",
+      "title": "Intercession for the Elevation of Rank in Jannah (بەرزکردنەوەی پلەی دایک و باوک لە بەهەشت بە هۆی ئیستیغفار)",
+      "arabic": "اللَّهُمَّ اغْفِرْ لِأَبِي وَأُمِّي، وَارْفَعْ دَرَجَتَهُمَا فِي الْمَهْدِيِّينَ",
+      "easy_tajweed": "Allaahummagh-fir li-abee wa ummee, warfa' darajatahumaa fil-mahdiyyeen",
+      "kurdish_meaning": "خودایە لە دایک و باوکم خۆش ببە، و پلە و پایەیان بەرز بکەرەوە لە نێو ڕێنموونیکراوان لە بەهەشتدا.",
+      "english_meaning": "O Allah, forgive my father and mother, and elevate their rank among the rightly guided.",
+      "hadith_source": "مستنبط من صحيح مسلم (920)، مسند أحمد (10610) - صحيح"
+    },
+    {
+      "id": 109,
+      "category": "Comprehensive Supplication for Contentment (دوعای ڕازیبوون بە بڕیاری خوا)",
+      "title": "Supplication for Contentment with Destiny and Joy of the Eyes (ڕازیبوون بە قەزا و خۆشیی بینینی ڕووی خودا)",
+      "arabic": "اللَّهُمَّ إِنِّي أَسْأَلُكَ الرِّضَا بَعْدَ الْقَضَاءِ، وَبَرْدَ الْعَيْشِ بَعْدَ الْمَوْتِ، وَلَذَّةَ النَّظَرِ إِلَى وَجْهِكَ، وَالشَّوْقَ إِلَى لِقَائِكَ",
+      "easy_tajweed": "Allaahumma innee as'alukar-ridaa ba'dal-qadaaa', wa bardal-'ayshi ba'dal-mawt, wa ladhdhatan-nazari ilaa wajhik, wash-shawqa ilaa liqaaa'ik",
+      "kurdish_meaning": "خودایە داوای ڕازیبوونم لێ دەکەم دوای دەرچوونی بڕیارەکانت (قەزاکەت)، و ژیانێکی ئاسوودە و فێنک دوای مردن، و چێژی سەیرکردنی ڕوخساری پیرۆزت، و شەوق و پەرۆشی بۆ گەیشتن بە دیدارت لە بەهەشتدا.",
+      "english_meaning": "O Allah, I ask You for contentment after the decree, for the coolness of life after death, for the delight of gazing upon Your noble Face, and for the longing to meet You.",
+      "hadith_source": "سنن النسائي (1305)، مسند أحمد (18325) - صحيح"
+    },
+    {
+      "id": 110,
+      "category": "Final Witness & Seal of Faith (کۆتا کلیمەی تەوحید لەسەر سەرەمەرگ)",
+      "title": "The Key of Paradise at Death (کلیل و دروشمی بەهەشت لە کاتی وەفاتدا)",
+      "arabic": "لَا إِلَهَ إِلَّا اللَّهُ",
+      "easy_tajweed": "Laaa ilaaha illallaah",
+      "kurdish_meaning": "هیچ پەرستراوێک نییە شایستەی پەرستن بێت بێجگە لە ئەڵڵا بە تەنیا. (پێغەمبەر د.خ فەرمووی: هەرکەس کۆتا قسەی دنیای ئەم وتەیە بێت دەچێتە بەهەشت).",
+      "english_meaning": "There is no true deity worthy of worship except Allah alone.",
+      "hadith_source": "سنن أبي داود (3116)، مسند أحمد (22034) - صحيح"
+    }
+  ]
+}
