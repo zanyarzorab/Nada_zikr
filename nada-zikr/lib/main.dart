@@ -23,6 +23,9 @@ Future<void> _initializeApp() async {
   await Hive.initFlutter();
   await StorageService.initialize();
 
+  // Reset tasbih session counters on fresh cold app launch
+  await StorageService.resetTasbihSessionCounts();
+
   // Pre-warm verified prayer timetable dataset and location cache in memory
   await PrayerRepository.preload();
   await LocationService.getCurrentLocation(forceGps: false);

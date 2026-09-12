@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:hive/hive.dart';
 import 'package:flutter/foundation.dart';
 import '../models/azkar_model.dart';
@@ -11,6 +12,8 @@ class StorageService {
   static const String statsBox = 'statistics';
   static const String favoriteMoodCardsKey = 'favoriteMoodCards';
   static final ValueNotifier<int> dailyPathChanges = ValueNotifier<int>(0);
+  static final ValueNotifier<int> favoriteMoodCardsRevision =
+      ValueNotifier<int>(0);
 
   static Future<void> initialize() async {
     await Hive.openBox(settingsBox);
@@ -80,6 +83,33 @@ class StorageService {
   static Future<dynamic> readSetting(String key, {dynamic defaultValue}) async {
     final box = Hive.box(settingsBox);
     return box.get(key, defaultValue: defaultValue);
+  }
+
+  /// Resets tasbih session tap counters to 0 on cold app startup,
+  /// preserving user target configurations and dhikr selections.
+  static Future<void> resetTasbihSessionCounts() async {
+    try {
+      final dynamic raw = await readSetting('tasbih_progress');
+      dynamic parsed = raw;
+      if (raw is String) {
+        try {
+          parsed = jsonDecode(raw);
+        } catch (_) {}
+      }
+      if (parsed is Map) {
+        final Map<String, dynamic> resetMap = {};
+        for (final entry in parsed.entries) {
+          if (entry.value is Map) {
+            final val = Map<String, dynamic>.from(entry.value as Map);
+            val['count'] = 0;
+            resetMap[entry.key.toString()] = val;
+          }
+        }
+        await saveSetting('tasbih_progress', jsonEncode(resetMap));
+      }
+    } catch (e) {
+      debugPrint('Error resetting tasbih session counts: $e');
+    }
   }
 
   static bool isHapticEnabled() {
@@ -830,15 +860,32 @@ class StorageService {
     final raw =
         box.get(favoriteMoodCardsKey, defaultValue: <Map<String, dynamic>>[]);
     if (raw is List) {
-      return raw.map((item) => Map<String, dynamic>.from(item as Map)).toList();
+      final list =
+          raw.map((item) => Map<String, dynamic>.from(item as Map)).toList();
+      return deduplicateCards(list);
     }
     return <Map<String, dynamic>>[];
+  }
+
+  static List<Map<String, dynamic>> deduplicateCards(
+      List<Map<String, dynamic>> cards) {
+    final seen = <String>{};
+    final unique = <Map<String, dynamic>>[];
+    for (final card in cards) {
+      final id = getCardId(card);
+      if (seen.add(id)) {
+        unique.add(card);
+      }
+    }
+    return unique;
   }
 
   static Future<void> saveFavoriteMoodCards(
       List<Map<String, dynamic>> cards) async {
     final box = Hive.box(settingsBox);
-    await _safeBoxPut(box, favoriteMoodCardsKey, cards);
+    final clean = deduplicateCards(cards);
+    await _safeBoxPut(box, favoriteMoodCardsKey, clean);
+    favoriteMoodCardsRevision.value++;
   }
 
   static String getCardId(Map<String, dynamic> card) {
@@ -846,6 +893,20 @@ class StorageService {
       return card['id'].toString();
     }
     final moodId = card['moodId'] ?? '';
+    final verses = card['verses'] as List?;
+    if (card['cardType'] == 'ayah' || (verses != null && verses.length == 1)) {
+      if (verses != null && verses.isNotEmpty) {
+        final v = verses.first;
+        final s = v['surah'];
+        final a = v['ayah'];
+        if (s != null && a != null) {
+          return 'ayah_${moodId}_${s}_$a';
+        }
+      }
+    }
+    if (card['cardType'] == 'topic' || (verses != null && verses.isEmpty)) {
+      return 'topic_$moodId';
+    }
     final title = card['title'] ?? card['arabicText'] ?? '';
     final type = card['cardType'] ?? 'card';
     return '${type}_${moodId}_$title';
@@ -853,7 +914,13 @@ class StorageService {
 
   static Future<bool> isFavoriteMoodCard(QuranMoodSuggestion suggestion) async {
     final cards = await readFavoriteMoodCards();
-    return cards.any((card) => card['moodId'] == suggestion.moodId);
+    final targetId = 'topic_${suggestion.moodId}';
+    return cards.any((card) =>
+        card['id'] == targetId ||
+        (card['cardType'] == 'topic' && card['moodId'] == suggestion.moodId) ||
+        (card['moodId'] == suggestion.moodId &&
+            card['cardType'] != 'ayah' &&
+            card['id']?.toString().startsWith('ayah_') != true));
   }
 
   static Future<bool> isGenericCardSaved(Map<String, dynamic> cardData) async {
@@ -865,15 +932,17 @@ class StorageService {
   static Future<bool> toggleGenericCard(Map<String, dynamic> cardData) async {
     final cards = await readFavoriteMoodCards();
     final targetId = getCardId(cardData);
-    final index = cards.indexWhere((c) => getCardId(c) == targetId);
-    if (index >= 0) {
-      cards.removeAt(index);
+    final exists = cards.any((c) => getCardId(c) == targetId);
+    if (exists) {
+      cards.removeWhere((c) => getCardId(c) == targetId);
       await saveFavoriteMoodCards(cards);
       return false; // Now unsaved
     } else {
       final payload = Map<String, dynamic>.from(cardData);
+      payload['id'] = targetId;
       payload['createdAt'] ??= DateTime.now().toIso8601String();
       payload['schemaVersion'] ??= 2;
+      cards.removeWhere((c) => getCardId(c) == targetId);
       cards.add(payload);
       await saveFavoriteMoodCards(cards);
       return true; // Now saved
@@ -883,31 +952,38 @@ class StorageService {
   static Future<bool> toggleFavoriteMoodCard(
       QuranMoodSuggestion suggestion) async {
     final cards = await readFavoriteMoodCards();
-    final index =
-        cards.indexWhere((card) => card['moodId'] == suggestion.moodId);
-    if (index >= 0) {
-      cards.removeAt(index);
+    final targetId = 'topic_${suggestion.moodId}';
+    final exists = cards.any((card) =>
+        card['id'] == targetId ||
+        (card['cardType'] == 'topic' && card['moodId'] == suggestion.moodId) ||
+        (card['moodId'] == suggestion.moodId &&
+            card['cardType'] != 'ayah' &&
+            card['id']?.toString().startsWith('ayah_') != true));
+    if (exists) {
+      cards.removeWhere((card) =>
+          card['id'] == targetId ||
+          (card['cardType'] == 'topic' &&
+              card['moodId'] == suggestion.moodId) ||
+          (card['moodId'] == suggestion.moodId &&
+              card['cardType'] != 'ayah' &&
+              card['id']?.toString().startsWith('ayah_') != true));
       await saveFavoriteMoodCards(cards);
       return false; // Now unsaved
     } else {
       final payload = {
+        'id': targetId,
+        'cardType': 'topic',
         'schemaVersion': 2,
         'tafsirId': 'asan',
         'moodId': suggestion.moodId,
         'title': suggestion.title,
         'shortMessage': suggestion.shortMessage,
         'createdAt': DateTime.now().toIso8601String(),
-        'verses': suggestion.verses
-            .map((verse) => {
-                  'surah': verse.surah,
-                  'ayah': verse.ayah,
-                  'arabicText': verse.arabicText,
-                  'englishMeaning': verse.englishMeaning,
-                  'kurdishMeaning': verse.kurdishMeaning,
-                  'reflection': verse.reflection,
-                })
-            .toList(),
+        'verses': <Map<String, dynamic>>[],
       };
+      cards.removeWhere((card) =>
+          card['id'] == targetId ||
+          (card['cardType'] == 'topic' && card['moodId'] == suggestion.moodId));
       cards.add(payload);
       await saveFavoriteMoodCards(cards);
       return true; // Now saved
@@ -929,9 +1005,17 @@ class StorageService {
     await saveFavoriteMoodCards(cards);
   }
 
+  static Future<void> deleteFavoriteMoodCardById(String cardId) async {
+    final cards = await readFavoriteMoodCards();
+    cards.removeWhere((c) => getCardId(c) == cardId);
+    await saveFavoriteMoodCards(cards);
+  }
+
   static Future<void> insertFavoriteMoodCardAt(
       int index, Map<String, dynamic> card) async {
     final cards = await readFavoriteMoodCards();
+    final targetId = getCardId(card);
+    cards.removeWhere((c) => getCardId(c) == targetId);
     if (index <= 0) {
       cards.insert(0, card);
     } else if (index >= cards.length) {
@@ -944,7 +1028,8 @@ class StorageService {
 
   static Future<void> clearAllFavoriteMoodCards() async {
     final box = Hive.box(settingsBox);
-    await box.put(favoriteMoodCardsKey, <Map<String, dynamic>>[]);
+    await _safeBoxPut(box, favoriteMoodCardsKey, <Map<String, dynamic>>[]);
+    favoriteMoodCardsRevision.value++;
   }
 
   static Future<void> saveZikrCounts(Map<String, int> counts) async {

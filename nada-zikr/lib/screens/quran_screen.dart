@@ -226,27 +226,45 @@ class _QuranScreenState extends State<QuranScreen> {
           valueListenable:
               QuranDownloadService.instance.downloadsRevisionNotifier,
           builder: (context, _, __) {
-            return FutureBuilder<List<int>>(
+            return FutureBuilder<Map<String, int>>(
               future: QuranDownloadService.instance
-                  .getDownloadedSurahs(activeReciter.id),
+                  .getAllRecitersDownloadCounts(),
               builder: (context, snapshot) {
-                final count = snapshot.data?.length ?? 0;
+                final allCounts = snapshot.data ?? {};
+                final activeCount = allCounts[activeReciter.id] ?? 0;
+                final totalCount =
+                    allCounts.values.fold<int>(0, (sum, val) => sum + val);
+                final hasDownloads = totalCount > 0;
+                final count = activeCount > 0 ? activeCount : totalCount;
+
                 return Stack(
                   alignment: Alignment.center,
                   clipBehavior: Clip.none,
                   children: [
                     IconButton(
                       onPressed: () => DownloadedSurahsSheet.show(context),
-                      tooltip: language == 'ku'
-                          ? 'سوورەتە داگیراوەکان ($count)'
-                          : language == 'ar'
-                              ? 'السور المحملة ($count)'
-                              : 'Downloaded Surahs ($count)',
+                      tooltip: activeCount > 0
+                          ? (language == 'ku'
+                              ? 'سوورەتە داگیراوەکانی ${activeReciter.nameKu} ($activeCount)'
+                              : language == 'ar'
+                                  ? 'السور المحملة للشيخ ${activeReciter.nameAr} ($activeCount)'
+                                  : 'Downloaded Surahs - ${activeReciter.nameEn} ($activeCount)')
+                          : (totalCount > 0
+                              ? (language == 'ku'
+                                  ? 'سوورەتە داگیراوەکان ($totalCount داگیراو)'
+                                  : language == 'ar'
+                                      ? 'السور المحملة ($totalCount سورة)'
+                                      : 'Downloaded Surahs ($totalCount total)')
+                              : (language == 'ku'
+                                  ? 'سوورەتە داگیراوەکان (0)'
+                                  : language == 'ar'
+                                      ? 'السور المحملة (0)'
+                                      : 'Downloaded Surahs (0)')),
                       icon: Icon(
-                        count > 0
+                        hasDownloads
                             ? Icons.offline_pin_rounded
                             : Icons.file_download_outlined,
-                        color: count > 0
+                        color: hasDownloads
                             ? const Color(0xFF10B981)
                             : AppColors.gold,
                         size: 22,
@@ -261,7 +279,9 @@ class _QuranScreenState extends State<QuranScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 4, vertical: 1),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF10B981),
+                            color: activeCount > 0
+                                ? const Color(0xFF10B981)
+                                : AppColors.gold,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(

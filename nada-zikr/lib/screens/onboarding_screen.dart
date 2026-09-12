@@ -33,8 +33,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         'body': 'هاوڕێی ڕۆژانەی تۆیە بۆ زیکر، بیرکردنەوە و ئارامی دڵ.'
       },
       {
-        'title': 'بسم الله',
-        'subtitle': 'نیەتەکەت لە سەردانی ڕؤژانە ',
+        'title': 'بە ناوی خوای گەورە',
+        'subtitle': 'نیەتت دیاری بکە',
         'body':
             'ناوت و ژمارەی ئەو دانیشتنەی کە دەتەوێت هەموو ڕۆژێک ئەنجامی بدەیت بنووسە.'
       },
@@ -122,11 +122,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ? 'اسمك'
           : 'YOUR NAME';
 
+  String get _nameHint => _languageCode == 'ku'
+      ? 'بۆ نموونە: ئەحمەد'
+      : _languageCode == 'ar'
+          ? 'مثال: أحمد'
+          : 'e.g. Ahmad';
+
   String get _dailyGoalLabel => _languageCode == 'ku'
       ? 'ئامانجی ڕۆژانە — $_goal دانیشتن'
       : _languageCode == 'ar'
           ? 'الهدف اليومي — $_goal جلسات'
           : 'DAILY GOAL — $_goal session${_goal > 1 ? 's' : ''}';
+
+  String get _firstDhikrLabel => _languageCode == 'ku'
+      ? 'یەکەمین زیکری ڕۆژ'
+      : _languageCode == 'ar'
+          ? 'أَوَّلُ ذِكْرٍ فِي الْيَوْمِ'
+          : 'FIRST DHIKR OF THE DAY';
+
+  String get _bismillahTranslation => _languageCode == 'ku'
+      ? 'بە ناوی خوای بەخشندەی میهرەبان'
+      : _languageCode == 'ar'
+          ? 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ'
+          : 'In the Name of Allah, the Most Gracious, the Most Merciful';
 
   @override
   void initState() {
@@ -331,7 +349,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           _step == _steps.length - 1
-                              ? '$_beginLabel →'
+                              ? (_languageCode == 'en'
+                                  ? '$_beginLabel →'
+                                  : '← $_beginLabel')
                               : _continueLabel,
                           style: _titleStyle(fontSize: 16).copyWith(
                             color: AppColors.darkBg,
@@ -429,16 +449,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 const SizedBox(height: 24),
                 Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Text(_nameLabel, style: _bodyStyle(fontSize: 11)),
                 ),
                 const SizedBox(height: 8),
                 TextField(
                   onChanged: (value) => _name = value,
+                  textDirection:
+                      _languageCode == 'en' ? TextDirection.ltr : TextDirection.rtl,
                   decoration: InputDecoration(
-                    hintText: 'e.g. Ahmad',
-                    hintStyle:
-                        AppTheme.englishText(color: AppColors.veryFaintText),
+                    hintText: _nameHint,
+                    hintStyle: _bodyStyle(color: AppColors.veryFaintText),
                     filled: true,
                     fillColor: AppColors.panelColor,
                     border: OutlineInputBorder(
@@ -555,20 +576,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text('FIRST DHIKR OF THE DAY',
-                          style: AppTheme.labelText(
-                              color: AppColors.veryFaintText)),
-                      const SizedBox(height: 12),
-                      Text('بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ',
-                          style: AppTheme.arabicTitle(fontSize: 24),
-                          textAlign: TextAlign.center,
-                          textDirection: TextDirection.rtl),
+                      Text(
+                        _firstDhikrLabel,
+                        style: _languageCode == 'en'
+                            ? AppTheme.labelText(color: AppColors.veryFaintText)
+                            : _bodyStyle(
+                                color: AppColors.veryFaintText,
+                                fontSize: 12,
+                              ).copyWith(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
+                        textAlign: TextAlign.center,
+                      ),
                       const SizedBox(height: 12),
                       Text(
-                          'In the Name of Allah, the Most Gracious, the Most Merciful',
-                          style: AppTheme.englishText(
-                              color: AppColors.faintText, fontSize: 12),
-                          textAlign: TextAlign.center),
+                        'بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ',
+                        style: AppTheme.arabicTitle(fontSize: 24),
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        _bismillahTranslation,
+                        style: _bodyStyle(
+                          color: AppColors.faintText,
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),

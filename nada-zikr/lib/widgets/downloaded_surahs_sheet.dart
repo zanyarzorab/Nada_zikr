@@ -204,7 +204,55 @@ class _DownloadedSurahsSheetState extends State<DownloadedSurahsSheet> {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            // Helpful Tip Banner
+            Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColors.gold.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.gold.withValues(alpha: 0.28),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: AppColors.gold.withValues(alpha: 0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.tips_and_updates_outlined,
+                      color: AppColors.gold,
+                      size: 16,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      isKurdish
+                          ? 'تێبینی: داگیراوەکان بەپێی خوێنەر دەپارێزرێن. خوێنەرەکە دیاریبکە بۆ بینینی سوورەتە داگیراوەکانی.'
+                          : (lang == 'ar'
+                              ? 'ملاحظة: السور المحملة محفوظة لكل قارئ على حدة. اختر القارئ لعرض سورك المحملة بصوته.'
+                              : 'Tip: Downloads are saved per reciter. Choose the reciter to see what surahs are downloaded.'),
+                      style: isKurdish
+                          ? AppTheme.kurdishText(
+                              fontSize: 12,
+                              color: AppColors.cream,
+                              fontWeight: FontWeight.w500,
+                            )
+                          : AppTheme.englishText(
+                              fontSize: 12,
+                              color: AppColors.cream,
+                              fontWeight: FontWeight.w500,
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
             // Reciter Switcher Bar
             GestureDetector(
@@ -351,10 +399,11 @@ class _DownloadedSurahsSheetState extends State<DownloadedSurahsSheet> {
                             const SizedBox(height: 16),
                             Text(
                               isKurdish
-                                  ? 'هیچ سورەتێک دابەزێنراو نییە'
+                                  ? 'هیچ سوورەتێک بۆ «${reciter.localizedName(lang)}» دانەبەزێنراوە'
                                   : (lang == 'ar'
-                                      ? 'لا توجد سور محملة'
-                                      : 'No Downloaded Surahs'),
+                                      ? 'لا توجد سور محملة لهذا القارئ'
+                                      : 'No Downloaded Surahs for ${reciter.localizedName(lang)}'),
+                              textAlign: TextAlign.center,
                               style: isKurdish
                                   ? AppTheme.kurdishTitle(
                                       fontSize: 16, color: AppColors.cream)
@@ -364,16 +413,50 @@ class _DownloadedSurahsSheetState extends State<DownloadedSurahsSheet> {
                             const SizedBox(height: 8),
                             Text(
                               isKurdish
-                                  ? 'دەتوانیت لە پەڕەی خوێندنەوە هەر سورەتێک داببەزێنیت تا بەبێ ئینتەرنێت گوێی لێبگریت.'
+                                  ? 'هەر خوێنەرێک فایلەکانی بە جیا دەپارێزرێن. دەتوانیت خوێنەرێکی تر هەڵبژێریت یان لە پەڕەی خوێندنەوە سوورەت داببەزێنیت.'
                                   : (lang == 'ar'
-                                      ? 'يمكنك تنزيل أي سورة من مشغل الصوت للاستماع إليها دون اتصال بالإنترنت.'
-                                      : 'You can download any surah from the audio player to listen completely offline.'),
+                                      ? 'تحميلات كل قارئ مستقلة. يمكنك اختيار قارئ آخر أو تنزيل السور للاستماع إليها دون إنترنت.'
+                                      : 'Downloads are saved per reciter. Switch reciters to see other downloads, or download surahs to listen offline.'),
                               textAlign: TextAlign.center,
                               style: isKurdish
                                   ? AppTheme.kurdishText(
                                       fontSize: 12, color: AppColors.faintText)
                                   : AppTheme.englishText(
                                       fontSize: 12, color: AppColors.faintText),
+                            ),
+                            const SizedBox(height: 18),
+                            OutlinedButton.icon(
+                              onPressed: () async {
+                                final previousId = reciter.id;
+                                await ReciterSelectorSheet.show(context);
+                                if (QuranAudioService.instance.selectedReciter.id !=
+                                    previousId) {
+                                  _refresh();
+                                }
+                              },
+                              icon: Icon(Icons.record_voice_over_rounded,
+                                  color: AppColors.gold, size: 18),
+                              label: Text(
+                                isKurdish
+                                    ? 'هەڵبژاردنی خوێنەری تر'
+                                    : (lang == 'ar'
+                                        ? 'اختيار قارئ آخر'
+                                        : 'Choose Another Reciter'),
+                                style: TextStyle(
+                                  color: AppColors.gold,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.5,
+                                ),
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                side: BorderSide(
+                                    color: AppColors.gold.withValues(alpha: 0.5)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 10),
+                              ),
                             ),
                           ],
                         ),

@@ -37,6 +37,20 @@ class AppHaptics {
     } catch (_) {}
   }
 
+  /// Distinct, vibrant feedback when a tasbih goal is reached (e.g. 33, 99, or custom target)
+  static Future<void> goalReached() async {
+    if (!StorageService.isHapticEnabled()) return;
+    try {
+      await HapticFeedback.vibrate();
+      await Future.delayed(const Duration(milliseconds: 130));
+      await HapticFeedback.vibrate();
+    } catch (_) {
+      try {
+        await HapticFeedback.heavyImpact();
+      } catch (_) {}
+    }
+  }
+
   /// Gentle selection click
   static Future<void> selectionClick() async {
     if (!StorageService.isHapticEnabled()) return;

@@ -224,6 +224,38 @@ class QuranDownloadService {
     return downloaded;
   }
 
+  /// Returns a map of reciterId -> count of valid downloaded surahs for each reciter.
+  Future<Map<String, int>> getAllRecitersDownloadCounts() async {
+    final counts = <String, int>{};
+    try {
+      final dir = await _getAudioDirectory();
+      if (!await dir.exists()) return counts;
+      final files = dir.listSync();
+      for (final entity in files) {
+        if (entity is File && entity.path.endsWith('.mp3')) {
+          final fileName = entity.uri.pathSegments.last;
+          if (entity.lengthSync() >= kMinValidAudioBytes) {
+            final lastUnderscore = fileName.lastIndexOf('_');
+            if (lastUnderscore > 0) {
+              final reciterId = fileName.substring(0, lastUnderscore);
+              final surahPart = fileName.substring(lastUnderscore + 1).replaceAll('.mp3', '');
+              if (int.tryParse(surahPart) != null) {
+                counts[reciterId] = (counts[reciterId] ?? 0) + 1;
+              }
+            }
+          }
+        }
+      }
+    } catch (_) {}
+    return counts;
+  }
+
+  /// Returns total downloaded surahs count across all reciters.
+  Future<int> getTotalDownloadedSurahsCount() async {
+    final counts = await getAllRecitersDownloadCounts();
+    return counts.values.fold<int>(0, (sum, val) => sum + val);
+  }
+
   /// Searches for any valid downloaded audio file for the given surah number across any reciter.
   Future<String?> findAnyDownloadedFilePath(int surahNumber) async {
     try {

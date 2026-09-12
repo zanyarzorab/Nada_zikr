@@ -30,7 +30,7 @@ class _PocketTasbeehScreenState extends State<PocketTasbeehScreen> {
 
     if (_hapticEnabled) {
       if (_count % _target == 0) {
-        AppHaptics.heavyImpact();
+        AppHaptics.goalReached();
       } else {
         AppHaptics.lightImpact();
       }

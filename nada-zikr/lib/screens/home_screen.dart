@@ -496,13 +496,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(width: 8),
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                                onTap: () async {
+                                  await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) => const FavoriteMoodCardsScreen(),
                                     ),
                                   );
+                                  if (mounted) setState(() {});
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
@@ -1339,12 +1340,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                         '${cat.count}',
                                         style: isKurdish
                                             ? AppTheme.kurdishText(
-                                                color: AppColors.cream,
+                                                color: AppThemeController.instance.palette.key == 'sunrise'
+                                                    ? Colors.white
+                                                    : AppColors.cream,
                                                 fontSize: 9.5,
                                                 fontWeight: FontWeight.bold,
                                               )
                                             : AppTheme.englishText(
-                                                color: AppColors.cream,
+                                                color: AppThemeController.instance.palette.key == 'sunrise'
+                                                    ? Colors.white
+                                                    : AppColors.cream,
                                                 fontSize: 9.5,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -1359,10 +1364,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: isKurdish
                                       ? AppTheme.kurdishTitle(
                                           fontSize: 12.5,
-                                          color: AppColors.cream)
+                                          color: AppThemeController.instance.palette.key == 'sunrise'
+                                              ? Colors.white
+                                              : AppColors.cream)
                                       : AppTheme.englishTitle(
                                           fontSize: 12.5,
-                                          color: AppColors.cream),
+                                          color: AppThemeController.instance.palette.key == 'sunrise'
+                                              ? Colors.white
+                                              : AppColors.cream),
                                 ),
                               ],
                             ),
@@ -1433,6 +1442,13 @@ class _MoodCardSheetContentState extends State<_MoodCardSheetContent> {
   void initState() {
     super.initState();
     _checkSavedStatus();
+    StorageService.favoriteMoodCardsRevision.addListener(_checkSavedStatus);
+  }
+
+  @override
+  void dispose() {
+    StorageService.favoriteMoodCardsRevision.removeListener(_checkSavedStatus);
+    super.dispose();
   }
 
   Future<void> _checkSavedStatus() async {
@@ -1753,6 +1769,13 @@ class _MoodVerseCardState extends State<_MoodVerseCard> {
   void initState() {
     super.initState();
     _loadSavedState();
+    StorageService.favoriteMoodCardsRevision.addListener(_loadSavedState);
+  }
+
+  @override
+  void dispose() {
+    StorageService.favoriteMoodCardsRevision.removeListener(_loadSavedState);
+    super.dispose();
   }
 
   Future<void> _loadSavedState() async {
@@ -1768,6 +1791,63 @@ class _MoodVerseCardState extends State<_MoodVerseCard> {
     final saved = await StorageService.toggleGenericCard(_cardData);
     if (!mounted) return;
     setState(() => _isSaved = saved);
+
+    final isK = widget.locale == 'ku';
+    final isAr = widget.locale == 'ar';
+    final message = saved
+        ? (isK
+            ? 'ئایەتەکە پاشەکەوت کرا بۆ دڵخوازەکان'
+            : isAr
+                ? 'تم حفظ الآية في المحفوظات'
+                : 'Ayah saved to favorites!')
+        : (isK
+            ? 'ئایەتەکە لاپرا لە دڵخوازەکان'
+            : isAr
+                ? 'تمت إزالة الآية من المحفوظات'
+                : 'Ayah removed from saved cards');
+
+    final undoLabel = isK ? 'گەڕاندنەوە' : (isAr ? 'تراجع' : 'Undo');
+
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: AppColors.darkPanel,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        content: Row(
+          children: [
+            Icon(
+              saved
+                  ? Icons.bookmark_added_rounded
+                  : Icons.bookmark_remove_rounded,
+              color: AppColors.gold,
+              size: 20,
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                message,
+                style: isK
+                    ? AppTheme.kurdishText(color: AppColors.cream, fontSize: 13)
+                    : AppTheme.englishText(
+                        color: AppColors.cream, fontSize: 13),
+              ),
+            ),
+          ],
+        ),
+        action: SnackBarAction(
+          label: undoLabel,
+          textColor: AppColors.gold,
+          onPressed: () async {
+            final undoneSaved =
+                await StorageService.toggleGenericCard(_cardData);
+            if (mounted) {
+              setState(() => _isSaved = undoneSaved);
+            }
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -1820,7 +1900,17 @@ class _MoodVerseCardState extends State<_MoodVerseCard> {
                 ),
               ),
               IconButton(
-                tooltip: _isSaved ? 'Unsave ayah' : 'Save ayah',
+                tooltip: _isSaved
+                    ? (isKurdish
+                        ? 'ئایەتەکە لە هەڵگیراوەکان دەربهێنە'
+                        : (widget.locale == 'ar'
+                            ? 'إزالة الآية من المحفوظات'
+                            : 'Unsave ayah'))
+                    : (isKurdish
+                        ? 'ئایەتەکە پاشەکەوت بکە'
+                        : (widget.locale == 'ar'
+                            ? 'حفظ الآية'
+                            : 'Save ayah')),
                 onPressed: _isLoading ? null : _toggleSaved,
                 icon: Icon(_isSaved
                     ? Icons.bookmark_rounded
@@ -1943,6 +2033,12 @@ Widget _buildQuickCard({
   VoidCallback? onTap,
   String? badgeText,
 }) {
+  final isGoldenDawn = AppThemeController.instance.palette.key == 'sunrise';
+  final primaryTextColor = isGoldenDawn ? Colors.white : AppColors.cream;
+  final secondaryTextColor = isGoldenDawn
+      ? Colors.white.withValues(alpha: 0.82)
+      : AppColors.faintText;
+
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -2054,11 +2150,11 @@ Widget _buildQuickCard({
                               badgeText,
                               style: isKurdish
                                   ? AppTheme.kurdishText(
-                                      color: AppColors.cream,
+                                      color: primaryTextColor,
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold)
                                   : AppTheme.englishText(
-                                      color: AppColors.cream,
+                                      color: primaryTextColor,
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold),
                             ),
@@ -2076,11 +2172,11 @@ Widget _buildQuickCard({
                       overflow: TextOverflow.ellipsis,
                       style: isKurdish
                           ? AppTheme.kurdishTitle(
-                              fontSize: 13.5, color: AppColors.cream)
+                              fontSize: 13.5, color: primaryTextColor)
                           : AppTheme.englishTitle(
                               fontSize: 13.5,
                               fontWeight: FontWeight.bold,
-                              color: AppColors.cream),
+                              color: primaryTextColor),
                     ),
                     const SizedBox(height: 2),
                     Text(
@@ -2089,9 +2185,9 @@ Widget _buildQuickCard({
                       overflow: TextOverflow.ellipsis,
                       style: isKurdish
                           ? AppTheme.kurdishText(
-                              color: AppColors.faintText, fontSize: 11)
+                              color: secondaryTextColor, fontSize: 11)
                           : AppTheme.englishText(
-                              color: AppColors.faintText, fontSize: 11),
+                              color: secondaryTextColor, fontSize: 11),
                     ),
                   ],
                 ),

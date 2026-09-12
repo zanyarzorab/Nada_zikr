@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_localizations.dart';
 import '../models/quran_reciter.dart';
 import '../services/quran_audio_service.dart';
+import '../services/quran_download_service.dart';
 import '../services/quran_timing_service.dart';
 import 'app_theme.dart';
 
@@ -25,9 +26,30 @@ class ReciterSelectorSheet extends StatefulWidget {
 class _ReciterSelectorSheetState extends State<ReciterSelectorSheet> {
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
+  Map<String, int> _downloadCounts = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDownloadCounts();
+    QuranDownloadService.instance.downloadsRevisionNotifier
+        .addListener(_loadDownloadCounts);
+  }
+
+  Future<void> _loadDownloadCounts() async {
+    final counts =
+        await QuranDownloadService.instance.getAllRecitersDownloadCounts();
+    if (mounted) {
+      setState(() {
+        _downloadCounts = counts;
+      });
+    }
+  }
 
   @override
   void dispose() {
+    QuranDownloadService.instance.downloadsRevisionNotifier
+        .removeListener(_loadDownloadCounts);
     _searchController.dispose();
     super.dispose();
   }
@@ -235,6 +257,7 @@ class _ReciterSelectorSheetState extends State<ReciterSelectorSheet> {
                 final isSelected = reciter.id == currentReciter.id;
                 final hasHighlighting =
                     QuranTimingService.instance.supportsExactTiming(reciter.id);
+                final downloadCount = _downloadCounts[reciter.id] ?? 0;
 
                 return GestureDetector(
                   onTap: () {
@@ -258,28 +281,55 @@ class _ReciterSelectorSheetState extends State<ReciterSelectorSheet> {
                     ),
                     child: Row(
                       children: [
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: isSelected
-                                ? AppColors.gold.withValues(alpha: 0.3)
-                                : AppColors.gold.withValues(alpha: 0.1),
-                            border: Border.all(
-                                color: AppColors.gold.withValues(alpha: 0.4)),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              isSelected
-                                  ? Icons.volume_up_rounded
-                                  : (hasHighlighting
-                                      ? Icons.record_voice_over_rounded
-                                      : Icons.person_rounded),
-                              color: AppColors.gold,
-                              size: 20,
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              width: 42,
+                              height: 42,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: isSelected
+                                    ? AppColors.gold.withValues(alpha: 0.3)
+                                    : AppColors.gold.withValues(alpha: 0.1),
+                                border: Border.all(
+                                    color: AppColors.gold.withValues(alpha: 0.4)),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  isSelected
+                                      ? Icons.volume_up_rounded
+                                      : (hasHighlighting
+                                          ? Icons.record_voice_over_rounded
+                                          : Icons.person_rounded),
+                                  color: AppColors.gold,
+                                  size: 20,
+                                ),
+                              ),
                             ),
-                          ),
+                            if (downloadCount > 0)
+                              Positioned(
+                                top: -2,
+                                right: isRTL ? null : -2,
+                                left: isRTL ? -2 : null,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF10B981),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: AppColors.darkPanel,
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.offline_pin_rounded,
+                                    color: Colors.white,
+                                    size: 10,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                         const SizedBox(width: 14),
                         Expanded(
@@ -358,18 +408,65 @@ class _ReciterSelectorSheetState extends State<ReciterSelectorSheet> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                '${reciter.nameAr} · ${reciter.style}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textDirection: TextDirection.rtl,
-                                style: AppTheme.arabicText(
-                                  fontSize: 12,
-                                  color: isSelected
-                                      ? AppColors.gold.withValues(alpha: 0.8)
-                                      : AppColors.faintText,
-                                ),
+                              const SizedBox(height: 3),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      '${reciter.nameAr} · ${reciter.style}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textDirection: TextDirection.rtl,
+                                      style: AppTheme.arabicText(
+                                        fontSize: 12,
+                                        color: isSelected
+                                            ? AppColors.gold.withValues(alpha: 0.8)
+                                            : AppColors.faintText,
+                                      ),
+                                    ),
+                                  ),
+                                  if (downloadCount > 0) ...[
+                                    const SizedBox(width: 6),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF10B981)
+                                            .withValues(alpha: 0.18),
+                                        borderRadius:
+                                            BorderRadius.circular(6),
+                                        border: Border.all(
+                                          color: const Color(0xFF10B981)
+                                              .withValues(alpha: 0.45),
+                                          width: 0.8,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            Icons.offline_pin_rounded,
+                                            size: 11,
+                                            color: Color(0xFF34D399),
+                                          ),
+                                          const SizedBox(width: 3),
+                                          Text(
+                                            isKurdish
+                                                ? '$downloadCount داگیراوە'
+                                                : (lang == 'ar'
+                                                    ? '$downloadCount محمل'
+                                                    : '$downloadCount saved'),
+                                            style: const TextStyle(
+                                              fontSize: 9.5,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF34D399),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ],
                               ),
                             ],
                           ),

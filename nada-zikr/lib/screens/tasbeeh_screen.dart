@@ -117,7 +117,6 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
   }
 
   void _handleTap() {
-    final wasGoalReached = _count > 0 && _count % _target == 0;
     setState(() => _count++);
     _rememberCurrentProgress();
 
@@ -125,15 +124,16 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
     StorageService.incrementZikrCount(zikrKey: zikrKey, count: 1);
 
     if (_count > 0 && _count % _target == 0) {
-      AppHaptics.heavyImpact();
+      AppHaptics.goalReached();
       StorageService.recordSessionCompletion(title: zikrKey);
       StorageService.markDailyPathComplete('tasbeeh');
-    } else if (!wasGoalReached) {
+    } else {
       AppHaptics.lightImpact();
     }
   }
 
   void _reset() {
+    AppHaptics.selectionClick();
     setState(() => _count = 0);
     _rememberCurrentProgress();
   }
@@ -304,11 +304,24 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
                           ],
                         ),
                       ),
-                      IconButton(
-                        onPressed: _reset,
-                        icon:
-                            Icon(Icons.refresh_rounded, color: AppColors.gold),
-                        tooltip: isKurdish ? 'ڕیستکردن' : 'Reset',
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.panelColor,
+                          border: Border.all(color: AppColors.panelBorderColor),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: IconButton(
+                          onPressed: _reset,
+                          iconSize: 28,
+                          padding: const EdgeInsets.all(9),
+                          constraints: const BoxConstraints(),
+                          icon: Icon(
+                            Icons.refresh_rounded,
+                            color: AppColors.gold,
+                            size: 28,
+                          ),
+                          tooltip: isKurdish ? 'ڕیستکردن' : 'Reset',
+                        ),
                       ),
                     ],
                   ),

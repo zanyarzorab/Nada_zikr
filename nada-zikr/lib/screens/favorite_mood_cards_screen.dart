@@ -16,18 +16,33 @@ class FavoriteMoodCardsScreen extends StatefulWidget {
 }
 
 class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
-  late Future<List<Map<String, dynamic>>> _favoritesFuture;
+  List<Map<String, dynamic>> _cards = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _favoritesFuture = StorageService.readFavoriteMoodCards();
+    _loadCards();
+    StorageService.favoriteMoodCardsRevision.addListener(_onStorageChanged);
   }
 
-  Future<void> _refresh() async {
-    final cards = await StorageService.readFavoriteMoodCards();
+  @override
+  void dispose() {
+    StorageService.favoriteMoodCardsRevision.removeListener(_onStorageChanged);
+    super.dispose();
+  }
+
+  void _onStorageChanged() {
+    _loadCards();
+  }
+
+  Future<void> _loadCards() async {
+    final list = await StorageService.readFavoriteMoodCards();
     if (!mounted) return;
-    setState(() => _favoritesFuture = Future.value(cards));
+    setState(() {
+      _cards = list;
+      _isLoading = false;
+    });
   }
 
   Future<void> _openQuranAyah(int surahNumber, int ayahNumber) async {
@@ -61,86 +76,83 @@ class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
           ),
         ),
         child: SafeArea(
-          child: FutureBuilder<List<Map<String, dynamic>>>(
-            future: _favoritesFuture,
-            builder: (context, snapshot) {
-              final cards = snapshot.data ?? const <Map<String, dynamic>>[];
-
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                          color: AppColors.gold,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)?.translate('savedCards') ?? 'کارتە هەڵگیراوەکانم',
-                            textDirection: isKurdish ? TextDirection.rtl : TextDirection.ltr,
-                            style: isKurdish
-                              ? AppTheme.kurdishTitle(fontSize: 24, color: AppColors.gold)
-                              : AppTheme.englishTitle(fontSize: 24, color: AppColors.gold),
-                          ),
-                        ),
-                        if (cards.isNotEmpty)
-                          IconButton(
-                            tooltip: isKurdish ? 'سڕینەوەی هەمووی' : 'Clear all',
-                            icon: const Icon(Icons.delete_sweep_rounded),
-                            color: AppColors.faintText,
-                            onPressed: () async {
-                              final confirm = await showDialog<bool>(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  backgroundColor: AppColors.darkPanel,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                  title: Text(
-                                    isKurdish ? 'سڕینەوەی هەموو کارتەکان' : 'Clear All Saved Cards',
-                                    style: isKurdish ? AppTheme.kurdishTitle(color: AppColors.gold) : AppTheme.englishTitle(color: AppColors.gold),
-                                  ),
-                                  content: Text(
-                                    isKurdish ? 'دڵنیایت لە سڕینەوەی هەموو کارتە پاشەکەوتکراوەکان؟' : 'Are you sure you want to clear all saved cards?',
-                                    style: isKurdish ? AppTheme.kurdishText(color: AppColors.cream) : AppTheme.englishText(color: AppColors.cream),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(ctx, false),
-                                      child: Text(isKurdish ? 'نەخێر' : 'Cancel', style: TextStyle(color: AppColors.faintText)),
-                                    ),
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(ctx, true),
-                                      child: Text(isKurdish ? 'بەڵێ، بسڕەوە' : 'Clear All', style: const TextStyle(color: Colors.redAccent)),
-                                    ),
-                                  ],
-                                ),
-                              );
-                              if (confirm == true) {
-                                await StorageService.clearAllFavoriteMoodCards();
-                                await _refresh();
-                              }
-                            },
-                          ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: AppColors.gold.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(999),
-                            border: Border.all(color: AppColors.gold.withValues(alpha: 0.25)),
-                          ),
-                          child: Text(
-                            '${cards.length}',
-                            style: AppTheme.englishText(fontSize: 11, color: AppColors.gold, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ],
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                      color: AppColors.gold,
                     ),
-                  ),
-                  Expanded(
-                    child: cards.isEmpty
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(context)?.translate('savedCards') ?? 'کارتە هەڵگیراوەکانم',
+                        textDirection: isKurdish ? TextDirection.rtl : TextDirection.ltr,
+                        style: isKurdish
+                          ? AppTheme.kurdishTitle(fontSize: 24, color: AppColors.gold)
+                          : AppTheme.englishTitle(fontSize: 24, color: AppColors.gold),
+                      ),
+                    ),
+                    if (_cards.isNotEmpty)
+                      IconButton(
+                        tooltip: isKurdish ? 'سڕینەوەی هەمووی' : 'Clear all',
+                        icon: const Icon(Icons.delete_sweep_rounded),
+                        color: AppColors.faintText,
+                        onPressed: () async {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              backgroundColor: AppColors.darkPanel,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              title: Text(
+                                isKurdish ? 'سڕینەوەی هەموو کارتەکان' : 'Clear All Saved Cards',
+                                style: isKurdish ? AppTheme.kurdishTitle(color: AppColors.gold) : AppTheme.englishTitle(color: AppColors.gold),
+                              ),
+                              content: Text(
+                                isKurdish ? 'دڵنیایت لە سڕینەوەی هەموو کارتە پاشەکەوتکراوەکان؟' : 'Are you sure you want to clear all saved cards?',
+                                style: isKurdish ? AppTheme.kurdishText(color: AppColors.cream) : AppTheme.englishText(color: AppColors.cream),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, false),
+                                  child: Text(isKurdish ? 'نەخێر' : 'Cancel', style: TextStyle(color: AppColors.faintText)),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, true),
+                                  child: Text(isKurdish ? 'بەڵێ، بسڕەوە' : 'Clear All', style: const TextStyle(color: Colors.redAccent)),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (confirm == true) {
+                            setState(() => _cards.clear());
+                            await StorageService.clearAllFavoriteMoodCards();
+                          }
+                        },
+                      ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: AppColors.gold.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(color: AppColors.gold.withValues(alpha: 0.25)),
+                      ),
+                      child: Text(
+                        '${_cards.length}',
+                        style: AppTheme.englishText(fontSize: 11, color: AppColors.gold, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _isLoading
+                    ? const Center(child: CircularProgressIndicator(color: Color(0xFFC9A84C)))
+                    : _cards.isEmpty
                         ? Center(
                             child: Padding(
                               padding: const EdgeInsets.all(24),
@@ -157,17 +169,26 @@ class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
                           )
                         : ListView.builder(
                             padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-                            itemCount: cards.length,
+                            itemCount: _cards.length,
                             itemBuilder: (context, index) {
-                              final card = cards[index];
+                              final card = _cards[index];
                               return _MoodCardTile(
                                 data: card,
                                 index: index,
                                 locale: locale,
                                 onDelete: () async {
-                                  final deletedCard = Map<String, dynamic>.from(card);
-                                  await StorageService.deleteFavoriteMoodCard(index);
-                                  await _refresh();
+                                  final cardToDelete = Map<String, dynamic>.from(card);
+                                  final targetId = StorageService.getCardId(cardToDelete);
+                                  final originalIndex = index;
+
+                                  // Immediately remove from UI without waiting!
+                                  setState(() {
+                                    _cards.removeAt(index);
+                                  });
+
+                                  // Delete in storage in background
+                                  await StorageService.deleteFavoriteMoodCardById(targetId);
+
                                   if (!context.mounted) return;
 
                                   final deletedText = locale == 'ku'
@@ -205,8 +226,14 @@ class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
                                         label: undoText,
                                         textColor: AppColors.gold,
                                         onPressed: () async {
-                                          await StorageService.insertFavoriteMoodCardAt(index, deletedCard);
-                                          await _refresh();
+                                          setState(() {
+                                            if (originalIndex <= _cards.length) {
+                                              _cards.insert(originalIndex, cardToDelete);
+                                            } else {
+                                              _cards.add(cardToDelete);
+                                            }
+                                          });
+                                          await StorageService.insertFavoriteMoodCardAt(originalIndex, cardToDelete);
                                         },
                                       ),
                                     ),
@@ -220,10 +247,8 @@ class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
                               );
                             },
                           ),
-                  ),
-                ],
-              );
-            },
+              ),
+            ],
           ),
         ),
       ),
@@ -233,20 +258,30 @@ class _FavoriteMoodCardsScreenState extends State<FavoriteMoodCardsScreen> {
   String _buildShareText(Map<String, dynamic> card, String locale) {
     final loc = AppLocalizations.of(context);
     final moodId = (card['moodId'] ?? 'grateful').toString();
+    final isAyahCard = card['cardType'] == 'ayah' ||
+        card['id']?.toString().startsWith('ayah_') == true;
     final title = QuranMoodService.instance.titleFor(moodId, locale);
     final shortMessage = QuranMoodService.instance.messageFor(moodId, locale);
     final verses = (card['verses'] as List?) ?? const <Map<String, dynamic>>[];
 
-    final lines = <String>[title, shortMessage, ''];
+    if (!isAyahCard || verses.isEmpty) {
+      return '$title\n\n$shortMessage\n\n#Nada #نەدا';
+    }
+
+    final lines = <String>[];
     for (final item in verses) {
       final verse = Map<String, dynamic>.from(item);
-      lines.add('${loc?.translate('surah') ?? 'سورەت'} ${verse['surah']}:${verse['ayah']}');
+      lines.add(
+          '${loc?.translate('surah') ?? 'سورەت'} ${verse['surah']}:${verse['ayah']}');
       lines.add(verse['arabicText']?.toString() ?? '');
-        lines.add(locale == 'ku'
-          ? (verse['kurdishMeaning']?.toString() ?? verse['englishMeaning']?.toString() ?? '')
+      lines.add(locale == 'ku'
+          ? (verse['kurdishMeaning']?.toString() ??
+              verse['englishMeaning']?.toString() ??
+              '')
           : (verse['englishMeaning']?.toString() ?? ''));
       lines.add('');
     }
+    lines.add('#Nada #نەدا');
     return lines.join('\n');
   }
 }
@@ -274,6 +309,10 @@ class _MoodCardTile extends StatelessWidget {
     final moodId = (data['moodId'] ?? 'grateful').toString();
     final tone = QuranMoodService.instance.themeFor(moodId);
     final isKurdish = locale == 'ku';
+    final isRtl = isKurdish || locale == 'ar';
+    final isAyahCard = data['cardType'] == 'ayah' ||
+        data['id']?.toString().startsWith('ayah_') == true ||
+        (data['cardType'] != 'topic' && verses.isNotEmpty && verses.length == 1);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -344,136 +383,137 @@ class _MoodCardTile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            QuranMoodService.instance.titleFor(moodId, locale),
-            textDirection: isKurdish ? TextDirection.rtl : TextDirection.ltr,
-            style: isKurdish
-              ? AppTheme.kurdishTitle(fontSize: 18, color: AppColors.cream)
-              : AppTheme.englishTitle(fontSize: 18, color: AppColors.cream),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            QuranMoodService.instance.messageFor(moodId, locale),
-            textDirection: isKurdish ? TextDirection.rtl : TextDirection.ltr,
-            style: isKurdish
-              ? AppTheme.kurdishText(color: AppColors.faintText, fontSize: 12)
-              : AppTheme.englishText(color: AppColors.faintText, fontSize: 12),
-          ),
-          const SizedBox(height: 12),
-          ...verses.take(2).map((verse) {
-            final map = Map<String, dynamic>.from(verse);
-            return GestureDetector(
-              onTap: () => onVerseTap(
-                int.tryParse(map['surah']?.toString() ?? '') ?? 0,
-                int.tryParse(map['ayah']?.toString() ?? '') ?? 0,
-              ),
-              child: Container(
-              margin: const EdgeInsets.only(bottom: 10),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    tone.primary.withValues(alpha: 0.14),
-                    AppColors.darkBg.withValues(alpha: 0.72),
-                    tone.secondary.withValues(alpha: 0.16),
-                  ],
+          if (!isAyahCard) ...[
+            Text(
+              QuranMoodService.instance.titleFor(moodId, locale),
+              textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+              style: isKurdish
+                ? AppTheme.kurdishTitle(fontSize: 18, color: AppColors.cream)
+                : AppTheme.englishTitle(fontSize: 18, color: AppColors.cream),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              QuranMoodService.instance.messageFor(moodId, locale),
+              textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+              style: isKurdish
+                ? AppTheme.kurdishText(color: AppColors.faintText, fontSize: 12)
+                : AppTheme.englishText(color: AppColors.faintText, fontSize: 12),
+            ),
+          ] else ...[
+            ...verses.map((verse) {
+              final map = Map<String, dynamic>.from(verse);
+              return GestureDetector(
+                onTap: () => onVerseTap(
+                  int.tryParse(map['surah']?.toString() ?? '') ?? 0,
+                  int.tryParse(map['ayah']?.toString() ?? '') ?? 0,
                 ),
-                border: Border.all(color: tone.primary.withValues(alpha: 0.16)),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    map['arabicText']?.toString() ?? '',
-                    textDirection: TextDirection.rtl,
-                    style: AppTheme.quranAyahText(fontSize: 22, color: AppColors.cream),
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        tone.primary.withValues(alpha: 0.14),
+                        AppColors.darkBg.withValues(alpha: 0.72),
+                        tone.secondary.withValues(alpha: 0.16),
+                      ],
+                    ),
+                    border: Border.all(color: tone.primary.withValues(alpha: 0.16)),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  const SizedBox(height: 6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
                         '${AppLocalizations.of(context)?.translate('surah') ?? 'سورەت'} ${map['surah']}:${map['ayah']}',
-                        textDirection: isKurdish ? TextDirection.rtl : TextDirection.ltr,
-                        style: (isKurdish
-                            ? AppTheme.kurdishText(color: AppColors.gold, fontSize: 10, fontWeight: FontWeight.w700)
-                            : AppTheme.englishText(color: AppColors.gold, fontSize: 10, fontWeight: FontWeight.w700)).copyWith(
+                        textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+                        style: (isRtl
+                            ? AppTheme.kurdishText(color: AppColors.gold, fontSize: 11, fontWeight: FontWeight.w700)
+                            : AppTheme.englishText(color: AppColors.gold, fontSize: 11, fontWeight: FontWeight.w700)).copyWith(
                               decoration: TextDecoration.underline,
                               decorationColor: AppColors.gold,
                             ),
                       ),
-                  const SizedBox(height: 6),
-                  if (map['kurdishMeaning'] != null &&
-                      map['kurdishMeaning'].toString().isNotEmpty) ...[
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: AppColors.gold.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            '📖 مانای کوردی',
-                            style: AppTheme.kurdishText(
-                              fontSize: 9,
-                              color: AppColors.gold,
-                              fontWeight: FontWeight.bold,
+                      const SizedBox(height: 8),
+                      Text(
+                        map['arabicText']?.toString() ?? '',
+                        textDirection: TextDirection.rtl,
+                        style: AppTheme.quranAyahText(fontSize: 22, color: AppColors.cream),
+                      ),
+                      const SizedBox(height: 8),
+                      if (map['kurdishMeaning'] != null &&
+                          map['kurdishMeaning'].toString().isNotEmpty) ...[
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: AppColors.gold.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                '📖 مانای کوردی',
+                                style: AppTheme.kurdishText(
+                                  fontSize: 9,
+                                  color: AppColors.gold,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          map['kurdishMeaning'].toString(),
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.right,
+                          style: AppTheme.kurdishText(
+                              color: AppColors.cream, fontSize: 12),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      map['kurdishMeaning'].toString(),
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                      style: AppTheme.kurdishText(
-                          color: AppColors.cream, fontSize: 12),
-                    ),
-                  ],
-                  if (map['englishMeaning'] != null &&
-                      map['englishMeaning'].toString().isNotEmpty) ...[
-                    const SizedBox(height: 6),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF3B82F6).withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: const Text(
-                            '🌐 English Meaning',
-                            style: TextStyle(
-                              fontSize: 9,
-                              color: Color(0xFF93C5FD),
-                              fontWeight: FontWeight.bold,
+                      if (map['englishMeaning'] != null &&
+                          map['englishMeaning'].toString().isNotEmpty) ...[
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF3B82F6).withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                '🌐 English Meaning',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: Color(0xFF93C5FD),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                        const SizedBox(height: 3),
+                        Text(
+                          map['englishMeaning'].toString(),
+                          textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.left,
+                          style: AppTheme.englishText(
+                              color: AppColors.faintText, fontSize: 11),
                         ),
                       ],
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      map['englishMeaning'].toString(),
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.left,
-                      style: AppTheme.englishText(
-                          color: AppColors.faintText, fontSize: 11),
-                    ),
-                  ],
-                ],
-              ),
-              ),
-            );
-          }),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ],
           const SizedBox(height: 10),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: isRtl ? Alignment.centerLeft : Alignment.centerRight,
             child: TextButton.icon(
               onPressed: onShare,
               icon: const Icon(Icons.share_rounded),
