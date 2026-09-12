@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:home_widget/home_widget.dart';
 import '../app_localizations.dart';
+import '../widgets/app_theme.dart';
 import 'prayer_repository.dart';
+import 'storage_service.dart';
 
 /// Service for keeping Android & iOS Home Screen / Lock Screen widgets in sync
 /// with real-time prayer schedules and countdowns.
@@ -53,6 +55,23 @@ class PrayerWidgetService {
     } catch (e) {
       debugPrint('PrayerWidgetService saveDouble($key) error: $e');
     }
+  }
+
+  /// Formats time cleanly as 2-digit 12-hour: '04:12', '12:15', '03:45'
+  static String _cleanTime(DateTime dt) {
+    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+    final hourStr = hour.toString().padLeft(2, '0');
+    final minuteStr = dt.minute.toString().padLeft(2, '0');
+    return '$hourStr:$minuteStr';
+  }
+
+  /// Formats time with period: '03:45 PM'
+  static String _fullTime(DateTime dt) {
+    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+    final hourStr = hour.toString().padLeft(2, '0');
+    final minuteStr = dt.minute.toString().padLeft(2, '0');
+    final period = dt.hour >= 12 ? 'PM' : 'AM';
+    return '$hourStr:$minuteStr $period';
   }
 
   /// Calculates a 0.0–1.0 progress fraction representing how far into the
@@ -110,7 +129,7 @@ class PrayerWidgetService {
       nextItem ??= items.isNotEmpty ? items.first : null;
       currentItem ??= items.length > 1 ? items[items.length - 1] : null;
 
-      // Extract individual prayer times
+      // Extract individual prayer times (Clean 2-digit formatted: '04:12')
       String fajr = '--:--';
       String sunrise = '--:--';
       String dhuhr = '--:--';
@@ -119,30 +138,31 @@ class PrayerWidgetService {
       String isha = '--:--';
 
       for (final item in items) {
+        final cTime = _cleanTime(item.time);
         switch (item.id) {
           case 'fajr':
-            fajr = item.formattedTime();
+            fajr = cTime;
             break;
           case 'sunrise':
-            sunrise = item.formattedTime();
+            sunrise = cTime;
             break;
           case 'dhuhr':
-            dhuhr = item.formattedTime();
+            dhuhr = cTime;
             break;
           case 'asr':
-            asr = item.formattedTime();
+            asr = cTime;
             break;
           case 'maghrib':
-            maghrib = item.formattedTime();
+            maghrib = cTime;
             break;
           case 'isha':
-            isha = item.formattedTime();
+            isha = cTime;
             break;
         }
       }
 
       final nextPrayerName = nextItem?.localizedName(lang) ?? (isKurdish ? 'بانگ' : 'Prayer');
-      final nextPrayerTime = nextItem?.formattedTime() ?? '--:--';
+      final nextPrayerTime = nextItem != null ? _fullTime(nextItem.time) : '--:--';
       final nextPrayerId = nextItem?.id ?? 'fajr';
 
       // Calculate time difference
@@ -217,6 +237,21 @@ class PrayerWidgetService {
 
       await _save('app_title', isKurdish ? 'نەدا' : 'Nada');
       await _save('lang', lang);
+
+      // Save Theme Key so Android & iOS widgets match active in-app theme
+      try {
+        final activePalette = AppThemeController.instance.palette;
+        String themeKey = activePalette.key;
+        if (themeKey.isEmpty) {
+          final stored = await StorageService.readSetting('appTheme', defaultValue: 'nuri');
+          themeKey = stored?.toString() ?? 'nuri';
+        }
+        final currentPalette = AppPalettes.byKey(themeKey);
+        await _save('theme_key', currentPalette.key);
+        await _save('theme_is_dark', currentPalette.isDark ? '1' : '0');
+      } catch (e) {
+        debugPrint('PrayerWidgetService theme saving error: $e');
+      }
 
       // Trigger native widget refresh
       await HomeWidget.updateWidget(

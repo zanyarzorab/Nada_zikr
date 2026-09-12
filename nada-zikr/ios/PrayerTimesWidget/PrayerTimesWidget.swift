@@ -3,6 +3,158 @@ import SwiftUI
 
 private let appGroupId = "group.com.nada.nadaZikrakanm"
 
+// MARK: - Color Hex Initializer
+
+extension Color {
+    init(hex: UInt, alpha: Double = 1.0) {
+        self.init(
+            .sRGB,
+            red: Double((hex >> 16) & 0xff) / 255.0,
+            green: Double((hex >> 08) & 0xff) / 255.0,
+            blue: Double((hex >> 00) & 0xff) / 255.0,
+            opacity: alpha
+        )
+    }
+}
+
+// MARK: - Theme Color Palettes (Synchronized with Flutter AppPalettes)
+
+struct ThemeColors {
+    let background: LinearGradient
+    let cardBackground: Color
+    let cardBorder: Color
+    let primary: Color      // Gold / Accent color
+    let secondary: Color    // Light / Cream text color
+    let muted: Color        // Faint / Muted subtext
+    let cellActiveBg: Color
+    let isLight: Bool
+
+    static func forTheme(_ key: String?) -> ThemeColors {
+        switch key {
+        case "obsidian":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x0A0D10), Color(hex: 0x12171C), Color(hex: 0x1B222A)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0xFFD700).opacity(0.12),
+                cardBorder: Color(hex: 0xFFD700).opacity(0.35),
+                primary: Color(hex: 0xFFFFD700),
+                secondary: Color(hex: 0xFAF9F6),
+                muted: Color(hex: 0x9CA5B0),
+                cellActiveBg: Color(hex: 0xFFFFD700).opacity(0.18),
+                isLight: false
+            )
+        case "sunrise": // Golden Dawn (Daylight Amber & Cream)
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0xF5EFE4), Color(hex: 0xECE2CF), Color(hex: 0xDFD2BA)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0x9A5B0B).opacity(0.12),
+                cardBorder: Color(hex: 0x9A5B0B).opacity(0.30),
+                primary: Color(hex: 0x9A5B0B),
+                secondary: Color(hex: 0x1C140A), // Deep high-contrast text for daylight
+                muted: Color(hex: 0x64513C),
+                cellActiveBg: Color(hex: 0x9A5B0B).opacity(0.16),
+                isLight: true
+            )
+        case "forest":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x081812), Color(hex: 0x102A20), Color(hex: 0x16382C)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0x52B788).opacity(0.14),
+                cardBorder: Color(hex: 0x52B788).opacity(0.35),
+                primary: Color(hex: 0xD4AF37),
+                secondary: Color(hex: 0xF2F7EF),
+                muted: Color(hex: 0x8FA89B),
+                cellActiveBg: Color(hex: 0xD4AF37).opacity(0.18),
+                isLight: false
+            )
+        case "dusk":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x120C1D), Color(hex: 0x1B122C), Color(hex: 0x261A3E)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0xC084FC).opacity(0.14),
+                cardBorder: Color(hex: 0xC084FC).opacity(0.35),
+                primary: Color(hex: 0xF6C86D),
+                secondary: Color(hex: 0xF8F3FE),
+                muted: Color(hex: 0xA592C0),
+                cellActiveBg: Color(hex: 0xF6C86D).opacity(0.18),
+                isLight: false
+            )
+        case "ocean":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x07111D), Color(hex: 0x0E1F34), Color(hex: 0x142B47)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0x38BDF8).opacity(0.14),
+                cardBorder: Color(hex: 0x38BDF8).opacity(0.35),
+                primary: Color(hex: 0x38BDF8),
+                secondary: Color(hex: 0xF0F7FF),
+                muted: Color(hex: 0x7FAACF),
+                cellActiveBg: Color(hex: 0x38BDF8).opacity(0.18),
+                isLight: false
+            )
+        case "rose":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x180A12), Color(hex: 0x28101E), Color(hex: 0x36162A)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0xFB7185).opacity(0.14),
+                cardBorder: Color(hex: 0xFB7185).opacity(0.35),
+                primary: Color(hex: 0xF6A97A),
+                secondary: Color(hex: 0xFFF0F5),
+                muted: Color(hex: 0xBA8F9F),
+                cellActiveBg: Color(hex: 0xF6A97A).opacity(0.18),
+                isLight: false
+            )
+        case "oled":
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x000000), Color(hex: 0x070707), Color(hex: 0x0F0F0F)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0xFFD700).opacity(0.10),
+                cardBorder: Color(hex: 0xFFD700).opacity(0.35),
+                primary: Color(hex: 0xFFFFD700),
+                secondary: Color(hex: 0xFFFFFF),
+                muted: Color(hex: 0xA0A0A0),
+                cellActiveBg: Color(hex: 0xFFFFD700).opacity(0.18),
+                isLight: false
+            )
+        default: // "nuri" / Kurdish Emerald Classic
+            return ThemeColors(
+                background: LinearGradient(
+                    colors: [Color(hex: 0x07140E), Color(hex: 0x0D2A1C), Color(hex: 0x143826)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                ),
+                cardBackground: Color(hex: 0x4DAE8C).opacity(0.14),
+                cardBorder: Color(hex: 0x4DAE8C).opacity(0.35),
+                primary: Color(hex: 0xD4AF37),
+                secondary: Color(hex: 0xF7F2E7),
+                muted: Color(hex: 0x98B8A4),
+                cellActiveBg: Color(hex: 0xD4AF37).opacity(0.18),
+                isLight: false
+            )
+        }
+    }
+}
+
 // MARK: - Prayer Data Model
 
 struct PrayerEntry: TimelineEntry {
@@ -13,8 +165,6 @@ struct PrayerEntry: TimelineEntry {
     // Next upcoming prayer
     let nextPrayerName: String
     let nextPrayerTime: String
-    /// Unix epoch seconds of the next prayer time.
-    /// Flutter writes this so Swift can compute an always-accurate countdown at render time.
     let nextPrayerTimestamp: Double
     let nextPrayerId: String
 
@@ -28,9 +178,9 @@ struct PrayerEntry: TimelineEntry {
 
     let isKurdish: Bool
     let isArabic: Bool
+    let themeKey: String
 
     // MARK: - Live Countdown (always accurate — computed fresh at every SwiftUI render)
-    /// Never stale: calculates remaining time from Date() at the moment SwiftUI draws this view.
     var liveRemainingText: String {
         guard nextPrayerTimestamp > 0 else { return "" }
         let target = Date(timeIntervalSince1970: nextPrayerTimestamp)
@@ -84,17 +234,17 @@ struct PrayerTimelineProvider: TimelineProvider {
             hijriDate: "١٤ سەفەر ١٤٤٨",
             nextPrayerName: "بانگی عەسر",
             nextPrayerTime: "03:45 PM",
-            // 25 minutes from now so liveRemainingText shows a real countdown in Xcode previews
             nextPrayerTimestamp: Date().addingTimeInterval(25 * 60).timeIntervalSince1970,
             nextPrayerId: "asr",
-            fajr: "04:12 AM",
-            sunrise: "05:38 AM",
-            dhuhr: "12:15 PM",
-            asr: "03:45 PM",
-            maghrib: "06:50 PM",
-            isha: "08:15 PM",
+            fajr: "04:12",
+            sunrise: "05:38",
+            dhuhr: "12:15",
+            asr: "03:45",
+            maghrib: "06:50",
+            isha: "08:15",
             isKurdish: true,
-            isArabic: false
+            isArabic: false,
+            themeKey: "nuri"
         )
     }
 
@@ -105,15 +255,13 @@ struct PrayerTimelineProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<PrayerEntry>) -> ()) {
         let entry = fetchCurrentEntry()
         let now = Date()
-        // Wake exactly at the next prayer boundary so "active prayer" switches instantly.
-        // Fall back to 15-min poll when the prayer is far away or already past.
         let prayerDate = Date(timeIntervalSince1970: entry.nextPrayerTimestamp)
         let fifteenMin = now.addingTimeInterval(900)
         let nextUpdate: Date
         if prayerDate > now && prayerDate < fifteenMin {
-            nextUpdate = prayerDate  // imminent prayer — refresh exactly at the boundary
+            nextUpdate = prayerDate
         } else {
-            nextUpdate = fifteenMin  // standard 15-min safety poll
+            nextUpdate = fifteenMin
         }
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
         completion(timeline)
@@ -133,8 +281,6 @@ struct PrayerTimelineProvider: TimelineProvider {
         let nextPrayerName = readString(prefs, keys: ["next_prayer_name", "selected_prayer_name"], fallback: defaultNextPrayer)
         let nextPrayerTime = readString(prefs, keys: ["next_prayer_time", "selected_prayer_time"], fallback: "--:--")
         let nextPrayerId   = prefs?.string(forKey: "next_prayer_id") ?? "fajr"
-
-        // Raw Unix timestamp from Flutter — used to compute live countdown at render time
         let nextPrayerTimestamp = prefs?.double(forKey: "next_prayer_timestamp") ?? 0
 
         let fajr    = readString(prefs, keys: ["fajr_time"],    fallback: "--:--")
@@ -143,6 +289,8 @@ struct PrayerTimelineProvider: TimelineProvider {
         let asr     = readString(prefs, keys: ["asr_time"],     fallback: "--:--")
         let maghrib = readString(prefs, keys: ["maghrib_time"], fallback: "--:--")
         let isha    = readString(prefs, keys: ["isha_time"],     fallback: "--:--")
+
+        let themeKey = prefs?.string(forKey: "theme_key") ?? "nuri"
 
         return PrayerEntry(
             date: Date(),
@@ -159,22 +307,11 @@ struct PrayerTimelineProvider: TimelineProvider {
             maghrib: maghrib,
             isha: isha,
             isKurdish: isKurdish,
-            isArabic: isArabic
+            isArabic: isArabic,
+            themeKey: themeKey
         )
     }
 }
-
-// MARK: - Color Palette
-
-private let colorGold   = Color(red: 0.90, green: 0.72, blue: 0.29)
-private let colorCream  = Color(red: 0.95, green: 0.91, blue: 0.82)
-private let colorBg1    = Color(red: 0.04, green: 0.12, blue: 0.08)
-private let colorBg2    = Color(red: 0.08, green: 0.18, blue: 0.12)
-private let bgGradient  = LinearGradient(
-    gradient: Gradient(colors: [colorBg1, colorBg2]),
-    startPoint: .topLeading,
-    endPoint: .bottomTrailing
-)
 
 // MARK: - Shared Row View
 
@@ -182,20 +319,32 @@ private struct PrayerRow: View {
     let name: String
     let time: String
     let isNext: Bool
+    let textColor: Color
+    let activeColor: Color
+    let activeBg: Color
+
+    /// Guarantees clean, non-wrapping time display (e.g. '04:12')
+    private var cleanTime: String {
+        let parts = time.components(separatedBy: " ")
+        return parts.first ?? time
+    }
 
     var body: some View {
         HStack {
             Text(name)
                 .font(.system(size: 11, weight: isNext ? .bold : .medium))
-                .foregroundColor(isNext ? colorGold : colorCream.opacity(0.80))
-            Spacer()
-            Text(time)
+                .foregroundColor(isNext ? activeColor : textColor.opacity(0.85))
+                .lineLimit(1)
+            Spacer(minLength: 4)
+            Text(cleanTime)
                 .font(.system(size: 11, weight: isNext ? .bold : .regular, design: .monospaced))
-                .foregroundColor(isNext ? colorGold : colorCream)
+                .foregroundColor(isNext ? activeColor : textColor)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 3.5)
-        .background(isNext ? colorGold.opacity(0.18) : Color.clear)
+        .background(isNext ? activeBg : Color.clear)
         .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
     }
 }
@@ -205,6 +354,10 @@ private struct PrayerRow: View {
 struct PrayerTimesWidgetEntryView: View {
     var entry: PrayerTimelineProvider.Entry
     @Environment(\.widgetFamily) var family
+
+    private var theme: ThemeColors {
+        ThemeColors.forTheme(entry.themeKey)
+    }
 
     private func prayerSlots() -> [PrayerSlot] {
         [
@@ -230,11 +383,11 @@ struct PrayerTimesWidgetEntryView: View {
     var body: some View {
         switch family {
         case .systemSmall:
-            smallWidget.widgetBackground(bgGradient)
+            smallWidget.widgetBackground(theme.background)
         case .systemMedium:
-            mediumWidget.widgetBackground(bgGradient)
+            mediumWidget.widgetBackground(theme.background)
         case .systemLarge:
-            largeWidget.widgetBackground(bgGradient)
+            largeWidget.widgetBackground(theme.background)
         default:
             if #available(iOSApplicationExtension 16.0, *) {
                 switch family {
@@ -245,26 +398,26 @@ struct PrayerTimesWidgetEntryView: View {
                 case .accessoryCircular:
                     lockScreenCircular.widgetBackground(Color.clear)
                 default:
-                    smallWidget.widgetBackground(bgGradient)
+                    smallWidget.widgetBackground(theme.background)
                 }
             } else {
-                smallWidget.widgetBackground(bgGradient)
+                smallWidget.widgetBackground(theme.background)
             }
         }
     }
 
-    // MARK: - Small Widget (Clean, Simple, Elegant)
+    // MARK: - Small Widget (Clean, Simple, Themed)
     var smallWidget: some View {
         VStack(alignment: .leading, spacing: 6) {
             // Header
             HStack {
                 Text(appTitle)
                     .font(.system(size: 13, weight: .bold))
-                    .foregroundColor(colorGold)
+                    .foregroundColor(theme.primary)
                 Spacer()
                 Text(entry.cityName)
                     .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(colorCream.opacity(0.80))
+                    .foregroundColor(theme.secondary.opacity(0.80))
                     .lineLimit(1)
             }
 
@@ -274,22 +427,22 @@ struct PrayerTimesWidgetEntryView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.nextPrayerName)
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(colorGold)
+                    .foregroundColor(theme.primary)
                     .lineLimit(1)
 
                 Text(entry.nextPrayerTime)
                     .font(.system(size: 24, weight: .heavy, design: .rounded))
-                    .foregroundColor(colorCream)
+                    .foregroundColor(theme.secondary)
                     .minimumScaleFactor(0.75)
             }
 
             if !entry.liveRemainingText.isEmpty {
                 Text(entry.liveRemainingText)
                     .font(.system(size: 10, weight: .medium))
-                    .foregroundColor(colorGold)
+                    .foregroundColor(theme.primary)
                     .padding(.horizontal, 7)
                     .padding(.vertical, 3)
-                    .background(colorGold.opacity(0.16))
+                    .background(theme.cardBackground)
                     .clipShape(Capsule())
             }
 
@@ -299,7 +452,7 @@ struct PrayerTimesWidgetEntryView: View {
             if !entry.hijriDate.isEmpty {
                 Text(entry.hijriDate)
                     .font(.system(size: 9))
-                    .foregroundColor(colorCream.opacity(0.55))
+                    .foregroundColor(theme.muted)
                     .lineLimit(1)
             }
         }
@@ -315,10 +468,10 @@ struct PrayerTimesWidgetEntryView: View {
                 HStack(spacing: 4) {
                     Text(appTitle)
                         .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(colorGold)
+                        .foregroundColor(theme.primary)
                     Text("• \(entry.cityName)")
                         .font(.system(size: 11, weight: .medium))
-                        .foregroundColor(colorCream.opacity(0.80))
+                        .foregroundColor(theme.secondary.opacity(0.80))
                         .lineLimit(1)
                 }
 
@@ -326,20 +479,21 @@ struct PrayerTimesWidgetEntryView: View {
 
                 Text(entry.nextPrayerName)
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(colorGold)
+                    .foregroundColor(theme.primary)
 
                 Text(entry.nextPrayerTime)
-                    .font(.system(size: 26, weight: .heavy, design: .rounded))
-                    .foregroundColor(colorCream)
+                    .font(.system(size: 25, weight: .heavy, design: .rounded))
+                    .foregroundColor(theme.secondary)
+                    .lineLimit(1)
                     .minimumScaleFactor(0.7)
 
                 if !entry.liveRemainingText.isEmpty {
                     Text(entry.liveRemainingText)
                         .font(.system(size: 9, weight: .medium))
-                        .foregroundColor(colorGold)
+                        .foregroundColor(theme.primary)
                         .padding(.horizontal, 7)
                         .padding(.vertical, 3)
-                        .background(colorGold.opacity(0.16))
+                        .background(theme.cardBackground)
                         .clipShape(Capsule())
                 }
 
@@ -348,14 +502,14 @@ struct PrayerTimesWidgetEntryView: View {
                 if !entry.hijriDate.isEmpty {
                     Text(entry.hijriDate)
                         .font(.system(size: 9))
-                        .foregroundColor(colorCream.opacity(0.55))
+                        .foregroundColor(theme.muted)
                 }
             }
             .frame(maxWidth: 130, alignment: .leading)
 
             // Divider
             Rectangle()
-                .fill(colorGold.opacity(0.20))
+                .fill(theme.primary.opacity(0.20))
                 .frame(width: 0.75)
                 .padding(.vertical, 4)
 
@@ -366,7 +520,10 @@ struct PrayerTimesWidgetEntryView: View {
                     PrayerRow(
                         name: prayerName(slot),
                         time: slot.time,
-                        isNext: slot.isNext
+                        isNext: slot.isNext,
+                        textColor: theme.secondary,
+                        activeColor: theme.primary,
+                        activeBg: theme.cellActiveBg
                     )
                 }
             }
@@ -374,7 +531,7 @@ struct PrayerTimesWidgetEntryView: View {
         .padding(12)
     }
 
-    // MARK: - Large Widget (Spacious, Clean)
+    // MARK: - Large Widget (Spacious, Clean, Themed)
     var largeWidget: some View {
         VStack(alignment: .leading, spacing: 0) {
 
@@ -383,16 +540,16 @@ struct PrayerTimesWidgetEntryView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(appTitle)
                         .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(colorGold)
+                        .foregroundColor(theme.primary)
                     Text(entry.cityName)
                         .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(colorCream.opacity(0.80))
+                        .foregroundColor(theme.secondary.opacity(0.80))
                 }
                 Spacer()
                 if !entry.hijriDate.isEmpty {
                     Text(entry.hijriDate)
                         .font(.system(size: 11))
-                        .foregroundColor(colorCream.opacity(0.60))
+                        .foregroundColor(theme.muted)
                 }
             }
             .padding(.bottom, 12)
@@ -402,20 +559,24 @@ struct PrayerTimesWidgetEntryView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(entry.nextPrayerName)
                         .font(.system(size: 14, weight: .bold))
-                        .foregroundColor(colorGold)
+                        .foregroundColor(theme.primary)
                     if !entry.liveRemainingText.isEmpty {
                         Text(entry.liveRemainingText)
                             .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(colorCream.opacity(0.85))
+                            .foregroundColor(theme.secondary.opacity(0.85))
                     }
                 }
                 Spacer()
                 Text(entry.nextPrayerTime)
                     .font(.system(size: 24, weight: .heavy, design: .rounded))
-                    .foregroundColor(colorGold)
+                    .foregroundColor(theme.primary)
             }
             .padding(12)
-            .background(colorGold.opacity(0.12))
+            .background(theme.cardBackground)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(theme.cardBorder, lineWidth: 1)
+            )
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             .padding(.bottom, 12)
 
@@ -426,7 +587,10 @@ struct PrayerTimesWidgetEntryView: View {
                     PrayerRow(
                         name: prayerName(slot),
                         time: slot.time,
-                        isNext: slot.isNext
+                        isNext: slot.isNext,
+                        textColor: theme.secondary,
+                        activeColor: theme.primary,
+                        activeBg: theme.cellActiveBg
                     )
                     .padding(.vertical, 1)
                 }
@@ -454,6 +618,7 @@ struct PrayerTimesWidgetEntryView: View {
             HStack(alignment: .firstTextBaseline) {
                 Text(entry.nextPrayerTime)
                     .font(.system(size: 17, weight: .heavy, design: .rounded))
+                    .lineLimit(1)
                 Spacer()
                 if !entry.liveRemainingText.isEmpty {
                     Text(entry.liveRemainingText)

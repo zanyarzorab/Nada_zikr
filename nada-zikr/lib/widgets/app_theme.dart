@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../services/prayer_widget_service.dart';
 import '../services/storage_service.dart';
 
 class AppPalette {
@@ -272,6 +274,7 @@ class AppThemeController extends ChangeNotifier {
     _palette = AppPalettes.byKey(key);
     await StorageService.saveSetting('appTheme', key);
     notifyListeners();
+    unawaited(PrayerWidgetService.updateWidgets());
   }
 }
 
