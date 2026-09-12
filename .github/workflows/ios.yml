@@ -22,6 +22,10 @@ jobs:
     name: Build iOS IPA
     runs-on: macos-14
 
+    defaults:
+      run:
+        working-directory: nada-zikr
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -134,7 +138,7 @@ jobs:
         with:
           name: Nada-iOS-IPAs-v${{ steps.app_version.outputs.VERSION }}
           path: |
-            build/ios/ipa/*.ipa
-            build/ios/archive/*.ipa
+            nada-zikr/build/ios/ipa/*.ipa
+            nada-zikr/build/ios/archive/*.ipa
           retention-days: 14
           
