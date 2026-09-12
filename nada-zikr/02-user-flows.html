@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02 - User Flows</title>
+    <style>
+      :root {
+        --bg: #07110d;
+        --panel: #12231b;
+        --panel-2: #183124;
+        --text: #f7f0e2;
+        --muted: #96aa97;
+        --gold: #b88c3e;
+        --teal: #4fae8d;
+        --violet: #7b6cf3;
+        --rose: #c96c44;
+        --blue: #4d94d6;
+        --green: #2e8b57;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Inter, Arial, sans-serif;
+        background: linear-gradient(135deg, #07110d 0%, #10261a 100%);
+        color: var(--text);
+      }
+
+      .page { max-width: 1500px; margin: 0 auto; padding: 32px 24px 60px; }
+      .header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+      .title h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -0.03em; }
+      .title p { margin: 0; color: var(--muted); line-height: 1.7; max-width: 780px; }
+      .pill { border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); padding: 10px 14px; border-radius: 999px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; color: #e9dcc4; white-space: nowrap; }
+
+      .board {
+        background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 30px;
+        padding: 24px;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+      }
+
+      .flow-card {
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.045), rgba(255,255,255,0.025));
+        padding: 18px 18px 20px;
+        margin-bottom: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .flow-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(180deg, var(--gold), var(--teal));
+      }
+
+      .flow-title { font-size: 17px; font-weight: 700; margin: 0 0 12px; color: #fff; }
+      .flow-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .node {
+        padding: 10px 14px;
+        border-radius: 16px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 48px;
+        line-height: 1.35;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      }
+      .start { background: rgba(46,139,87,0.26); color: #dff7e8; border: 1px solid rgba(46,139,87,0.45); }
+      .screen { background: rgba(77,148,214,0.2); color: #eaf4ff; border: 1px solid rgba(77,148,214,0.35); }
+      .decision { background: rgba(184,140,62,0.22); color: #fff2d0; border: 1px solid rgba(184,140,62,0.36); }
+      .end { background: rgba(201,108,68,0.24); color: #ffe6dc; border: 1px solid rgba(201,108,68,0.4); }
+      .arrow { color: var(--muted); font-size: 16px; margin: 0 4px; }
+      .subtle { color: var(--muted); font-size: 12px; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.18em; }
+
+      @media (max-width: 900px) {
+        .header { flex-direction: column; }
+        .pill { align-self: flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="header">
+        <div class="title">
+          <h1>02 - User Flows</h1>
+          <p>This page describes how users complete important experiences in Nûrî. The focus is on movement, decisions, and task completion rather than visual screen layout.</p>
+        </div>
+        <div class="pill">UX Workflow · Task Paths</div>
+      </div>
+
+      <div class="board">
+        <div class="flow-card">
+          <h3 class="flow-title">1. First-Time User</h3>
+          <div class="flow-row">
+            <span class="node start">Open App</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Splash Screen</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Welcome</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Choose Language</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Location Permission</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Notification Permission</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Prayer Calculation Method</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Madhhab (Optional)</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Guest or Sign In?</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Home Dashboard</span>
+            <span class="arrow">→</span>
+            <span class="node end">Complete Setup</span>
+          </div>
+          <div class="subtle">Onboarding path for new users</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">2. Check Prayer Times</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Prayer</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Prayer Times</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Prayer Details</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Set Reminder</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Back to Home</span>
+          </div>
+          <div class="subtle">Primary prayer routine flow</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">3. Read Quran</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Continue Reading or Open Quran</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Surah List</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Reading Screen</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Audio</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Bookmark</span>
+            <span class="arrow">→</span>
+            <span class="node end">Exit</span>
+          </div>
+          <div class="subtle">Reading and engagement path</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">4. Morning Dhikr</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Dhikr</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Morning Dhikr</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Read Dhikr</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Play Audio</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Mark Complete</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Update Daily Progress</span>
+          </div>
+          <div class="subtle">Habit-forming spiritual routine</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">5. Tasbeeh</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Tasbeeh</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Choose Dhikr</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Counter</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Reach Goal</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Statistics Updated</span>
+          </div>
+          <div class="subtle">Focused repetition and progress</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">6. AI Assistant</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node screen">AI</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Ask Question</span>
+            <span class="arrow">→</span>
+            <span class="node screen">AI Response</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Suggested Related Topics</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Save Conversation</span>
+          </div>
+          <div class="subtle">Guidance and conversational support</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">7. Learning</h3>
+          <div class="flow-row">
+            <span class="node screen">Home</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Learning</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Choose Category</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Open Lesson</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Finish Reading</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Take Quiz</span>
+          </div>
+          <div class="subtle">Educational exploration flow</div>
+        </div>
+
+        <div class="flow-card">
+          <h3 class="flow-title">8. Daily Goal</h3>
+          <div class="flow-row">
+            <span class="node start">Open App</span>
+            <span class="arrow">→</span>
+            <span class="node screen">View Today’s Goals</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Complete Prayer</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Read Quran</span>
+            <span class="arrow">→</span>
+            <span class="node decision">Complete Dhikr</span>
+            <span class="arrow">→</span>
+            <span class="node screen">Daily Goal Complete</span>
+            <span class="arrow">→</span>
+            <span class="node end">Achievement Animation</span>
+          </div>
+          <div class="subtle">Motivation and progress loop</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
