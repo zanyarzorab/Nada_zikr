@@ -89,7 +89,7 @@ jobs:
           flutter build ipa --release
 
       # ─────────────────────────────────────────────────────────────────────────────
-      # PATH 2: UNSIGNED IPA (Direct download / Sideloading via AltStore, TrollStore)
+      # PATH 2: SIDELOADER OPTIMIZED IPA (Sideloadly, AltStore, TrollStore, Scarlet)
       # ─────────────────────────────────────────────────────────────────────────────
       - name: Build Unsigned iOS Archive
         if: ${{ inputs.build_mode == 'unsigned' || github.event_name == 'push' }}
@@ -99,24 +99,42 @@ jobs:
           cd ..
           flutter build ios --release --no-codesign
 
-      - name: Package into IPA
+      - name: Package Sideload-Ready IPAs
         if: ${{ inputs.build_mode == 'unsigned' || github.event_name == 'push' }}
         run: |
-          mkdir -p build/ios/ipa/Payload
-          cp -r build/ios/iphoneos/Runner.app build/ios/ipa/Payload/
-          cd build/ios/ipa
-          zip -r -y "Nada-Zikr-${{ steps.app_version.outputs.VERSION }}.ipa" Payload
-          rm -rf Payload
-          echo "IPA packaged successfully at build/ios/ipa/Nada-Zikr-${{ steps.app_version.outputs.VERSION }}.ipa"
+          mkdir -p build/ios/ipa
+          APP_PATH="build/ios/iphoneos/Runner.app"
+
+          # 1. Package Complete IPA (With PrayerTimesWidget extension)
+          mkdir -p build/ios/ipa/full_payload/Payload
+          ditto "$APP_PATH" build/ios/ipa/full_payload/Payload/Runner.app
+          cd build/ios/ipa/full_payload
+          zip -r -y "../Nada-Zikr-Full-v${{ steps.app_version.outputs.VERSION }}.ipa" Payload
+          cd ../../../..
+
+          # 2. Package Sideload-Safe IPA (Stripped PlugIns for Free 7-day Apple IDs in Sideloadly/AltStore)
+          mkdir -p build/ios/ipa/safe_payload/Payload
+          ditto "$APP_PATH" build/ios/ipa/safe_payload/Payload/Runner.app
+          rm -rf build/ios/ipa/safe_payload/Payload/Runner.app/PlugIns
+          cd build/ios/ipa/safe_payload
+          zip -r -y "../Nada-Zikr-SideloadSafe-v${{ steps.app_version.outputs.VERSION }}.ipa" Payload
+          cd ../../../..
+
+          # Cleanup temp payload folders
+          rm -rf build/ios/ipa/full_payload build/ios/ipa/safe_payload
+
+          echo "Generated IPAs:"
+          ls -lh build/ios/ipa/
 
       # ─────────────────────────────────────────────────────────────────────────────
       # ARTIFACT UPLOAD: Downloadable right from GitHub Actions summary
       # ─────────────────────────────────────────────────────────────────────────────
-      - name: Upload IPA Artifact
+      - name: Upload IPA Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Nada-iOS-v${{ steps.app_version.outputs.VERSION }}
+          name: Nada-iOS-IPAs-v${{ steps.app_version.outputs.VERSION }}
           path: |
             build/ios/ipa/*.ipa
             build/ios/archive/*.ipa
           retention-days: 14
+
