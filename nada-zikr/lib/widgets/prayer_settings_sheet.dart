@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import '../app_localizations.dart';
 import '../services/azan_audio_service.dart';
 import '../services/notification_service.dart';
@@ -52,6 +53,7 @@ class _PrayerSettingsSheetState extends State<PrayerSettingsSheet>
   double? _previewTargetUtcOffset;
   bool _isLoadingPreview = true;
   String? _previewPlayingSound;
+  StreamSubscription<PlayerState>? _azanAudioSub;
 
   @override
   void initState() {
@@ -68,6 +70,14 @@ class _PrayerSettingsSheetState extends State<PrayerSettingsSheet>
 
     _loadInitialAzanSound();
     _recalculatePreview();
+
+    _azanAudioSub = AzanAudioService.instance.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        if (mounted && _previewPlayingSound != null) {
+          setState(() => _previewPlayingSound = null);
+        }
+      }
+    });
   }
 
   Future<void> _loadInitialAzanSound() async {
@@ -79,6 +89,7 @@ class _PrayerSettingsSheetState extends State<PrayerSettingsSheet>
 
   @override
   void dispose() {
+    _azanAudioSub?.cancel();
     _tabController.dispose();
     unawaited(AzanAudioService.instance.stop());
     super.dispose();
@@ -115,16 +126,20 @@ class _PrayerSettingsSheetState extends State<PrayerSettingsSheet>
 
   Future<void> _toggleAudioPreview(String soundId) async {
     if (_previewPlayingSound == soundId) {
+      setState(() => _previewPlayingSound = null);
       await AzanAudioService.instance.stop();
-      if (mounted) setState(() => _previewPlayingSound = null);
     } else {
       if (soundId == 'silent' || soundId == 'vibrate') {
+        setState(() => _previewPlayingSound = null);
         await AzanAudioService.instance.stop();
-        if (mounted) setState(() => _previewPlayingSound = null);
         return;
       }
-      await AzanAudioService.instance.play(soundId);
-      if (mounted) setState(() => _previewPlayingSound = soundId);
+      setState(() => _previewPlayingSound = soundId);
+      try {
+        await AzanAudioService.instance.play(soundId);
+      } catch (_) {
+        if (mounted) setState(() => _previewPlayingSound = null);
+      }
     }
   }
 

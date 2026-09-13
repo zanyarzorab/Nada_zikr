@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -14,6 +15,7 @@ class AzanAudioService {
 
   bool get isPlaying => _player.playing;
   Stream<bool> get isPlayingStream => _player.playingStream;
+  Stream<PlayerState> get playerStateStream => _player.playerStateStream;
 
   static const Map<String, String> assetPaths = {
     'makkah': 'assets/azan/makkah.mp3',
@@ -31,7 +33,7 @@ class AzanAudioService {
   /// Configures the device audio session to playback mode.
   /// On iOS, this ensures the audio routes to the loudspeaker and plays
   /// EVEN IF the physical Ring/Silent switch on the iPhone is set to silent.
-  Future<void> _configureAudioSession() async {
+  static Future<void> configureAudioSession() async {
     try {
       final session = await AudioSession.instance;
       await session.configure(const AudioSessionConfiguration(
@@ -83,12 +85,12 @@ class AzanAudioService {
     final assetPath = assetPaths[safeSoundId];
     if (assetPath == null) return;
 
-    await _configureAudioSession();
+    await configureAudioSession();
     await _player.stop();
     await _player.setAudioSource(
       AudioSource.asset(assetPath),
     );
-    await _player.play();
+    unawaited(_player.play());
   }
 
   Future<void> stop() => _player.stop();

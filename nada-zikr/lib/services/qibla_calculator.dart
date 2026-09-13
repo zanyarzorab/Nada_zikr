@@ -37,9 +37,27 @@ class QiblaCalculator {
   }
 
   /// Converts bearing angle to cardinal direction text (e.g. "SSW", "NE", "S").
-  static String getCardinalDirection(double degrees) {
-    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
-    final index = ((degrees + 11.25) % 360 / 22.5).floor();
-    return directions[index % 16];
+  static String getCardinalDirection(double degrees, [String? lang]) {
+    const directionsEn = [
+      'N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+      'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'
+    ];
+    const directionsKu = [
+      'باکوور', 'ب.ب.ڕۆژهەڵات', 'باکووری ڕۆژهەڵات', 'ڕ.ب.ڕۆژهەڵات',
+      'ڕۆژهەڵات', 'ڕ.بش.ڕۆژهەڵات', 'باشووری ڕۆژهەڵات', 'بش.بش.ڕۆژهەڵات',
+      'باشوور', 'بش.بش.ڕۆژئاوا', 'باشووری ڕۆژئاوا', 'ئا.بش.ڕۆژئاوا',
+      'ڕۆژئاوا', 'ئا.ب.ڕۆژئاوا', 'باکووری ڕۆژئاوا', 'ب.ب.ڕۆژئاوا'
+    ];
+    const directionsAr = [
+      'شمال', 'شمال شمال شرقي', 'شمال شرقي', 'شرق شمال شرقي',
+      'شرق', 'شرق جنوب شرقي', 'جنوب شرقي', 'جنوب جنوب شرقي',
+      'جنوب', 'جنوب جنوب غربي', 'جنوب غربي', 'غرب جنوب غربي',
+      'غرب', 'غرب شمال غربي', 'شمال غربي', 'شمال شمال غربي'
+    ];
+
+    final index = ((degrees + 11.25) % 360 / 22.5).floor() % 16;
+    if (lang == 'ku') return directionsKu[index];
+    if (lang == 'ar') return directionsAr[index];
+    return directionsEn[index];
   }
 }

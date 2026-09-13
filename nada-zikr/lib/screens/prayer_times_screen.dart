@@ -377,7 +377,11 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
                                 IconButton(
                                   padding: const EdgeInsets.all(4),
                                   constraints: const BoxConstraints(),
-                                  tooltip: 'Qibla Compass',
+                                  tooltip: isKurdish
+                                      ? 'قیبلەنما'
+                                      : (lang == 'ar'
+                                          ? 'بوصلة القبلة'
+                                          : 'Qibla Compass'),
                                   icon: Container(
                                     padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(

@@ -329,7 +329,7 @@ class AppTheme {
       fontSize: fontSize,
       fontWeight: fontWeight,
       color: color ?? AppColors.gold,
-      height: height,
+      height: height ?? 1.6,
       letterSpacing: 0.2,
     );
   }

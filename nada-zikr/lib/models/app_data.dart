@@ -1510,13 +1510,13 @@ class AppData {
     Azkar(
       id: 255,
       arabic:
-          'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ',
+          'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
       translation:
-          'Allah - there is no deity except Him, the Ever-Living, the Sustainer of all existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.',
+          'Allah - there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great. [Al-Baqarah: 255]',
       kurdishTranslation:
-          'خوا ئەو زاتەیە کە هیچ خوایەکی تر نییە شایەنی پەرستن بێت جگە لە ئەو، ئەو زاتەی هەمیشە زیندووە و ڕاگری بوونەوەرە. نە خەواڵوویی دەست بەسەردا دەگرێت و نە خەو. هەرچی لە ئاسمانەکان و زەویدایە هەر موڵکی ئەوە. کێیە بتوانێت شەفاعەت بکات لە لای بێ مۆڵەتی ئەو؟ ئەو دەزانێت چی لە پێشیانە و چی لە پشتیانە، هیچ شتێکیش لە زانستی ئەو دەستناکەوێت مەگەر ئەوەی خۆی بیەوێت. کورسییەکەی ئاسمانەکان و زەوی گرتۆتەوە، و پاراستنی هەردووکیانی پێ گران نییە. و ئەو بەرز و پایەدار و گەورەیە.',
+          'خوا ئه‌و خوایه‌یه‌ که هیچ په‌رستراوێکی ڕاسته‌قینه‌ نییه‌ بێجگه له‌و، هه‌میشه‌ زیندووه‌ و ڕاگری هه‌موو بوونه‌وه‌ره، نه‌ وه‌نه‌وز و خه‌واڵوویی ده‌یگرێت و نه‌ خه‌و. هه‌رچی له‌ ئاسمانه‌کان و هه‌رچی له‌ زه‌ویدایه‌ هه‌ر هی ئه‌وه‌. کێیه ئه‌و که‌سه‌ی بتوانێت تکا و شه‌فاعه‌ت له‌لای ئه‌و بکات مه‌گه‌ر به‌ مۆڵه‌تی خۆی؟ ئاگاداره به هه‌موو ئه‌وه‌ی له‌به‌رده‌میانه‌ و ئه‌وه‌ی له‌پشتیانه‌، و که‌س هیچ شتێک له زانستی ئه‌و نازانێت مه‌گه‌ر به‌وه‌ی خۆی بیه‌وێت. کورسییه‌که‌ی هه‌موو ئاسمانه‌کان و زه‌وی گرتۆته‌وه و پاراستنی ئاسمانه‌کان و زه‌وی هیچ ماندووی ناکات؛ و هه‌ر ئه‌وه‌ پله‌به‌رز و گه‌وره‌ و پایه‌دار. [البقرة: 255]',
       repeat: 1,
-      source: 'سوورەتی البقرة: 255',
+      source: 'ئایەتی کورسی [البقرة: 255]',
     ),
   ];
 

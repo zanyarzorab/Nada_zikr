@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_compass/flutter_compass.dart';
+import '../app_localizations.dart';
 import '../services/location_service.dart';
 import '../services/qibla_calculator.dart';
 import '../services/storage_service.dart';
@@ -238,7 +239,6 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
   late AnimationController _pulseController;
   late double _qiblaBearing;
   late double _distanceKm;
-  late String _cardinal;
 
   StreamSubscription<CompassEvent>? _compassSubscription;
   double? _heading;
@@ -250,7 +250,6 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
     super.initState();
     _qiblaBearing = QiblaCalculator.calculateQiblaDirection(widget.latitude, widget.longitude);
     _distanceKm = QiblaCalculator.calculateDistanceToKaabaKm(widget.latitude, widget.longitude);
-    _cardinal = QiblaCalculator.getCardinalDirection(_qiblaBearing);
 
     _pulseController = AnimationController(
       vsync: this,
@@ -269,11 +268,9 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
         if (mounted) {
           final liveBearing = QiblaCalculator.calculateQiblaDirection(locRes.latitude, locRes.longitude);
           final liveDistance = QiblaCalculator.calculateDistanceToKaabaKm(locRes.latitude, locRes.longitude);
-          final liveCardinal = QiblaCalculator.getCardinalDirection(liveBearing);
           setState(() {
             _qiblaBearing = liveBearing;
             _distanceKm = liveDistance;
-            _cardinal = liveCardinal;
           });
         }
       } catch (_) {}
@@ -332,8 +329,34 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.languageCode;
+    final isKurdish = lang == 'ku';
+    final isArabic = lang == 'ar';
+
     final needleAngleRad = ((_qiblaBearing - _smoothHeading) * math.pi / 180.0);
     final dialAngleRad = (-_smoothHeading * math.pi / 180.0);
+
+    final currentQiblaCardinal = QiblaCalculator.getCardinalDirection(_qiblaBearing, lang);
+    final currentHeadingCardinal = _heading != null
+        ? QiblaCalculator.getCardinalDirection(_heading!, lang)
+        : '';
+
+    final String statusText;
+    if (_hasSensor) {
+      if (_isAligned) {
+        statusText = isKurdish
+            ? 'ڕوو لە قیبلەی پیرۆز'
+            : (isArabic ? 'مواجه للقبلة المشرفة' : 'Aligned with Qibla');
+      } else {
+        statusText = isKurdish
+            ? 'قیبلەنمای ڕاستەوخۆ چالاکە'
+            : (isArabic ? 'البوصلة المباشرة نشطة' : 'Live Compass Active');
+      }
+    } else {
+      statusText = isKurdish
+          ? 'هەستەوەری قیبلەنما بەردەست نییە'
+          : (isArabic ? 'مستشعر البوصلة غير متوفر' : 'Compass Sensor Unavailable');
+    }
 
     return Container(
       constraints: BoxConstraints(
@@ -392,13 +415,25 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'قیبلەنمای پیرۆز - Qibla Compass',
+                              isKurdish
+                                  ? 'قیبلەنمای پیرۆز'
+                                  : (isArabic ? 'بوصلة القبلة' : 'Qibla Compass'),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: AppTheme.kurdishTitle(
-                                fontSize: 19,
-                                color: _isAligned ? const Color(0xFFFFD700) : AppColors.gold,
-                              ),
+                              style: isKurdish
+                                  ? AppTheme.kurdishTitle(
+                                      fontSize: 19,
+                                      color: _isAligned ? const Color(0xFFFFD700) : AppColors.gold,
+                                    )
+                                  : (isArabic
+                                      ? AppTheme.arabicTitle(
+                                          fontSize: 19,
+                                          color: _isAligned ? const Color(0xFFFFD700) : AppColors.gold,
+                                        )
+                                      : AppTheme.englishTitle(
+                                          fontSize: 18,
+                                          color: _isAligned ? const Color(0xFFFFD700) : AppColors.gold,
+                                        )),
                             ),
                           ),
                         ],
@@ -413,7 +448,11 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                               widget.locationName,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: AppTheme.englishText(fontSize: 12, color: AppColors.faintText),
+                              style: isKurdish
+                                  ? AppTheme.kurdishText(fontSize: 12, color: AppColors.faintText)
+                                  : (isArabic
+                                      ? AppTheme.arabicText(fontSize: 12, color: AppColors.faintText)
+                                      : AppTheme.englishText(fontSize: 12, color: AppColors.faintText)),
                             ),
                           ),
                         ],
@@ -467,20 +506,32 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                         const SizedBox(width: 8),
                         Flexible(
                           child: Text(
-                            _hasSensor
-                                ? (_isAligned
-                                    ? 'بەرەو قیبلەی پیرۆز! • Aligned with Qibla'
-                                    : 'بووسڵەی ڕاستەوخۆ چالاکە • Live Compass Active')
-                                : 'سێنسۆری بووسڵە نادۆزرایەوە • Sensor Unavailable',
+                            statusText,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: _hasSensor
-                                  ? (_isAligned ? const Color(0xFFFFD700) : Colors.greenAccent)
-                                  : Colors.orangeAccent,
-                            ),
+                            style: isKurdish
+                                ? AppTheme.kurdishText(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: _hasSensor
+                                        ? (_isAligned ? const Color(0xFFFFD700) : Colors.greenAccent)
+                                        : Colors.orangeAccent,
+                                  )
+                                : (isArabic
+                                    ? AppTheme.arabicText(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                        color: _hasSensor
+                                            ? (_isAligned ? const Color(0xFFFFD700) : Colors.greenAccent)
+                                            : Colors.orangeAccent,
+                                      )
+                                    : TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                        color: _hasSensor
+                                            ? (_isAligned ? const Color(0xFFFFD700) : Colors.greenAccent)
+                                            : Colors.orangeAccent,
+                                      )),
                           ),
                         ),
                       ],
@@ -582,10 +633,35 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    Positioned(top: 14, child: _cardinalLabel('N', isNorth: true)),
-                                    Positioned(right: 16, child: _cardinalLabel('E')),
-                                    Positioned(bottom: 14, child: _cardinalLabel('S')),
-                                    Positioned(left: 16, child: _cardinalLabel('W')),
+                                    Positioned(
+                                      top: 14,
+                                      child: _cardinalLabel(
+                                        isKurdish ? 'باکوور' : (isArabic ? 'شمال' : 'N'),
+                                        isNorth: true,
+                                        lang: lang,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 14,
+                                      child: _cardinalLabel(
+                                        isKurdish ? 'ڕۆژهەڵات' : (isArabic ? 'شرق' : 'E'),
+                                        lang: lang,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 14,
+                                      child: _cardinalLabel(
+                                        isKurdish ? 'باشوور' : (isArabic ? 'جنوب' : 'S'),
+                                        lang: lang,
+                                      ),
+                                    ),
+                                    Positioned(
+                                      left: 14,
+                                      child: _cardinalLabel(
+                                        isKurdish ? 'ڕۆژئاوا' : (isArabic ? 'غرب' : 'W'),
+                                        lang: lang,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -685,8 +761,14 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  'ئاڕاستەی ئامێر',
-                                  style: AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText),
+                                  isKurdish
+                                      ? 'ئاڕاستەی ئامێر'
+                                      : (isArabic ? 'اتجاه الجهاز' : 'Device Heading'),
+                                  style: isKurdish
+                                      ? AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText)
+                                      : (isArabic
+                                          ? AppTheme.arabicText(fontSize: 11, color: AppColors.faintText)
+                                          : AppTheme.englishText(fontSize: 11, color: AppColors.faintText)),
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -694,9 +776,13 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                                 fit: BoxFit.scaleDown,
                                 child: Text(
                                   _heading != null
-                                      ? '${_heading!.toStringAsFixed(1)}° ${QiblaCalculator.getCardinalDirection(_heading!)}'
+                                      ? '${_heading!.toStringAsFixed(1)}° $currentHeadingCardinal'
                                       : '---°',
-                                  style: AppTheme.englishTitle(fontSize: 15, color: AppColors.cream),
+                                  style: isKurdish
+                                      ? AppTheme.kurdishTitle(fontSize: 14, color: AppColors.cream)
+                                      : (isArabic
+                                          ? AppTheme.arabicTitle(fontSize: 14, color: AppColors.cream)
+                                          : AppTheme.englishTitle(fontSize: 15, color: AppColors.cream)),
                                 ),
                               ),
                             ],
@@ -727,19 +813,35 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  'ڕووگەی قیبلە',
-                                  style: AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText),
+                                  isKurdish
+                                      ? 'ڕووگەی قیبلە'
+                                      : (isArabic ? 'اتجاه القبلة' : 'Qibla Direction'),
+                                  style: isKurdish
+                                      ? AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText)
+                                      : (isArabic
+                                          ? AppTheme.arabicText(fontSize: 11, color: AppColors.faintText)
+                                          : AppTheme.englishText(fontSize: 11, color: AppColors.faintText)),
                                 ),
                               ),
                               const SizedBox(height: 4),
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  '${_qiblaBearing.toStringAsFixed(1)}° $_cardinal',
-                                  style: AppTheme.englishTitle(
-                                    fontSize: 15,
-                                    color: _isAligned ? const Color(0xFFFFD700) : AppColors.cream,
-                                  ),
+                                  '${_qiblaBearing.toStringAsFixed(1)}° $currentQiblaCardinal',
+                                  style: isKurdish
+                                      ? AppTheme.kurdishTitle(
+                                          fontSize: 14,
+                                          color: _isAligned ? const Color(0xFFFFD700) : AppColors.cream,
+                                        )
+                                      : (isArabic
+                                          ? AppTheme.arabicTitle(
+                                              fontSize: 14,
+                                              color: _isAligned ? const Color(0xFFFFD700) : AppColors.cream,
+                                            )
+                                          : AppTheme.englishTitle(
+                                              fontSize: 15,
+                                              color: _isAligned ? const Color(0xFFFFD700) : AppColors.cream,
+                                            )),
                                 ),
                               ),
                             ],
@@ -763,16 +865,30 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  'دووری تا مەککە',
-                                  style: AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText),
+                                  isKurdish
+                                      ? 'دووری تا مەککە'
+                                      : (isArabic ? 'المسافة إلى مكة' : 'Distance to Makkah'),
+                                  style: isKurdish
+                                      ? AppTheme.kurdishText(fontSize: 11, color: AppColors.faintText)
+                                      : (isArabic
+                                          ? AppTheme.arabicText(fontSize: 11, color: AppColors.faintText)
+                                          : AppTheme.englishText(fontSize: 11, color: AppColors.faintText)),
                                 ),
                               ),
                               const SizedBox(height: 4),
                               FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  '${_distanceKm.toStringAsFixed(0)} KM',
-                                  style: AppTheme.englishTitle(fontSize: 15, color: AppColors.cream),
+                                  isKurdish
+                                      ? '${_distanceKm.toStringAsFixed(0)} کم'
+                                      : (isArabic
+                                          ? '${_distanceKm.toStringAsFixed(0)} كم'
+                                          : '${_distanceKm.toStringAsFixed(0)} km'),
+                                  style: isKurdish
+                                      ? AppTheme.kurdishTitle(fontSize: 14, color: AppColors.cream)
+                                      : (isArabic
+                                          ? AppTheme.arabicTitle(fontSize: 14, color: AppColors.cream)
+                                          : AppTheme.englishTitle(fontSize: 15, color: AppColors.cream)),
                                 ),
                               ),
                             ],
@@ -811,12 +927,30 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
                         Expanded(
                           child: Text(
                             _isAligned
-                                ? 'ئامێرەکەت بە تەواوی ئاڕاستەی کەعبەی پیرۆز کراوە! دەتوانیت دەست بە نوێژ بکەیت.'
-                                : 'مۆبایلەکەت بخەرە سەر ڕوویەکی تەخت و بیسوڕێنەوە تا دەرزیە زێڕینەکە و نیشاندەری سەرەوە بە تەواوی یەکدەگرنەوە.',
-                            style: AppTheme.kurdishText(
-                              fontSize: 12,
-                              color: _isAligned ? Colors.white : AppColors.cream,
-                            ),
+                                ? (isKurdish
+                                    ? 'ئامێرەکەت بە تەواوی ئاڕاستەی کەعبەی پیرۆز کراوە! دەتوانیت دەست بە نوێژ بکەیت.'
+                                    : (isArabic
+                                        ? 'جهازك موجه بدقة نحو الكعبة المشرفة! يمكنك البدء بالصلاة.'
+                                        : 'Your device is precisely aligned with the Holy Kaaba! You may begin prayer.'))
+                                : (isKurdish
+                                    ? 'مۆبایلەکەت بخەرە سەر ڕوویەکی تەخت و بیسوڕێنەوە تا دەرزیە زێڕینەکە و نیشاندەری سەرەوە بە تەواوی یەکدەگرنەوە.'
+                                    : (isArabic
+                                        ? 'ضع هاتفك على سطح مستوٍ وأدره حتى تتطابق الإبرة الذهبية مع المؤشر العلوي تماماً.'
+                                        : 'Place your phone flat and rotate it until the golden needle aligns with the top indicator.')),
+                            style: isKurdish
+                                ? AppTheme.kurdishText(
+                                    fontSize: 12,
+                                    color: _isAligned ? Colors.white : AppColors.cream,
+                                  )
+                                : (isArabic
+                                    ? AppTheme.arabicText(
+                                        fontSize: 12,
+                                        color: _isAligned ? Colors.white : AppColors.cream,
+                                      )
+                                    : AppTheme.englishText(
+                                        fontSize: 12,
+                                        color: _isAligned ? Colors.white : AppColors.cream,
+                                      )),
                           ),
                         ),
                       ],
@@ -832,20 +966,41 @@ class _QiblaCompassSheetState extends State<QiblaCompassSheet> with SingleTicker
   );
   }
 
-  Widget _cardinalLabel(String label, {bool isNorth = false}) {
+  Widget _cardinalLabel(String label, {bool isNorth = false, required String lang}) {
+    final isKu = lang == 'ku';
+    final isAr = lang == 'ar';
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      padding: EdgeInsets.symmetric(
+        horizontal: (isKu || isAr) ? 6 : 8,
+        vertical: 3,
+      ),
       decoration: BoxDecoration(
-        color: isNorth ? AppColors.gold : Colors.black54,
+        color: isNorth ? AppColors.gold : Colors.black.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isNorth ? const Color(0xFFFFD700) : Colors.white24,
+          width: 0.8,
+        ),
       ),
       child: Text(
         label,
-        style: TextStyle(
-          color: isNorth ? Colors.black : AppColors.cream,
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-        ),
+        style: isKu
+            ? AppTheme.kurdishText(
+                color: isNorth ? Colors.black : AppColors.cream,
+                fontSize: 10.5,
+                fontWeight: FontWeight.bold,
+              )
+            : (isAr
+                ? AppTheme.arabicText(
+                    color: isNorth ? Colors.black : AppColors.cream,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.bold,
+                  )
+                : TextStyle(
+                    color: isNorth ? Colors.black : AppColors.cream,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  )),
       ),
     );
   }

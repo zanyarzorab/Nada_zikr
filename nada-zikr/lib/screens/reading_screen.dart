@@ -318,7 +318,15 @@ class _ReadingScreenState extends State<ReadingScreen> {
                               ],
                               Text(
                                 current.displayArabic,
-                                style: AppTheme.arabicTitle(fontSize: 24),
+                                style: (widget.category.id == 'ayat_kursi' ||
+                                        current.arabic.contains('الْحَيُّ الْقَيُّومُ'))
+                                    ? AppTheme.quranAyahText(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600,
+                                        height: 2.1,
+                                        color: AppColors.cream,
+                                      )
+                                    : AppTheme.arabicTitle(fontSize: 24),
                                 textAlign: TextAlign.center,
                                 textDirection: TextDirection.rtl,
                               ),

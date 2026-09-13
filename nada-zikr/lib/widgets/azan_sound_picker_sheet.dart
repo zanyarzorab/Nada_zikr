@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
@@ -116,16 +117,35 @@ class AzanSoundPickerSheet {
       await StorageService.getAzanSound(),
     );
     String? playingId;
+    void Function(void Function())? stateUpdater;
     final language = AppLocalizations.languageCode;
     final isKurdish = language == 'ku';
 
-    if (!context.mounted) return;
+    await AzanAudioService.configureAudioSession();
+
+    final playerSub = player.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        if (playingId != null) {
+          stateUpdater?.call(() {
+            playingId = null;
+          });
+        }
+      }
+    });
+
+    if (!context.mounted) {
+      await playerSub.cancel();
+      await player.dispose();
+      return;
+    }
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (sheetContext) => StatefulBuilder(
-        builder: (context, setSheetState) => Container(
+        builder: (context, setSheetState) {
+          stateUpdater = setSheetState;
+          return Container(
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.85,
           ),
@@ -268,38 +288,45 @@ class AzanSoundPickerSheet {
                                 ),
                                 if (hasAudio)
                                   IconButton(
-                                    tooltip: playing ? (isKurdish ? 'ڕاگرتن' : 'Stop') : (isKurdish ? 'گوێگرتن' : 'Listen'),
+                                    tooltip: playing
+                                        ? (isKurdish ? 'ڕاگرتن' : 'Stop')
+                                        : (isKurdish ? 'گوێگرتن' : 'Listen'),
                                     icon: Icon(
-                                      playing ? Icons.stop_circle_rounded : Icons.play_circle_fill_rounded,
+                                      playing
+                                          ? Icons.stop_circle_rounded
+                                          : Icons.play_circle_fill_rounded,
                                       color: playing ? Colors.amber : AppColors.gold,
                                       size: 28,
                                     ),
                                     onPressed: () async {
                                       try {
                                         if (playing) {
-                                          await player.stop();
                                           setSheetState(() => playingId = null);
+                                          await player.stop();
                                         } else {
+                                          setSheetState(() => playingId = safeOptionId);
                                           await player.stop();
                                           await player.setAudioSource(AudioSource.asset(assetPath));
-                                          await player.play();
-                                          setSheetState(() => playingId = safeOptionId);
+                                          unawaited(player.play());
                                         }
                                       } catch (_) {
+                                        setSheetState(() => playingId = null);
                                         if (context.mounted) {
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text(isKurdish ? 'ناتوانرێت دەنگەکە لێبدرێت' : 'Unable to play this recording.'),
+                                              content: Text(isKurdish
+                                                  ? 'ناتوانرێت دەنگەکە لێبدرێت'
+                                                  : 'Unable to play this recording.'),
                                             ),
                                           );
                                         }
-                                        setSheetState(() => playingId = null);
                                       }
                                     },
                                   ),
                                 const SizedBox(width: 4),
                                 if (selected)
-                                  Icon(Icons.check_circle_rounded, color: AppColors.gold, size: 22),
+                                  Icon(Icons.check_circle_rounded,
+                                      color: AppColors.gold, size: 22),
                               ],
                             ),
                           ),
@@ -312,12 +339,14 @@ class AzanSoundPickerSheet {
             ],
           ),
         ),
-      ),
-    ),
-  );
-    await player.stop();
-    await player.dispose();
-  }
+      );
+    },
+  ),
+);
+  await playerSub.cancel();
+  await player.stop();
+  await player.dispose();
+}
 }
 
 class _AzanOption {
