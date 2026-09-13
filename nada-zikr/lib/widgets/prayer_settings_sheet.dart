@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import '../app_localizations.dart';
@@ -964,6 +965,121 @@ class _PrayerSettingsSheetState extends State<PrayerSettingsSheet>
             ),
           );
         }),
+
+        const SizedBox(height: 20),
+
+        // 3. Sound & Notification Reliability Section
+        _buildSectionHeader(
+          icon: Icons.verified_user_rounded,
+          title: isKurdish
+              ? 'دڵنیابوونەوە لە کات و دەنگی بانگ'
+              : (isArabic ? 'التحقق من دقة الأذان والإشعارات' : 'Notification & Sound Reliability'),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.panelColor,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: AppColors.panelBorderColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                isKurdish
+                    ? 'دەتوانیت تاقیکردنەوە بکەیت بۆ دڵنیابوون لە دەنگ و ڕۆیشتنی ئاگادارکردنەوە:'
+                    : (isArabic
+                        ? 'يمكنك تجربة وصول الإشعار للتأكد من عمل الصوت والنظام بشكل سليم:'
+                        : 'Test your device sound and notification delivery immediately:'),
+                style: AppTheme.englishText(fontSize: 12, color: AppColors.faintText),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.gold,
+                    foregroundColor: Colors.black87,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  icon: const Icon(Icons.notifications_active_rounded, size: 20),
+                  label: Text(
+                    isKurdish
+                        ? 'ناردنی ئاگادارکردنەوەی تاقیکردنەوە'
+                        : (isArabic ? 'إرسال إشعار تجريبي الآن' : 'Send Test Prayer Alert'),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                  ),
+                  onPressed: () async {
+                    await NotificationService.showTestPrayerNotification();
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            isKurdish
+                                ? 'ئاگادارکردنەوەی تاقیکردنەوە نێردرا'
+                                : (isArabic ? 'تم إرسال الإشعار التجريبي' : 'Test notification sent'),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          backgroundColor: AppColors.darkPanel,
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+              if (Platform.isAndroid) ...[
+                const SizedBox(height: 14),
+                const Divider(color: Colors.white12),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            isKurdish
+                                ? 'بەخشین لە پاتری (گرنگە بۆ سامسۆنگ و شاومی)'
+                                : (isArabic ? 'استثناء تحسين البطارية' : 'Battery Saver Exclusion'),
+                            style: AppTheme.kurdishText(
+                              fontSize: 12,
+                              color: AppColors.cream,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            isKurdish
+                                ? 'ڕێگری دەکات لە بێدەنگکردنی بانگ لە کاتی قفڵبوون'
+                                : (isArabic
+                                    ? 'يمنع النظام من إيقاف الأذان عند إغلاق الهاتف'
+                                    : 'Prevents OS from suppressing Azan while locked'),
+                            style: AppTheme.englishText(fontSize: 10, color: AppColors.faintText),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.gold,
+                        side: BorderSide(color: AppColors.gold.withValues(alpha: 0.5)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      onPressed: () => NotificationService.requestBatteryOptimizationExclusion(),
+                      child: Text(isKurdish ? 'ڕێکخستن' : (isArabic ? 'تعديل' : 'Fix')),
+                    ),
+                  ],
+                ),
+              ],
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -65,12 +66,22 @@ String _audio(int id) {
 /// ────────────────────────────────────────────────────────────────────────────
 
 class ZikrAudioService {
-  ZikrAudioService._();
+  ZikrAudioService._() {
+    _player.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        _itemCurrentlyPlayingKey = null;
+        currentlyPlayingKeyNotifier.value = null;
+        _player.seek(Duration.zero);
+      }
+    });
+  }
   static final ZikrAudioService instance = ZikrAudioService._();
 
   final AudioPlayer _player = AudioPlayer();
   String? _itemCurrentlyPlayingKey;
   Directory? _cacheDir;
+  final ValueNotifier<String?> currentlyPlayingKeyNotifier =
+      ValueNotifier<String?>(null);
 
   AudioPlayer get player => _player;
   AudioPlayer get itemPlayer => _player;
@@ -81,8 +92,13 @@ class ZikrAudioService {
 
   static bool hasFullAudio(String categoryId) => false;
 
+  static bool hasAudioForCategory(String categoryId) {
+    return categoryId == 'morning' || categoryId == 'evening';
+  }
+
   Future<void> stopAudio() async {
     _itemCurrentlyPlayingKey = null;
+    currentlyPlayingKeyNotifier.value = null;
     await _player.stop();
   }
 
@@ -98,13 +114,23 @@ class ZikrAudioService {
     if (_itemCurrentlyPlayingKey == key) {
       if (_player.playing) {
         await _player.pause();
+      } else if (_player.processingState == ProcessingState.buffering ||
+          _player.processingState == ProcessingState.loading) {
+        // Cancel loading
+        _itemCurrentlyPlayingKey = null;
+        currentlyPlayingKeyNotifier.value = null;
+        await _player.stop();
       } else {
-        await _player.play();
+        if (_player.processingState == ProcessingState.completed) {
+          await _player.seek(Duration.zero);
+        }
+        unawaited(_player.play());
       }
       return;
     }
 
     _itemCurrentlyPlayingKey = key;
+    currentlyPlayingKeyNotifier.value = key;
     await _player.stop();
 
     try {
@@ -114,36 +140,41 @@ class ZikrAudioService {
       // 1. Offline cache hit
       if (await cacheFile.exists() && await cacheFile.length() > 1024) {
         await _player.setFilePath(cachePath);
-        await _player.play();
+        if (_itemCurrentlyPlayingKey == key) {
+          unawaited(_player.play());
+        }
         return;
       }
 
-      // 2. Stream and cache
-      final downloadedFile = await _downloadAndCacheAudio(remoteUrl, cacheFile);
-      if (downloadedFile != null && await downloadedFile.exists()) {
-        await _player.setFilePath(downloadedFile.path);
-        await _player.play();
-      } else {
-        await _player.setUrl(remoteUrl, headers: const {
-          'User-Agent':
-              'Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36',
-        });
-        await _player.play();
+      // 2. Play immediately via streaming URL for zero-wait instant start
+      await _player.setUrl(remoteUrl, headers: const {
+        'User-Agent':
+            'Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36',
+      });
+      if (_itemCurrentlyPlayingKey == key) {
+        unawaited(_player.play());
+        // Cache in background for future offline use
+        unawaited(_downloadAndCacheAudio(remoteUrl, cacheFile));
       }
     } catch (_) {
-      _itemCurrentlyPlayingKey = null;
+      if (_itemCurrentlyPlayingKey == key) {
+        _itemCurrentlyPlayingKey = null;
+        currentlyPlayingKeyNotifier.value = null;
+      }
     }
   }
 
   /// Stop individual card audio
   Future<void> stopItemAudio() async {
     _itemCurrentlyPlayingKey = null;
+    currentlyPlayingKeyNotifier.value = null;
     await _player.stop();
   }
 
   /// Stop all audio when leaving screen
   Future<void> stop() async {
     _itemCurrentlyPlayingKey = null;
+    currentlyPlayingKeyNotifier.value = null;
     await _player.stop();
   }
 

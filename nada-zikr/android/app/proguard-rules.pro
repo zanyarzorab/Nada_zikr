@@ -17,6 +17,14 @@
 # Keep classes used by flutter_local_notifications
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
 
+# Keep app package classes (MainActivity, Widget Provider, receivers)
+-keep class com.nada.zikrakanm.** { *; }
+
+# Preserve resource identifiers used by dynamic sound lookups
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
 # Keep home_widget classes
 -keep class es.antonborri.home_widget.** { *; }
 

@@ -66,13 +66,18 @@ class AzanAudioService {
     return 'makkah';
   }
 
-  Future<void> playSelected() async {
+  Future<void> playSelected({String? prayerId}) async {
     final soundId = await StorageService.getAzanSound();
-    if (soundId == 'silent' || soundId == 'vibrate') {
+    final fajrSoundId = StorageService.getFajrAzanSound();
+    final effectiveSoundId =
+        (prayerId == 'fajr' && fajrSoundId == 'azan_fajr')
+            ? 'azan_fajr'
+            : soundId;
+    if (effectiveSoundId == 'silent' || effectiveSoundId == 'vibrate') {
       await stop();
       return;
     }
-    final safeSoundId = resolveSafeSoundId(soundId);
+    final safeSoundId = resolveSafeSoundId(effectiveSoundId);
     await play(safeSoundId);
   }
 

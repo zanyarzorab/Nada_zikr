@@ -122,7 +122,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
     }
 
     if (_currentIndex < _azkarList.length - 1) {
-      if (ZikrAudioService.instance.currentlyPlayingKey?.startsWith('zikr_') == true) {
+      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
         ZikrAudioService.instance.stop();
       }
       setState(() {
@@ -137,7 +137,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
 
   Future<void> _handleNext() async {
     if (_currentIndex < _azkarList.length - 1) {
-      if (ZikrAudioService.instance.currentlyPlayingKey?.startsWith('zikr_') == true) {
+      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
         ZikrAudioService.instance.stop();
       }
       setState(() {
@@ -151,7 +151,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
 
   void _handleBack() {
     if (_currentIndex > 0) {
-      if (ZikrAudioService.instance.currentlyPlayingKey?.startsWith('zikr_') == true) {
+      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
         ZikrAudioService.instance.stop();
       }
       setState(() {
@@ -302,31 +302,19 @@ class _ReadingScreenState extends State<ReadingScreen> {
                           ),
                           child: Column(
                             children: [
-                              if (widget.category.id == 'morning' ||
-                                  widget.category.id == 'evening' ||
-                                  widget.category.id == 'ayat_kursi') ...[
+                              if (ZikrAudioService.hasAudioForCategory(widget.category.id)) ...[
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Flexible(
-                                      child: _buildAudioButton(current, isKurdish),
-                                    ),
+                                    _buildAudioButton(current, isKurdish, lang),
                                   ],
                                 ),
                                 const SizedBox(height: 16),
                               ],
                               Text(
                                 current.displayArabic,
-                                style: (widget.category.id == 'ayat_kursi' ||
-                                        current.arabic.contains('الْحَيُّ الْقَيُّومُ'))
-                                    ? AppTheme.quranAyahText(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        height: 2.1,
-                                        color: AppColors.cream,
-                                      )
-                                    : AppTheme.arabicTitle(fontSize: 24),
+                                style: AppTheme.arabicTitle(fontSize: 24),
                                 textAlign: TextAlign.center,
                                 textDirection: TextDirection.rtl,
                               ),
@@ -787,79 +775,117 @@ class _ReadingScreenState extends State<ReadingScreen> {
     );
   }
 
-  Widget _buildAudioButton(Azkar zikr, bool isKurdish) {
+  Widget _buildAudioButton(Azkar zikr, bool isKurdish, String lang) {
     final zikrId = zikr.id ?? (_currentIndex + 1);
     final itemKey = 'zikr_${widget.category.id}_${zikrId}_$_currentIndex';
+    final isArabic = lang == 'ar';
 
-    return StreamBuilder<PlayerState>(
-      stream: ZikrAudioService.instance.itemPlayerStateStream,
-      builder: (context, snapshot) {
-        final playerState = snapshot.data;
-        final isPlaying = playerState?.playing ?? false;
-        final processingState = playerState?.processingState;
-        final isBuffering = processingState == ProcessingState.buffering ||
-            processingState == ProcessingState.loading;
-        final isThisPlaying = isPlaying &&
-            ZikrAudioService.instance.itemCurrentlyPlayingKey == itemKey;
+    return ValueListenableBuilder<String?>(
+      valueListenable: ZikrAudioService.instance.currentlyPlayingKeyNotifier,
+      builder: (context, activeKey, _) {
+        return StreamBuilder<PlayerState>(
+          stream: ZikrAudioService.instance.itemPlayerStateStream,
+          builder: (context, snapshot) {
+            final playerState = snapshot.data ??
+                ZikrAudioService.instance.player.playerState;
+            final isPlaying = playerState.playing;
+            final processingState = playerState.processingState;
+            final isTargetItem = activeKey == itemKey;
+            final isBuffering = processingState == ProcessingState.buffering ||
+                processingState == ProcessingState.loading;
+            final isThisPlaying = isPlaying && isTargetItem;
+            final isThisLoading = isTargetItem && (!isPlaying && isBuffering);
+            final isThisPaused = isTargetItem &&
+                !isPlaying &&
+                !isBuffering &&
+                processingState == ProcessingState.ready;
 
-        return GestureDetector(
-          onTap: () {
-            ZikrAudioService.instance.toggleZikrItemAudio(
-              zikr,
-              _currentIndex,
-              widget.category.id,
+            final String label;
+            final IconData icon;
+            if (isThisLoading) {
+              label = isKurdish
+                  ? 'چاوەڕێبە...'
+                  : (isArabic ? 'جاري التحميل...' : 'Loading...');
+              icon = Icons.hourglass_top_rounded;
+            } else if (isThisPlaying) {
+              label = isKurdish
+                  ? 'ڕاگرتن'
+                  : (isArabic ? 'إيقاف مؤقت' : 'Pause');
+              icon = Icons.pause_circle_filled_rounded;
+            } else if (isThisPaused) {
+              label = isKurdish
+                  ? 'دەستپێکردنەوە'
+                  : (isArabic ? 'استئناف' : 'Resume');
+              icon = Icons.play_circle_fill_rounded;
+            } else {
+              label = isKurdish
+                  ? 'خوێندنەوەی دەنگی'
+                  : (isArabic ? 'استماع' : 'Listen');
+              icon = Icons.volume_up_rounded;
+            }
+
+            final isActive = isThisPlaying || isThisLoading || isThisPaused;
+
+            return GestureDetector(
+              onTap: () {
+                ZikrAudioService.instance.toggleZikrItemAudio(
+                  zikr,
+                  _currentIndex,
+                  widget.category.id,
+                );
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                decoration: BoxDecoration(
+                  color: isActive
+                      ? AppColors.gold.withValues(alpha: 0.22)
+                      : AppColors.gold.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: isActive
+                        ? AppColors.gold
+                        : AppColors.gold.withValues(alpha: 0.35),
+                    width: isActive ? 1.5 : 1.0,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isThisLoading)
+                      SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppColors.gold),
+                        ),
+                      )
+                    else
+                      Icon(
+                        icon,
+                        color: AppColors.gold,
+                        size: 20,
+                      ),
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: isKurdish
+                          ? AppTheme.kurdishTitle(
+                              fontSize: 12.5, color: AppColors.gold)
+                          : (isArabic
+                              ? AppTheme.arabicTitle(
+                                  fontSize: 12.5, color: AppColors.gold)
+                              : AppTheme.englishTitle(
+                                  fontSize: 12.5, color: AppColors.gold)),
+                    ),
+                  ],
+                ),
+              ),
             );
           },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: isThisPlaying
-                  ? AppColors.gold.withValues(alpha: 0.22)
-                  : AppColors.gold.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: isThisPlaying
-                    ? AppColors.gold
-                    : AppColors.gold.withValues(alpha: 0.3),
-              ),
-            ),
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (isBuffering && isThisPlaying)
-                    SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.gold),
-                      ),
-                    )
-                  else
-                    Icon(
-                      isThisPlaying
-                          ? Icons.pause_circle_filled_rounded
-                          : Icons.volume_up_rounded,
-                      color: AppColors.gold,
-                      size: 20,
-                    ),
-                  const SizedBox(width: 8),
-                  Text(
-                    isThisPlaying
-                        ? (isKurdish ? 'ڕاگرتن' : 'Pause')
-                        : (isKurdish ? 'خوێندنەوەی دەنگی' : 'Listen'),
-                    style: isKurdish
-                        ? AppTheme.kurdishTitle(
-                            fontSize: 12, color: AppColors.gold)
-                        : AppTheme.englishTitle(
-                            fontSize: 12, color: AppColors.gold),
-                  ),
-                ],
-              ),
-            ),
-          ),
         );
       },
     );

@@ -16,7 +16,7 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
-  static const String channelVersion = 'prayer_alert_v8';
+  static const String channelVersion = 'prayer_alert_v9';
 
   static Future<void> initialize() async {
     tz_data.initializeTimeZones();
@@ -62,11 +62,21 @@ class NotificationService {
       onDidReceiveNotificationResponse: (details) async {},
     );
 
+    // Request permissions explicitly on both Android and iOS
     final androidPlugin = _plugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
     await androidPlugin?.requestNotificationsPermission();
     await androidPlugin?.requestExactAlarmsPermission();
+
+    final iosPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>();
+    await iosPlugin?.requestPermissions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
     // Clean up legacy channels from older app versions
     if (androidPlugin != null) {
@@ -74,7 +84,8 @@ class NotificationService {
         final existingChannels = await androidPlugin.getNotificationChannels();
         if (existingChannels != null) {
           for (final ch in existingChannels) {
-            if (ch.id.startsWith('prayer_alert_v7_') ||
+            if (ch.id.startsWith('prayer_alert_v8_') ||
+                ch.id.startsWith('prayer_alert_v7_') ||
                 ch.id.startsWith('prayer_alert_v6_') ||
                 ch.id.startsWith('prayer_alert_v5_') ||
                 ch.id.startsWith('prayer_alert_v4_') ||
@@ -192,9 +203,14 @@ class NotificationService {
     // leaving the user with zero alarms.
     final List<_PendingAlarm> pendingAlarms = [];
 
-    // Schedule 10 days ahead for active prayers (10 days * 5 prayers = 50 notifications,
-    // well below the iOS 64-notification limit)
-    for (var dayOffset = 0; dayOffset < 10; dayOffset++) {
+    final preAzanMinutes = StorageService.getPreAzanReminderMinutes();
+    // iOS has a hard cap of 64 scheduled notifications.
+    // If pre-azan reminders are enabled, each day generates 10 notifications (5 prayers + 5 reminders).
+    // Scheduling 5 days yields 50 notifications (safely under 64).
+    // If pre-azan reminders are disabled, 7 days yields 35 notifications.
+    final daysToSchedule = preAzanMinutes > 0 ? 5 : 7;
+
+    for (var dayOffset = 0; dayOffset < daysToSchedule; dayOffset++) {
       final date = DateTime(now.year, now.month, now.day + dayOffset);
       try {
         final schedule = await PrayerRepository.getPrayerScheduleForDate(
@@ -210,7 +226,6 @@ class NotificationService {
             (schedule['locationName'] as String? ?? 'Kurdistan');
 
         final fajrSoundId = StorageService.getFajrAzanSound();
-        final preAzanMinutes = StorageService.getPreAzanReminderMinutes();
 
         final timezoneId = schedule['timezoneId'] as String? ?? 'Asia/Baghdad';
         tz.Location loc;
@@ -272,10 +287,12 @@ class NotificationService {
       }
     }
 
-    // Only NOW cancel existing alarms — we have all new ones ready to register
-    try { await _plugin.cancelAll(); } catch (_) {}
-
-    // Schedule all collected alarms
+    // Atomically schedule all collected alarms by deterministic ID.
+    // NOTE: We deliberately do NOT call cancelAll() here because cancelAll()
+    // wipes all system alarms before a multi-second async loop, which creates a
+    // race where minimizing the app or encountering an error leaves the user with 0 alarms.
+    // In AlarmManager and UNUserNotificationCenter, zonedSchedule with the same ID
+    // atomically updates and replaces the alarm without dropping existing ones.
     for (final alarm in pendingAlarms) {
       try {
         if (alarm.isPreAzan) {
@@ -299,6 +316,20 @@ class NotificationService {
       } catch (_) {
         // Skip failed individual alarms — don't abort the whole batch
       }
+    }
+  }
+
+  /// Checks whether the OS has excluded this app from battery optimization on Android.
+  /// Always returns true on iOS.
+  static Future<bool> isBatteryOptimizationIgnored() async {
+    if (!Platform.isAndroid) return true;
+    try {
+      const channel = MethodChannel('com.nada.zikrakanm/battery');
+      final bool? result =
+          await channel.invokeMethod<bool>('isBatteryOptimizationIgnored');
+      return result ?? true;
+    } catch (_) {
+      return true;
     }
   }
 
@@ -432,7 +463,7 @@ class NotificationService {
           ? AudioAttributesUsage.alarm
           : AudioAttributesUsage.notification,
       category: AndroidNotificationCategory.alarm,
-      fullScreenIntent: usesAzan,
+      fullScreenIntent: false,
       visibility: NotificationVisibility.public,
       channelAction: AndroidNotificationChannelAction.createIfNotExists,
       autoCancel: true,
@@ -747,7 +778,7 @@ class NotificationService {
       vibrationPattern: vibrationPattern,
       audioAttributesUsage: AudioAttributesUsage.alarm,
       category: AndroidNotificationCategory.alarm,
-      fullScreenIntent: true,
+      fullScreenIntent: false,
       visibility: NotificationVisibility.public,
       channelAction: AndroidNotificationChannelAction.createIfNotExists,
       autoCancel: true,

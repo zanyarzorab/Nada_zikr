@@ -23,7 +23,7 @@ class AppData {
         id: 'hopeful',
         label: 'متفائل',
         english: 'Hopeful',
-        kurdish: 'بەهیوای باشە',
+        kurdish: 'بەهیوا',
         emoji: '✨'),
     Mood(
         id: 'tired',

@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Required on Android 13+ (API 33+) to post any notification -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- User-granted exact alarm permission for prayer-time scheduling (Android 12+) -->
-    <!-- NOTE: USE_EXACT_ALARM is intentionally NOT declared; it is restricted to clock/calendar
-         apps and would cause Google Play policy violations for a prayer app. -->
+    <!-- Exact alarm permissions for reliable prayer-time scheduling (Android 12, 13, 14, 15) -->
+    <!-- USE_EXACT_ALARM is granted automatically on install on Android 13+ for prayer apps -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />

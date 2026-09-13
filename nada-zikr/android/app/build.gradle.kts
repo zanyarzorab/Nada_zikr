@@ -57,9 +57,9 @@ android {
             } else {
                 signingConfigs.getByName("debug")
             }
-            // Enable minification and resource shrinking for a smaller AAB.
+            // Enable minification with safe resource handling for raw Azan audio.
             isMinifyEnabled = true
-            isShrinkResources = true
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

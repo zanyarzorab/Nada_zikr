@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../app_localizations.dart';
+import '../services/azan_audio_service.dart';
 import '../services/prayer_repository.dart';
 import '../services/notification_service.dart';
 import '../services/prayer_widget_service.dart';
@@ -29,6 +30,8 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
   Duration _timeUntilNext = Duration.zero;
   bool _notificationsAllowed = true;
   bool _exactAlarmsAllowed = true;
+  bool _batteryOptIgnored = true;
+  String? _lastTriggeredPrayerKey;
 
   @override
   void initState() {
@@ -58,10 +61,12 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
   Future<void> _checkPermissions() async {
     final notifs = await NotificationService.areNotificationsEnabled();
     final exact = await NotificationService.canScheduleExactNotifications();
+    final batteryOpt = await NotificationService.isBatteryOptimizationIgnored();
     if (mounted) {
       setState(() {
         _notificationsAllowed = notifs;
         _exactAlarmsAllowed = exact;
+        _batteryOptIgnored = batteryOpt;
       });
     }
   }
@@ -79,6 +84,24 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
   void _updateCountdown() {
     if (!mounted) return;
     setState(() {});
+  }
+
+  /// Checks if prayer time just arrived while user is actively in the app,
+  /// playing the Azan loud and clear through device speakers.
+  void _checkForegroundAzanTrigger(String nextId, DateTime? nextTime) {
+    if (nextTime == null) return;
+    final now = DateTime.now();
+    final diff = nextTime.difference(now);
+    final key = '${nextId}_${nextTime.day}_${nextTime.hour}_${nextTime.minute}';
+
+    // If within 1 second of prayer time or just passed within 30 seconds
+    if (diff.inSeconds <= 0 && diff.inSeconds >= -30 && _lastTriggeredPrayerKey != key) {
+      _lastTriggeredPrayerKey = key;
+      final mode = StorageService.getPrayerNotificationModes()[nextId] ?? 'azan';
+      if (mode == 'azan') {
+        unawaited(AzanAudioService.instance.playSelected(prayerId: nextId));
+      }
+    }
   }
 
   String _formatDuration(Duration duration) {
@@ -120,20 +143,28 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
   }
 
   Widget _buildPermissionNoticeBanner(bool isKurdish, String lang) {
-    if (_notificationsAllowed && _exactAlarmsAllowed) {
+    if (_notificationsAllowed && _exactAlarmsAllowed && _batteryOptIgnored) {
       return const SizedBox.shrink();
     }
 
     final bool isNotificationMissing = !_notificationsAllowed;
+    final bool isExactAlarmMissing = !_exactAlarmsAllowed;
+
     final String title = isNotificationMissing
         ? (isKurdish
             ? 'ئاگادارکردنەوەکان ناچالاکن'
             : (lang == 'ar' ? 'الإشعارات معطلة' : 'Notifications are disabled'))
-        : (isKurdish
-            ? 'کات دیاریکردنی ورد سنووردارە'
-            : (lang == 'ar'
-                ? 'تنبيهات المواعيد الدقيقة مقيدة'
-                : 'Exact prayer alarms restricted'));
+        : (isExactAlarmMissing
+            ? (isKurdish
+                ? 'کات دیاریکردنی ورد سنووردارە'
+                : (lang == 'ar'
+                    ? 'تنبيهات المواعيد الدقيقة مقيدة'
+                    : 'Exact prayer alarms restricted'))
+            : (isKurdish
+                ? 'دەستکاریکەری پاتری (پاشبنەما)'
+                : (lang == 'ar'
+                    ? 'تحسين البطارية نشط'
+                    : 'Battery Saver Active')));
 
     final String subtitle = isNotificationMissing
         ? (isKurdish
@@ -141,15 +172,27 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
             : (lang == 'ar'
                 ? 'يرجى تفعيل الإشعارات لسماع الأذان وتنبيهات أوقات الصلاة.'
                 : 'Enable notifications to hear the Azan and prayer alerts on time.'))
-        : (isKurdish
-            ? 'بۆ ئەوەی بانگ ڕێک لە کاتی خۆیدا لێبدات، ڕێگە بە کاتژمێری ورد بدە لە ڕێکخستنەکان.'
-            : (lang == 'ar'
-                ? 'لسماع الأذان بدقة في وقته المحدد، يرجى السماح بالتنبيهات الدقيقة.'
-                : 'To ring the Azan accurately on time, allow Alarms & Reminders in settings.'));
+        : (isExactAlarmMissing
+            ? (isKurdish
+                ? 'بۆ ئەوەی بانگ ڕێک لە کاتی خۆیدا لێبدات، ڕێگە بە کاتژمێری ورد بدە لە ڕێکخستنەکان.'
+                : (lang == 'ar'
+                    ? 'لسماع الأذان بدقة في وقته المحدد، يرجى السماح بالتنبيهات الدقيقة.'
+                    : 'To ring the Azan accurately on time, allow Alarms & Reminders in settings.'))
+            : (isKurdish
+                ? 'بۆ ئەوەی لە کاتی قفڵبووندا مۆبایلەکەت بانگ نەوەستێنێت، بەخشین لە پاتری هەڵبژێرە.'
+                : (lang == 'ar'
+                    ? 'لضمان سماع صوت الأذان عند قفل الشاشة، يرجى استثناء التطبيق من تحسين البطارية.'
+                    : 'To ensure Azan sounds reliably when phone is locked, exclude from battery saver.')));
 
     final String buttonLabel = isNotificationMissing
         ? (isKurdish ? 'چالاککردن' : (lang == 'ar' ? 'تفعيل' : 'Enable'))
-        : (isKurdish ? 'ڕێکخستن' : (lang == 'ar' ? 'إصلاح' : 'Fix'));
+        : (isExactAlarmMissing
+            ? (isKurdish ? 'ڕێکخستن' : (lang == 'ar' ? 'إصلاح' : 'Fix'))
+            : (isKurdish ? 'ڕێپێدان' : (lang == 'ar' ? 'سماح' : 'Allow')));
+
+    final IconData bannerIcon = isNotificationMissing
+        ? Icons.notifications_off_rounded
+        : (isExactAlarmMissing ? Icons.alarm_off_rounded : Icons.battery_alert_rounded);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -171,9 +214,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
               shape: BoxShape.circle,
             ),
             child: Icon(
-              isNotificationMissing
-                  ? Icons.notifications_off_rounded
-                  : Icons.alarm_off_rounded,
+              bannerIcon,
               color: AppColors.gold,
               size: 20,
             ),
@@ -231,8 +272,10 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
             onPressed: () async {
               if (isNotificationMissing) {
                 await NotificationService.requestNotificationPermission();
-              } else {
+              } else if (isExactAlarmMissing) {
                 await NotificationService.requestExactAlarmsPermission();
+              } else {
+                await NotificationService.requestBatteryOptimizationExclusion();
               }
               await _checkPermissions();
               await NotificationService.rescheduleUpcomingPrayerAzans();
@@ -299,6 +342,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
 
               if (nextTime != null) {
                 _timeUntilNext = nextTime.difference(DateTime.now());
+                _checkForegroundAzanTrigger(nextId, nextTime);
               }
 
               final nextItem = items.firstWhere(
