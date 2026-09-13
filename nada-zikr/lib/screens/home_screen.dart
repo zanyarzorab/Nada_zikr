@@ -1435,108 +1435,11 @@ class _MoodCardSheetContent extends StatefulWidget {
 }
 
 class _MoodCardSheetContentState extends State<_MoodCardSheetContent> {
-  bool _isSaved = false;
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkSavedStatus();
-    StorageService.favoriteMoodCardsRevision.addListener(_checkSavedStatus);
-  }
-
-  @override
-  void dispose() {
-    StorageService.favoriteMoodCardsRevision.removeListener(_checkSavedStatus);
-    super.dispose();
-  }
-
-  Future<void> _checkSavedStatus() async {
-    final saved = await StorageService.isFavoriteMoodCard(widget.suggestion);
-    if (mounted) {
-      setState(() {
-        _isSaved = saved;
-        _isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _toggleSave() async {
-    final nowSaved =
-        await StorageService.toggleFavoriteMoodCard(widget.suggestion);
-    if (!mounted) return;
-    setState(() => _isSaved = nowSaved);
-
-    final isK = widget.locale == 'ku';
-    final isAr = widget.locale == 'ar';
-
-    final message = nowSaved
-        ? (isK
-            ? 'کارتەکە پاشەکەوت کرا بۆ دڵخوازەکان'
-            : isAr
-                ? 'تم حفظ البطاقة في المحفوظات'
-                : 'Card saved to favorites!')
-        : (isK
-            ? 'کارتەکە لاپرا لە دڵخوازەکان'
-            : isAr
-                ? 'تمت إزالة البطاقة من المحفوظات'
-                : 'Card removed from saved cards');
-
-    final undoLabel = isK
-        ? 'گەڕاندنەوە'
-        : isAr
-            ? 'تراجع'
-            : 'Undo';
-
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: AppColors.darkPanel,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        content: Row(
-          children: [
-            Icon(
-              nowSaved
-                  ? Icons.bookmark_added_rounded
-                  : Icons.bookmark_remove_rounded,
-              color: AppColors.gold,
-              size: 20,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                message,
-                style: isK
-                    ? AppTheme.kurdishText(color: AppColors.cream, fontSize: 13)
-                    : AppTheme.englishText(
-                        color: AppColors.cream, fontSize: 13),
-              ),
-            ),
-          ],
-        ),
-        action: SnackBarAction(
-          label: undoLabel,
-          textColor: AppColors.gold,
-          onPressed: () async {
-            final undoneSaved =
-                await StorageService.toggleFavoriteMoodCard(widget.suggestion);
-            if (mounted) {
-              setState(() => _isSaved = undoneSaved);
-            }
-          },
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final tone = widget.tone;
     final locale = widget.locale;
     final isKurdish = locale == 'ku';
-    final shareLabel =
-        AppLocalizations.of(context)?.translate('share') ?? 'هاوبەشکردن';
 
     return DraggableScrollableSheet(
       initialChildSize: 0.82,
@@ -1661,40 +1564,7 @@ class _MoodCardSheetContentState extends State<_MoodCardSheetContent> {
                           : AppTheme.englishText(
                               color: AppColors.faintText, fontSize: 13),
                     ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        IconButton(
-                          tooltip: _isSaved
-                              ? (isKurdish
-                                  ? 'لە هەڵگیراوەکان بیسڕەوە'
-                                  : 'Unsave card')
-                              : (isKurdish
-                                  ? 'کارتەکە پاشەکەوت بکە'
-                                  : 'Save card'),
-                          onPressed: _isLoading ? null : _toggleSave,
-                          icon: Icon(
-                            _isSaved
-                                ? Icons.bookmark_rounded
-                                : Icons.bookmark_add_rounded,
-                            color: AppColors.gold,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: TextButton.icon(
-                            onPressed: () {
-                              AppShareService.share(
-                                context,
-                                widget.suggestion.shareTextFor(locale),
-                              );
-                            },
-                            icon: const Icon(Icons.share_rounded, size: 18),
-                            label: Text(shareLabel),
-                          ),
-                        ),
-                      ],
-                    ),
+
                   ],
                 ),
               ),
@@ -1898,6 +1768,25 @@ class _MoodVerseCardState extends State<_MoodVerseCard> {
                             decorationColor: AppColors.gold),
                   ),
                 ),
+              ),
+              IconButton(
+                tooltip: isKurdish
+                    ? 'هاوبەشکردن'
+                    : (widget.locale == 'ar' ? 'مشاركة' : 'Share'),
+                onPressed: () {
+                  final loc = AppLocalizations.of(context);
+                  final surahText =
+                      '${loc?.translate('surah') ?? 'سورەت'} ${widget.verse.surah}:${widget.verse.ayah}';
+                  final meaning = widget.locale == 'ku'
+                      ? (widget.verse.kurdishMeaning ??
+                          widget.verse.englishMeaning)
+                      : widget.verse.englishMeaning;
+                  final textToShare =
+                      '$surahText\n\n${widget.verse.arabicText}\n\n$meaning\n\n#Nada #نەدا';
+                  AppShareService.share(context, textToShare);
+                },
+                icon: const Icon(Icons.share_rounded, size: 20),
+                color: AppColors.gold,
               ),
               IconButton(
                 tooltip: _isSaved
