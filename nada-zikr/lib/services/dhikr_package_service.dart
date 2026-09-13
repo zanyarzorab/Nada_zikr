@@ -107,8 +107,8 @@ class DhikrPackageService {
       final kurdish = map['kurdish']?.toString().trim() ?? '';
       if (id == null || arabic.isEmpty || kurdish.isEmpty) continue;
 
-      // Avoid duplicate morning card for "La ilaha illallah..." (ID 92 and 93 are duplicate narrations)
-      if (safeCategoryId == 27 && id == 92) continue;
+      // In morning Azkar, use the 10-repeat narration (ID 92: عشر مرات) and skip the 100-repeat one (ID 93: مائة مرة)
+      if (safeCategoryId == 27 && id == 93) continue;
 
       final entries = _buildEntries(
         id: id,
@@ -152,6 +152,7 @@ class DhikrPackageService {
     final repeat = _normalizeRepeatCount(
       arabic,
       int.tryParse(rawCount?.toString() ?? '') ?? 1,
+      kurdish: kurdish,
     );
 
     final isAyatKursi = arabic.contains('الْحَيُّ الْقَيُّومُ') && arabic.contains('سِنَةٌ');
@@ -256,8 +257,9 @@ class DhikrPackageService {
     return {'en': '', 'ku': ''};
   }
 
-  int _normalizeRepeatCount(String arabic, int fallback) {
-    final normalized = arabic.replaceAll(RegExp(r'\s+'), ' ');
+  int _normalizeRepeatCount(String arabic, int fallback, {String kurdish = ''}) {
+    final combined = '$arabic $kurdish';
+    final normalized = combined.replaceAll(RegExp(r'\s+'), ' ');
 
     if (normalized.contains('قُلْ هُوَ اللَّهُ أَحَدٌ') ||
         normalized.contains('قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ') ||
@@ -275,6 +277,19 @@ class DhikrPackageService {
         normalized.contains('حەوت جار') ||
         normalized.contains('seven times')) {
       return 7;
+    }
+
+    final clean = _stripArabicDiacritics(arabic);
+    if (clean.contains('رضيتباللهربا') ||
+        (clean.contains('رضيت') && clean.contains('بالله') && clean.contains('رب'))) {
+      return 3;
+    }
+
+    if ((clean.contains('لاالهالااللهوحدهلاشريكله') ||
+            clean.contains('لا اله الا الله وحده لا شريك له')) &&
+        !clean.contains('اصبحنا') &&
+        !clean.contains('امسينا')) {
+      return 10;
     }
 
     if (normalized.contains('مائة مرة') ||

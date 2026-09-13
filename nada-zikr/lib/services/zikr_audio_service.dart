@@ -67,11 +67,14 @@ String _audio(int id) {
 
 class ZikrAudioService {
   ZikrAudioService._() {
+    _player.setLoopMode(LoopMode.off);
     _player.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
         _itemCurrentlyPlayingKey = null;
         currentlyPlayingKeyNotifier.value = null;
-        _player.seek(Duration.zero);
+        _player.pause().then((_) {
+          _player.seek(Duration.zero);
+        }).catchError((_) {});
       }
     });
   }
@@ -97,9 +100,7 @@ class ZikrAudioService {
   }
 
   Future<void> stopAudio() async {
-    _itemCurrentlyPlayingKey = null;
-    currentlyPlayingKeyNotifier.value = null;
-    await _player.stop();
+    await stop();
   }
 
   /// Plays authentic human-recorded audio for a single Zikr item with local caching
@@ -119,11 +120,16 @@ class ZikrAudioService {
         // Cancel loading
         _itemCurrentlyPlayingKey = null;
         currentlyPlayingKeyNotifier.value = null;
-        await _player.stop();
+        try {
+          await _player.stop();
+        } catch (_) {}
       } else {
         if (_player.processingState == ProcessingState.completed) {
-          await _player.seek(Duration.zero);
+          try {
+            await _player.seek(Duration.zero);
+          } catch (_) {}
         }
+        await _player.setLoopMode(LoopMode.off);
         unawaited(_player.play());
       }
       return;
@@ -131,9 +137,12 @@ class ZikrAudioService {
 
     _itemCurrentlyPlayingKey = key;
     currentlyPlayingKeyNotifier.value = key;
-    await _player.stop();
+    try {
+      await _player.stop();
+    } catch (_) {}
 
     try {
+      await _player.setLoopMode(LoopMode.off);
       final cachePath = await _getCacheFilePath('${key}_$audioFileName');
       final cacheFile = File(cachePath);
 
@@ -141,6 +150,7 @@ class ZikrAudioService {
       if (await cacheFile.exists() && await cacheFile.length() > 1024) {
         await _player.setFilePath(cachePath);
         if (_itemCurrentlyPlayingKey == key) {
+          await _player.setLoopMode(LoopMode.off);
           unawaited(_player.play());
         }
         return;
@@ -152,6 +162,7 @@ class ZikrAudioService {
             'Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36',
       });
       if (_itemCurrentlyPlayingKey == key) {
+        await _player.setLoopMode(LoopMode.off);
         unawaited(_player.play());
         // Cache in background for future offline use
         unawaited(_downloadAndCacheAudio(remoteUrl, cacheFile));
@@ -166,16 +177,19 @@ class ZikrAudioService {
 
   /// Stop individual card audio
   Future<void> stopItemAudio() async {
-    _itemCurrentlyPlayingKey = null;
-    currentlyPlayingKeyNotifier.value = null;
-    await _player.stop();
+    await stop();
   }
 
-  /// Stop all audio when leaving screen
+  /// Stop all audio when leaving screen or switching items
   Future<void> stop() async {
     _itemCurrentlyPlayingKey = null;
     currentlyPlayingKeyNotifier.value = null;
-    await _player.stop();
+    try {
+      await _player.stop();
+    } catch (_) {}
+    try {
+      await _player.seek(Duration.zero);
+    } catch (_) {}
   }
 
   /// Normalizes Arabic text for robust pattern matching

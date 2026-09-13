@@ -122,9 +122,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
     }
 
     if (_currentIndex < _azkarList.length - 1) {
-      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
-        ZikrAudioService.instance.stop();
-      }
+      ZikrAudioService.instance.stop();
       setState(() {
         _currentIndex++;
         _isCountingPulse = false;
@@ -132,14 +130,13 @@ class _ReadingScreenState extends State<ReadingScreen> {
       return;
     }
 
+    ZikrAudioService.instance.stop();
     await _completeSession();
   }
 
   Future<void> _handleNext() async {
+    ZikrAudioService.instance.stop();
     if (_currentIndex < _azkarList.length - 1) {
-      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
-        ZikrAudioService.instance.stop();
-      }
       setState(() {
         _currentIndex++;
       });
@@ -150,21 +147,19 @@ class _ReadingScreenState extends State<ReadingScreen> {
   }
 
   void _handleBack() {
+    ZikrAudioService.instance.stop();
     if (_currentIndex > 0) {
-      if (ZikrAudioService.instance.currentlyPlayingKey != null) {
-        ZikrAudioService.instance.stop();
-      }
       setState(() {
         _currentIndex--;
       });
       return;
     }
 
-    ZikrAudioService.instance.stop();
     Navigator.pop(context);
   }
 
   Future<void> _completeSession() async {
+    ZikrAudioService.instance.stop();
     await StorageService.recordSessionCompletion();
     if (const ['morning', 'evening', 'sleep'].contains(widget.category.id)) {
       await StorageService.markDailyPathComplete(widget.category.id);
@@ -220,7 +215,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          ZikrAudioService.instance.stop();
+                          Navigator.pop(context);
+                        },
                         child: Container(
                           width: 38,
                           height: 38,
@@ -303,12 +301,9 @@ class _ReadingScreenState extends State<ReadingScreen> {
                           child: Column(
                             children: [
                               if (ZikrAudioService.hasAudioForCategory(widget.category.id)) ...[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildAudioButton(current, isKurdish, lang),
-                                  ],
+                                Align(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  child: _buildAudioButton(current, isKurdish, lang),
                                 ),
                                 const SizedBox(height: 16),
                               ],
@@ -791,14 +786,18 @@ class _ReadingScreenState extends State<ReadingScreen> {
             final isPlaying = playerState.playing;
             final processingState = playerState.processingState;
             final isTargetItem = activeKey == itemKey;
+            final isCompleted = processingState == ProcessingState.completed;
             final isBuffering = processingState == ProcessingState.buffering ||
                 processingState == ProcessingState.loading;
-            final isThisPlaying = isPlaying && isTargetItem;
-            final isThisLoading = isTargetItem && (!isPlaying && isBuffering);
+            final isThisLoading = isTargetItem && isBuffering && !isCompleted;
+            final isThisPlaying =
+                isTargetItem && isPlaying && !isBuffering && !isCompleted;
             final isThisPaused = isTargetItem &&
                 !isPlaying &&
                 !isBuffering &&
-                processingState == ProcessingState.ready;
+                !isCompleted &&
+                (processingState == ProcessingState.ready ||
+                    processingState == ProcessingState.idle);
 
             final String label;
             final IconData icon;
@@ -850,38 +849,41 @@ class _ReadingScreenState extends State<ReadingScreen> {
                     width: isActive ? 1.5 : 1.0,
                   ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (isThisLoading)
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(AppColors.gold),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (isThisLoading)
+                        SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppColors.gold),
+                          ),
+                        )
+                      else
+                        Icon(
+                          icon,
+                          color: AppColors.gold,
+                          size: 20,
                         ),
-                      )
-                    else
-                      Icon(
-                        icon,
-                        color: AppColors.gold,
-                        size: 20,
+                      const SizedBox(width: 8),
+                      Text(
+                        label,
+                        style: isKurdish
+                            ? AppTheme.kurdishTitle(
+                                fontSize: 12.5, color: AppColors.gold)
+                            : (isArabic
+                                ? AppTheme.arabicTitle(
+                                    fontSize: 12.5, color: AppColors.gold)
+                                : AppTheme.englishTitle(
+                                    fontSize: 12.5, color: AppColors.gold)),
                       ),
-                    const SizedBox(width: 8),
-                    Text(
-                      label,
-                      style: isKurdish
-                          ? AppTheme.kurdishTitle(
-                              fontSize: 12.5, color: AppColors.gold)
-                          : (isArabic
-                              ? AppTheme.arabicTitle(
-                                  fontSize: 12.5, color: AppColors.gold)
-                              : AppTheme.englishTitle(
-                                  fontSize: 12.5, color: AppColors.gold)),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );
