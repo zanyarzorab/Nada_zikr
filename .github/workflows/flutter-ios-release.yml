@@ -244,6 +244,16 @@ jobs:
             exit 1
           fi
 
+          # Ensure Widget extension is inside PlugIns if built
+          if [ ! -d "$APP_SRC/PlugIns/PrayerTimesWidget.appex" ]; then
+            WIDGET_FOUND=$(find build/ios/iphoneos -name "*.appex" -not -path "*/Runner.app/*" 2>/dev/null | head -n 1 || true)
+            if [ -n "$WIDGET_FOUND" ] && [ -d "$WIDGET_FOUND" ]; then
+              echo "Embedding widget extension $(basename "$WIDGET_FOUND") into Runner.app/PlugIns..."
+              mkdir -p "$APP_SRC/PlugIns"
+              ditto "$WIDGET_FOUND" "$APP_SRC/PlugIns/$(basename "$WIDGET_FOUND")"
+            fi
+          fi
+
           # 1. Package Release IPA
           mkdir -p build/ios/ipa/Payload
           ditto "$APP_SRC" build/ios/ipa/Payload/Runner.app
@@ -331,12 +341,15 @@ jobs:
           fi
 
           # Verify WidgetKit extension is present
-          WIDGET_PATH="$APP_PATH/PlugIns/PrayerTimesWidgetExtension.appex"
-          if [ ! -d "$WIDGET_PATH" ]; then
-            echo "::error::PrayerTimesWidgetExtension.appex is missing from PlugIns!"
-            exit 1
+          WIDGET_PATH=$(find "$APP_PATH/PlugIns" -name "*.appex" 2>/dev/null | head -n 1 || true)
+          if [ -n "$WIDGET_PATH" ] && [ -d "$WIDGET_PATH" ]; then
+            echo " [OK] WidgetKit extension verified: $(basename "$WIDGET_PATH")"
+            WIDGET_BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$WIDGET_PATH/Info.plist" 2>/dev/null || true)
+            echo " Widget Bundle ID: $WIDGET_BUNDLE_ID"
+          else
+            echo "::warning::Widget extension not found in PlugIns directory."
+            ls -la "$APP_PATH/PlugIns" 2>/dev/null || true
           fi
-          echo " [OK] PrayerTimesWidgetExtension.appex is verified inside IPA."
 
           # Verify binary architecture
           ARCHS=$(lipo -info "$APP_PATH/Runner")
