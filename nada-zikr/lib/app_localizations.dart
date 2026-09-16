@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class AppLocalizations {
   Locale locale;
-  late Map<String, String> _localizedStrings;
+  Map<String, String> _localizedStrings = {};
   static String _languageCode = 'ku';
   static Map<String, String> _currentStrings = {};
   static final ValueNotifier<String> languageCodeNotifier =

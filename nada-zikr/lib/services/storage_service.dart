@@ -76,11 +76,13 @@ class StorageService {
 
   // Settings
   static Future<void> saveSetting(String key, dynamic value) async {
+    if (!Hive.isBoxOpen(settingsBox)) return;
     final box = Hive.box(settingsBox);
     await _safeBoxPut(box, key, value);
   }
 
   static Future<dynamic> readSetting(String key, {dynamic defaultValue}) async {
+    if (!Hive.isBoxOpen(settingsBox)) return defaultValue;
     final box = Hive.box(settingsBox);
     return box.get(key, defaultValue: defaultValue);
   }

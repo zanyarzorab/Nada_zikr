@@ -6,6 +6,10 @@ import '../models/hadith_model.dart';
 class HadithService {
   static List<HadithItem>? _cachedHadiths;
 
+  static void setMockHadiths(List<HadithItem>? hadiths) {
+    _cachedHadiths = hadiths;
+  }
+
   /// Loads all 100 authentic hadiths from bundled asset
   static Future<List<HadithItem>> loadAllHadiths() async {
     if (_cachedHadiths != null && _cachedHadiths!.isNotEmpty) {

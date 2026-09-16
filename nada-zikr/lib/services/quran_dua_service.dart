@@ -8,6 +8,10 @@ class QuranDuaService {
   static List<QuranDuaItem>? _cachedDuas;
   static const String _favoritePrefKey = 'quran_duas_favorites';
 
+  static void setMockDuas(List<QuranDuaItem>? duas) {
+    _cachedDuas = duas;
+  }
+
   /// Loads all 70 Quranic Duas from bundled assets
   static Future<List<QuranDuaItem>> loadAllDuas() async {
     if (_cachedDuas != null && _cachedDuas!.isNotEmpty) {

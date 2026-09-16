@@ -29,7 +29,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
   final Map<int, int> _repeatCounts = {};
   bool _completed = false;
   bool _isCountingPulse = false;
-  bool _showEnglishTranslation = false;
+  bool? _showEnglishMode;
 
   int get _repeatCount => _repeatCounts[_currentIndex] ?? 0;
   void _setRepeatCount(int val) => _repeatCounts[_currentIndex] = val;
@@ -317,167 +317,172 @@ class _ReadingScreenState extends State<ReadingScreen> {
                           ),
                         ),
                         const SizedBox(height: 24),
-                        // Dual Meaning: Kurdish First + Expandable English
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            if (current.kurdishTranslation.isNotEmpty) ...[
+                        // Meaning Section: toggle between Kurdish and English
+                        () {
+                          final hasKurdish = current.kurdishTranslation.trim().isNotEmpty;
+                          final hasEnglish = current.translation.trim().isNotEmpty;
+                          final hasBoth = hasKurdish && hasEnglish;
+                          final bool preferEnglish = _showEnglishMode ?? (lang == 'en');
+                          final bool showEnglish = (preferEnglish && hasEnglish) || !hasKurdish;
+                          final bool hasContent = hasKurdish || hasEnglish;
+
+                          if (!hasContent) return const SizedBox.shrink();
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
                               Row(
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.gold
-                                          .withValues(alpha: 0.15),
-                                      borderRadius: BorderRadius.circular(6),
-                                      border: Border.all(
-                                          color: AppColors.gold
-                                              .withValues(alpha: 0.3)),
-                                    ),
-                                    child: Text(
-                                      '📖 مانای کوردی',
-                                      style: AppTheme.kurdishText(
-                                        fontSize: 11,
-                                        color: AppColors.gold,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                current.kurdishTranslation,
-                                style: AppTheme.kurdishText(
-                                  color:
-                                      AppColors.cream.withValues(alpha: 0.95),
-                                  fontSize: 14,
-                                  height: 1.6,
-                                ),
-                                textAlign: TextAlign.right,
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ],
-
-                            // English Translation Expandable Toggle
-                            if (current.translation.isNotEmpty) ...[
-                              const SizedBox(height: 10),
-                              GestureDetector(
-                                onTap: () {
-                                  AppHaptics.selectionClick();
-                                  setState(() => _showEnglishTranslation =
-                                      !_showEnglishTranslation);
-                                },
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 5),
-                                        decoration: BoxDecoration(
-                                          color: _showEnglishTranslation
-                                              ? const Color(0xFF3B82F6)
-                                                  .withValues(alpha: 0.18)
-                                              : AppColors.darkPanel,
-                                          borderRadius: BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: _showEnglishTranslation
-                                                ? const Color(0xFF60A5FA)
-                                                    .withValues(alpha: 0.45)
-                                                : AppColors.panelBorderColor,
-                                          ),
+                                  Flexible(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      alignment: AlignmentDirectional.centerStart,
+                                      child: GestureDetector(
+                                        onTap: hasBoth
+                                            ? () {
+                                                AppHaptics.selectionClick();
+                                                setState(() {
+                                                  _showEnglishMode = !showEnglish;
+                                                });
+                                              }
+                                            : null,
+                                        child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: showEnglish
+                                            ? const Color(0xFF3B82F6)
+                                                .withValues(alpha: 0.16)
+                                            : AppColors.gold
+                                                .withValues(alpha: 0.15),
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: showEnglish
+                                              ? const Color(0xFF60A5FA)
+                                                  .withValues(alpha: 0.45)
+                                              : AppColors.gold
+                                                  .withValues(alpha: 0.35),
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              _showEnglishTranslation
-                                                  ? Icons.expand_less_rounded
-                                                  : Icons.expand_more_rounded,
-                                              size: 16,
-                                              color: const Color(0xFF93C5FD),
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Flexible(
-                                              child: Text(
-                                                _showEnglishTranslation
-                                                    ? 'شاردنەوەی ئینگلیزی'
-                                                    : 'پیشاندانی مانای ئینگلیزی (English) ▼',
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  color: Color(0xFF93C5FD),
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            showEnglish
+                                                ? Icons.language_rounded
+                                                : Icons.menu_book_rounded,
+                                            size: 14,
+                                            color: showEnglish
+                                                ? const Color(0xFF93C5FD)
+                                                : AppColors.gold,
+                                          ),
+                                          const SizedBox(width: 6),
+                                          Text(
+                                            showEnglish
+                                                ? (isKurdish
+                                                    ? 'مانای ئینگلیزی'
+                                                    : (lang == 'ar'
+                                                        ? 'الترجمة بالإنجليزية'
+                                                        : 'English Translation'))
+                                                : (isKurdish
+                                                    ? 'مانای کوردی'
+                                                    : (lang == 'ar'
+                                                        ? 'المعنى بالكردية'
+                                                        : 'Kurdish Meaning')),
+                                            style: showEnglish
+                                                ? const TextStyle(
+                                                    fontSize: 11,
+                                                    color: Color(0xFF93C5FD),
+                                                    fontWeight: FontWeight.bold,
+                                                  )
+                                                : AppTheme.kurdishText(
+                                                    fontSize: 11,
+                                                    color: AppColors.gold,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                          ),
+                                          if (hasBoth) ...[
+                                            const SizedBox(width: 6),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 1.5),
+                                              decoration: BoxDecoration(
+                                                color: showEnglish
+                                                    ? const Color(0xFF3B82F6)
+                                                        .withValues(alpha: 0.25)
+                                                    : AppColors.gold
+                                                        .withValues(alpha: 0.2),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    Icons.swap_horiz_rounded,
+                                                    size: 12,
+                                                    color: showEnglish
+                                                        ? const Color(0xFF93C5FD)
+                                                        : AppColors.gold,
+                                                  ),
+                                                  const SizedBox(width: 3),
+                                                  Text(
+                                                    showEnglish
+                                                        ? (isKurdish
+                                                            ? 'کوردی'
+                                                            : 'Kurdish')
+                                                        : 'English',
+                                                    style: TextStyle(
+                                                      fontSize: 9.5,
+                                                      color: showEnglish
+                                                          ? const Color(
+                                                              0xFF93C5FD)
+                                                          : AppColors.gold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (_showEnglishTranslation) ...[
-                                const SizedBox(height: 8),
-                                Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF1E293B)
-                                        .withValues(alpha: 0.65),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(
-                                      color: const Color(0xFF3B82F6)
-                                          .withValues(alpha: 0.3),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6, vertical: 2),
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFF3B82F6)
-                                                  .withValues(alpha: 0.2),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            child: const Text(
-                                              '🌐 English Translation',
-                                              style: TextStyle(
-                                                color: Color(0xFF93C5FD),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
                                         ],
                                       ),
-                                      const SizedBox(height: 6),
-                                      Text(
-                                        current.translation,
-                                        style: AppTheme.englishText(
-                                          color: AppColors.cream
-                                              .withValues(alpha: 0.92),
-                                          fontSize: 13,
-                                        ).copyWith(height: 1.5),
-                                        textAlign: TextAlign.left,
-                                        textDirection: TextDirection.ltr,
+                                    ),
+                                   ),
+                                 ),
+                               ),
+                             ],
+                           ),
+                              const SizedBox(height: 8),
+                              Text(
+                                showEnglish
+                                    ? current.translation
+                                    : current.kurdishTranslation,
+                                style: showEnglish
+                                    ? AppTheme.englishText(
+                                        color: AppColors.cream
+                                            .withValues(alpha: 0.95),
+                                        fontSize: 14,
+                                      ).copyWith(height: 1.6)
+                                    : AppTheme.kurdishText(
+                                        color: AppColors.cream
+                                            .withValues(alpha: 0.95),
+                                        fontSize: 14,
+                                        height: 1.6,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                textAlign: showEnglish
+                                    ? TextAlign.left
+                                    : TextAlign.right,
+                                textDirection: showEnglish
+                                    ? TextDirection.ltr
+                                    : TextDirection.rtl,
+                              ),
                             ],
-                          ],
-                        ),
+                          );
+                        }(),
                         const SizedBox(height: 28),
                         Center(
                           child: AnimatedScale(

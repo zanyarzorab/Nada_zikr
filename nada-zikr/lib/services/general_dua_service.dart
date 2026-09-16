@@ -8,6 +8,10 @@ class GeneralDuaService {
   static List<GeneralDuaItem>? _cachedDuas;
   static const String _favoritePrefKey = 'general_duas_favorites';
 
+  static void setMockDuas(List<GeneralDuaItem>? duas) {
+    _cachedDuas = duas;
+  }
+
   /// Loads all 30 Comprehensive Hadith Duas from bundled assets
   static Future<List<GeneralDuaItem>> loadAllDuas() async {
     if (_cachedDuas != null && _cachedDuas!.isNotEmpty) {
