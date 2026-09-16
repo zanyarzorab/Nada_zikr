@@ -1,240 +1,163 @@
-# iOS TestFlight & App Store Build Guide
+# iOS TestFlight & App Store Distribution Guide for Nada: Dhikr & Quran
 
-This document explains how to produce a production-quality, distribution-signed iOS `.ipa` for **Nada: Dhikr & Quran** using GitHub Actions, and how to submit it to **Apple TestFlight / App Store Connect**.
-
----
-
-## 1. How the Workflow Works
-
-The workflow is located at:
-[`.github/workflows/flutter-ios-release.yml`](../.github/workflows/flutter-ios-release.yml)
-
-It executes on a GitHub-hosted Apple Silicon macOS runner (`macos-14`) and performs the following automated steps:
-
-```
-[Trigger (Manual Dispatch)]
-          │
-          ▼
-[Pre-flight Check] ──► Fails immediately if any required Apple signing secrets are missing
-          │
-          ▼
-[Environment Setup] ──► Sets up Flutter (stable), Java 17, and installs CocoaPods dependencies
-          │
-          ▼
-[Secure Keychain] ──► Creates a temporary CI keychain & imports Apple Distribution certificate
-          │
-          ▼
-[Inspect Profiles] ──► Decodes & validates profiles for Runner (App) and PrayerTimesWidget (Extension)
-          │
-          ▼
-[ExportOptions & Xcode] ──► Dynamically configures manual signing for all targets
-          │
-          ▼
-[Build & Export IPA] ──► Executes `flutter build ipa --release` using Apple Distribution signing
-          │
-          ▼
-[Deep Validation] ──► Verifies: size, bundle IDs, version, arm64, extension integrity, and signatures
-          │
-          ▼
-[Artifact Upload] ──► Uploads `Nada-iOS-v1.0.0-build5.ipa` (ready to download on Windows!)
-          │
-          ▼ (Optional)
-[TestFlight Upload] ──► Submits build directly to TestFlight if API key secrets are present
-```
+This document explains how the iOS release workflow produces a **genuine Apple Distribution-signed IPA** for **Nada: Dhikr & Quran** using GitHub Actions, and how to submit it to **Apple TestFlight / App Store Connect**.
 
 ---
 
-## 2. Required GitHub Secrets
+## 1. What Was Changed
 
-To protect security, **no certificates or passwords are saved in the repository**. Instead, your friend (the Apple Developer account owner) provides encrypted GitHub Secrets.
+* **Workflow Created**: [`.github/workflows/flutter-ios-release.yml`](../.github/workflows/flutter-ios-release.yml) — Runs on a GitHub-hosted Apple Silicon runner (`macos-14`), creates an ephemeral signing keychain, installs dual provisioning profiles (for the main app and the WidgetKit extension), configures manual signing settings for both targets, executes `flutter build ipa --release` with an App Store `ExportOptions.plist`, strictly validates code signatures, and uploads the verified `.ipa` and `.xcarchive` artifacts.
+* **Security Rules Added**: Root [`.gitignore`](../.gitignore) and [`nada-zikr/.gitignore`](../nada-zikr/.gitignore) updated to prevent any `.p12`, `.cer`, `.p8`, `.mobileprovision`, `.keystore`, or `.ipa` files from ever being committed to Git.
+* **Obsolete Workflows Removed**: Removed legacy workflows that previously built unsigned or sideload-only packages.
+* **Helper Script Provided**: [`tools/export_signing_secrets.sh`](../tools/export_signing_secrets.sh) created to automate certificate and profile export on macOS.
+* **Existing Application Code**: **100% untouched.** Zero changes were made to the Dart codebase, UI, database, Azkar/Quran/Hadith assets, translations, notifications, or Android configuration.
 
-Navigate in your GitHub repository to:
+---
+
+## 2. How Apple Distribution Signing Works
+
+In Apple's ecosystem, an iOS app destined for TestFlight or the App Store cannot be simply zipped or self-signed. It requires:
+
+1. An **Apple Distribution Certificate** issued by Apple's Certificate Authority to a paid Apple Developer Account. This proves the authenticity of the developer.
+2. An **App Store Distribution Provisioning Profile** for each app target:
+   - **Main App Target**: `com.nada.nadaZikrakanm`
+   - **WidgetKit Extension Target**: `com.nada.nadaZikrakanm.PrayerTimesWidget`
+   Both profiles must have `get-task-allow = false` (production distribution) and be linked to the shared App Group: `group.com.nada.nadaZikrakanm`.
+3. An **`ExportOptions.plist`** with:
+   - `method = app-store`
+   - `signingStyle = manual`
+   - Target bundle IDs mapped to their respective provisioning profile UUIDs.
+4. During archive export, Xcode signs both the widget `.appex` and the main `.app`, creates cryptographic `_CodeSignature` directories, and embeds `embedded.mobileprovision` into both bundles.
+
+---
+
+## 3. Required GitHub Secrets
+
+To ensure security, **no credentials or passwords are saved in the repository**. Instead, encrypted GitHub Secrets are used.
+
+Navigate in your GitHub repository to:  
 **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
 
-### Mandatory Signing Secrets (Required to produce the signed IPA)
-
-| Secret Name | Description | Example / Format |
+| Secret Name | Description | Example Value |
 |---|---|---|
-| `BUILD_CERTIFICATE_BASE64` | The **Apple Distribution Certificate** with its private key exported as a `.p12` file, converted to a Base64 string. | Base64 string (`MIIK...`) |
-| `P12_PASSWORD` | The password chosen by your friend when exporting the `.p12` file from Keychain Access. | `YourSecurePassword123` |
-| `BUILD_PROVISION_PROFILE_BASE64` | The **App Store Distribution Provisioning Profile** for the main app bundle ID (`com.nada.nadaZikrakanm`), converted to a Base64 string. | Base64 string (`MIIX...`) |
-| `WIDGET_PROVISION_PROFILE_BASE64` | The **App Store Distribution Provisioning Profile** for the widget extension bundle ID (`com.nada.nadaZikrakanm.PrayerTimesWidget`), converted to a Base64 string. | Base64 string (`MIIX...`) |
+| `BUILD_CERTIFICATE_BASE64` | Base64 string of the exported Apple Distribution `.p12` file | `MIIK...` (base64 string) |
+| `P12_PASSWORD` | The password chosen when exporting the `.p12` certificate | `bismilah` (or your chosen password) |
+| `BUILD_PROVISION_PROFILE_BASE64` | Base64 string of the App Store distribution `.mobileprovision` for `com.nada.nadaZikrakanm` | `MIIX...` (base64 string) |
+| `WIDGET_PROVISION_PROFILE_BASE64` | Base64 string of the App Store distribution `.mobileprovision` for `com.nada.nadaZikrakanm.PrayerTimesWidget` | `MIIX...` (base64 string) |
+| `KEYCHAIN_PASSWORD` *(Optional)* | Password for the temporary CI keychain (defaults to a random UUID if omitted) | *(Optional)* |
 
-### Optional Secrets (For Direct Upload to TestFlight)
-
-If your friend wants GitHub Actions to automatically upload the build to TestFlight:
-
-| Secret Name | Description | Where to find in Apple Developer |
-|---|---|---|
-| `APPSTORE_KEY_ID` | 10-character API Key ID | **App Store Connect** → Users and Access → Integrations → Keys |
-| `APPSTORE_ISSUER_ID` | Issuer ID (UUID) | Shown above the keys table on App Store Connect |
-| `APPSTORE_PRIVATE_KEY` | Contents of the downloaded `.p8` private key file | Open `AuthKey_XXXXX.p8` in a text editor and paste entire text |
-
-*(If these optional secrets are omitted, the workflow still builds and validates the signed IPA and uploads it as a downloadable GitHub Actions artifact).*
+> [!IMPORTANT]
+> The workflow will **fail immediately** if any of the 4 required secrets are missing. It will never silently fall back to an unsigned or sideloaded build.
 
 ---
 
-## 3. Instructions for Your Friend (Apple Developer Account Owner)
+## 4. How the Apple Developer Account Owner Provides Credentials
 
-Share these instructions with your friend who owns the Apple Developer account:
+Share these instructions with the owner of the Apple Developer account:
 
-### Step A: Verify App IDs & App Groups on developer.apple.com
+### Step A: Verify App Identifiers on developer.apple.com
+1. Go to [developer.apple.com/account/resources/identifiers/list](https://developer.apple.com/account/resources/identifiers/list).
+2. Under **App Groups**, verify `group.com.nada.nadaZikrakanm` exists.
+3. Under **App IDs**:
+   - Verify `com.nada.nadaZikrakanm` has **App Groups** and **Time-Sensitive Notifications** checked.
+   - Verify `com.nada.nadaZikrakanm.PrayerTimesWidget` has **App Groups** checked.
 
-Nada uses an iOS WidgetKit extension, which means **two App IDs** and **one App Group** must exist:
+### Step B: Download Provisioning Profiles
+1. Go to [developer.apple.com/account/resources/profiles/list](https://developer.apple.com/account/resources/profiles/list).
+2. Create/Download an **App Store** distribution profile for `com.nada.nadaZikrakanm`.
+3. Create/Download an **App Store** distribution profile for `com.nada.nadaZikrakanm.PrayerTimesWidget`.
 
-1. **App Group**:
-   - Identifier: `group.com.nada.nadaZikrakanm`
-2. **Main App Identifier**:
-   - Identifier: `com.nada.nadaZikrakanm`
-   - Capabilities enabled:
-     - **App Groups** (checked and linked to `group.com.nada.nadaZikrakanm`)
-     - **Time-Sensitive Notifications**
-3. **Widget Extension Identifier**:
-   - Identifier: `com.nada.nadaZikrakanm.PrayerTimesWidget`
-   - Capabilities enabled:
-     - **App Groups** (checked and linked to `group.com.nada.nadaZikrakanm`)
-
-### Step B: Create / Export the Apple Distribution Certificate (`.p12`)
-
-1. On a Mac, open **Keychain Access**.
-2. If your friend does not already have an active **Apple Distribution Certificate**:
-   - Go to [developer.apple.com/account/resources/certificates](https://developer.apple.com/account/resources/certificates).
-   - Click `+`, select **Apple Distribution**, and upload a Certificate Signing Request (CSR) generated from Keychain Access.
-   - Download the generated `.cer` file and double-click to install it into Keychain Access.
-3. In **Keychain Access**, find the certificate named `Apple Distribution: [Friend's Name / Org Name]`.
-4. Click the disclosure arrow next to it so both the certificate and its private key are visible.
-5. Right-click the certificate and choose **Export "Apple Distribution: ..."**.
-6. Select **Format: Personal Information Exchange (.p12)**.
-7. Enter a password (e.g. `MyStrongPass2026!`). Note this password down—it is `P12_PASSWORD`.
-8. In macOS Terminal, convert the `.p12` file to Base64:
-   ```bash
-   base64 -i distribution.p12 -o cert_base64.txt
-   ```
-9. Copy the contents of `cert_base64.txt` and save as GitHub Secret `BUILD_CERTIFICATE_BASE64`.
-
-### Step C: Generate the Provisioning Profiles
-
-Your friend needs **two App Store Distribution profiles**:
-
-1. Go to [developer.apple.com/account/resources/profiles](https://developer.apple.com/account/resources/profiles).
-2. **Profile 1 (Main App)**:
-   - Click `+` → Select **App Store** under Distribution → Continue.
-   - App ID: Select `com.nada.nadaZikrakanm` (Nada).
-   - Certificate: Select the Apple Distribution Certificate created above.
-   - Profile Name: `Nada AppStore Profile` → Generate & Download.
-   - In Terminal, encode to Base64:
-     ```bash
-     base64 -i Nada_AppStore_Profile.mobileprovision -o profile_main_base64.txt
-     ```
-   - Copy contents to GitHub Secret: `BUILD_PROVISION_PROFILE_BASE64`.
-3. **Profile 2 (Widget Extension)**:
-   - Click `+` → Select **App Store** under Distribution → Continue.
-   - App ID: Select `com.nada.nadaZikrakanm.PrayerTimesWidget`.
-   - Certificate: Select the same Apple Distribution Certificate.
-   - Profile Name: `Nada Widget AppStore Profile` → Generate & Download.
-   - In Terminal, encode to Base64:
-     ```bash
-     base64 -i Nada_Widget_AppStore_Profile.mobileprovision -o profile_widget_base64.txt
-     ```
-   - Copy contents to GitHub Secret: `WIDGET_PROVISION_PROFILE_BASE64`.
+### Step C: Run the Automated Export Script (on Mac)
+Your friend can clone this repository on their Mac and run:
+```bash
+bash tools/export_signing_secrets.sh
+```
+The script will:
+1. Automatically find their **Apple Distribution** certificate in Keychain Access.
+2. Export it with password `bismilah`.
+3. Ask to drag and drop the two `.mobileprovision` files.
+4. Generate a file named **`github_secrets_ready_to_paste.txt`** containing the exact 4 values to paste into GitHub Secrets.
 
 ---
 
-## 4. How to Run the Workflow from Windows
+## 5. How to Run the Workflow from Windows
 
-You can run the build anytime directly from your web browser on Windows:
-
-1. Open your repository on **GitHub.com**.
+1. Open your repository on **GitHub.com** in any browser.
 2. Click the **Actions** tab at the top.
-3. In the left sidebar, click **iOS Release (App Store / TestFlight)**.
-4. Click the **Run workflow** dropdown button on the right:
+3. In the left sidebar, click **Flutter iOS Release**.
+4. Click the **Run workflow** dropdown button:
    - **Branch**: `main`
-   - **Marketing version name override**: Leave blank (uses `1.0.0` from `pubspec.yaml`), or enter a new version like `1.0.1`.
-   - **Build number override**: Leave blank (uses `5` from `pubspec.yaml`), or enter a new build number like `6`.
-   - **Upload directly to TestFlight**: Set to `true` if you added the `APPSTORE_*` API key secrets, or leave `false` to download the `.ipa` artifact manually.
+   - **Marketing version name override**: Leave blank (uses `1.0.0` from `pubspec.yaml`), or enter a new version.
+   - **Build number override**: Leave blank (uses `5` from `pubspec.yaml`), or enter a new build number.
 5. Click the green **Run workflow** button.
 
 ---
 
-## 5. Where to Download the Generated IPA
+## 6. How to Download the IPA
 
-Once the workflow finishes (takes approx. 10-15 minutes):
-
-1. Click on the completed workflow run in the **Actions** tab.
+Once the workflow finishes (approx. 10–15 minutes):
+1. Click the completed run under the **Actions** tab.
 2. Scroll to the bottom to the **Artifacts** section.
-3. You will see:
-   - `Nada-iOS-v1.0.0-build5` (The ready-to-use distribution IPA).
-   - `Nada-iOS-v1.0.0-build5-xcarchive` (The full Xcode archive for symbolication/troubleshooting).
-4. Click on `Nada-iOS-v1.0.0-build5` to download the zip file to your Windows computer.
-5. Extract the zip to get `Nada-iOS-v1.0.0-build5.ipa`.
+3. Download:
+   - **`Nada-iOS-v1.0.0-build5`**: The distribution IPA (zipped).
+   - **`Nada-iOS-v1.0.0-build5-xcarchive`**: The full Xcode archive (for crash symbolication and debugging).
+4. Extract the zip on Windows to obtain `Nada-iOS-v1.0.0-build5.ipa`.
 
 ---
 
-## 6. How Your Friend Can Upload the IPA to App Store Connect / TestFlight
+## 7. How the Workflow Automatically Verifies the IPA
 
-There are two easy methods to upload the downloaded IPA to TestFlight:
-
-### Method 1: Using the Apple "Transporter" App (Easiest)
-
-1. Have your friend install **Transporter** (free from the Mac App Store).
-2. Sign in with their Apple Developer Apple ID.
-3. Send them the downloaded `Nada-iOS-v1.0.0-build5.ipa`.
-4. Drag and drop the `.ipa` into Transporter.
-5. Click **Deliver**.
-6. In a few minutes, the build will appear under **TestFlight** in App Store Connect.
-
-### Method 2: Using the macOS Terminal (`xcrun altool`)
-
-Your friend can upload directly from their Mac terminal:
-
-```bash
-xcrun altool --upload-app \
-  -f "Nada-iOS-v1.0.0-build5.ipa" \
-  -t ios \
-  -u "apple-developer-email@example.com" \
-  -p "app-specific-password"
-```
-
-*(Or use an App Store Connect API Key with `--apiKey` and `--apiIssuer`).*
+The workflow performs strict automated validation before marking the build as successful:
+1. **Integrity Check**: Checks file size (> 1 MB, not corrupt).
+2. **Bundle Identifiers**: Verifies `com.nada.nadaZikrakanm` and `com.nada.nadaZikrakanm.PrayerTimesWidget`.
+3. **Version & Build**: Verifies `1.0.0` and `5`.
+4. **Code Signatures**: Verifies `_CodeSignature` exists in both `Runner.app` and `PrayerTimesWidget.appex`.
+5. **Apple Tools Verification**: Runs `codesign --verify --deep --strict` using Apple's official verification tools.
+6. **Signing Authority**: Verifies that the signing certificate is an official **Apple Distribution** certificate.
+7. **Embedded Profiles**: Verifies `embedded.mobileprovision` is present in both targets and confirms `get-task-allow = false` (distribution profile).
+8. **Device Architecture**: Checks `lipo -info` to ensure the binary contains `arm64` and is not a simulator build.
 
 ---
 
-## 7. How to Increment the Build Number for Future Releases
+## 8. How to Upload the IPA to App Store Connect
 
-Apple requires every new upload to TestFlight to have a **higher build number** than the previous one.
+Because you have the signed IPA, your friend (or anyone with access) can upload it using:
 
-You have two choices:
+### Method 1: Apple Transporter App (Recommended)
+1. Install **Transporter** (free from the Mac App Store).
+2. Sign in with the Apple Developer Apple ID.
+3. Drag and drop `Nada-iOS-v1.0.0-build5.ipa` into Transporter.
+4. Click **Deliver**.
+5. The build will process on Apple's servers and appear under TestFlight in 5–10 minutes.
 
-### Option A: Update in Code (Recommended for Git tracking)
-Open `nada-zikr/pubspec.yaml` and update line 4:
+### Method 2: Xcode Organizer
+1. Unzip `Nada-iOS-v1.0.0-build5-xcarchive.zip`.
+2. Double-click `Runner.xcarchive` on macOS. Xcode Organizer opens.
+3. Click **Distribute App** → **TestFlight & App Store** → **Upload**.
+
+---
+
+## 9. How to Add Testers in TestFlight
+
+Once Apple finishes processing the build in App Store Connect:
+1. Go to [appstoreconnect.apple.com](https://appstoreconnect.apple.com) → **My Apps** → **Nada**.
+2. Click the **TestFlight** tab.
+3. Select build `1.0.0 (5)`:
+   - **Internal Testers**: Add members of your App Store Connect team for instant testing (no Apple review needed).
+   - **External Testers**: Create a public group (e.g. "Beta Testers"), add email addresses or generate a public invite link (requires a brief Apple Beta App Review).
+
+---
+
+## 10. How to Create Future Releases (Build 6, Build 7, etc.)
+
+Apple requires every new upload to have a higher build number:
+
+### Option A: Update in Code (Recommended)
+Edit `nada-zikr/pubspec.yaml`:
 ```yaml
-version: 1.0.0+6   # +6 is the build number
+version: 1.0.0+6   # Changes build number to 6
 ```
-Commit and push to `main`. When you trigger the workflow, it will automatically build Version `1.0.0`, Build `6`.
+Commit and push to `main`. When you trigger the workflow, it automatically builds `Nada-iOS-v1.0.0-build6.ipa`.
 
-### Option B: Override via Workflow Dispatch UI
-When clicking **Run workflow** in GitHub Actions, type `6` (or `7`, etc.) into the **Build number override** field. The workflow will build with that number without modifying your code.
-
----
-
-## 8. Troubleshooting Common Signing & Provisioning Errors
-
-### Error: "Runner provisioning profile is a DEVELOPMENT profile (get-task-allow=true)"
-- **Cause**: The profile downloaded from developer.apple.com was created under "iOS App Development" instead of "App Store" under Distribution.
-- **Fix**: Generate a new profile under **Distribution → App Store**, convert to Base64, and update `BUILD_PROVISION_PROFILE_BASE64`.
-
-### Error: "Widget profile App ID does not match target bundle ID"
-- **Cause**: The widget profile was created for the wrong App ID.
-- **Fix**: Verify the App ID in the Apple Portal is `com.nada.nadaZikrakanm.PrayerTimesWidget` and recreate the profile.
-
-### Error: "Code signature authority is not an Apple Distribution certificate"
-- **Cause**: An Apple Development / iOS Developer certificate was exported instead of an Apple Distribution certificate.
-- **Fix**: Ensure the certificate in Keychain Access begins with `Apple Distribution:` or `iPhone Distribution:`.
-
-### Error: "Missing required signing secret(s)"
-- **Cause**: One of the four mandatory secrets is not set or misspelled.
-- **Fix**: Check `Settings` → `Secrets and variables` → `Actions` and ensure exact names:
-  - `BUILD_CERTIFICATE_BASE64`
-  - `P12_PASSWORD`
-  - `BUILD_PROVISION_PROFILE_BASE64`
-  - `WIDGET_PROVISION_PROFILE_BASE64`
+### Option B: Override in Workflow UI
+When clicking **Run workflow** in GitHub Actions, type `6` into the **Build number override** field. The workflow will produce Build 6 without modifying any code.
