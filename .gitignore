@@ -1,0 +1,29 @@
+# Apple Developer & Signing Secrets (NEVER commit these)
+*.p12
+*.cer
+*.crt
+*.der
+*.p8
+*.mobileprovision
+*.provisionprofile
+*.keychain
+*.keychain-db
+ExportOptions.plist.secret
+
+# Android release signing (NEVER commit these)
+*.jks
+*.keystore
+key.properties
+
+# Build artifacts & packages
+*.ipa
+*.xcarchive
+*.xcarchive.zip
+build/
+DerivedData/
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,557 @@
+name: iOS Release (App Store / TestFlight)
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_name:
+        description: 'Marketing version name override (e.g. 1.0.0). Leave blank to use pubspec.yaml'
+        required: false
+        default: ''
+        type: string
+      build_number:
+        description: 'Build number override (e.g. 5). Leave blank to use pubspec.yaml'
+        required: false
+        default: ''
+        type: string
+      upload_testflight:
+        description: 'Upload directly to TestFlight after successful build (requires APPSTORE_* secrets)'
+        required: false
+        default: false
+        type: boolean
+  push:
+    tags:
+      - 'v*'
+
+# Concurrency to prevent parallel release runs colliding
+concurrency:
+  group: ios-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-sign-ios:
+    name: Build & Sign iOS IPA
+    runs-on: macos-14
+
+    defaults:
+      run:
+        working-directory: nada-zikr
+
+    steps:
+      # ─────────────────────────────────────────────────────────────────────────
+      # 1. Checkout repository
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 2. Pre-flight Secret Audit (Fail early if credentials missing)
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Verify Required Apple Secrets
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          WIDGET_PROVISION_PROFILE_BASE64: ${{ secrets.WIDGET_PROVISION_PROFILE_BASE64 }}
+        run: |
+          echo "=================================================="
+          echo " Pre-flight Apple Developer Credentials Check"
+          echo "=================================================="
+          MISSING_SECRETS=0
+
+          if [ -z "$BUILD_CERTIFICATE_BASE64" ]; then
+            echo "::error::Missing secret: BUILD_CERTIFICATE_BASE64 (Apple Distribution .p12 base64)"
+            MISSING_SECRETS=$((MISSING_SECRETS + 1))
+          else
+            echo "  [OK] BUILD_CERTIFICATE_BASE64 is set."
+          fi
+
+          if [ -z "$P12_PASSWORD" ]; then
+            echo "::error::Missing secret: P12_PASSWORD (Password for the .p12 certificate)"
+            MISSING_SECRETS=$((MISSING_SECRETS + 1))
+          else
+            echo "  [OK] P12_PASSWORD is set."
+          fi
+
+          if [ -z "$BUILD_PROVISION_PROFILE_BASE64" ]; then
+            echo "::error::Missing secret: BUILD_PROVISION_PROFILE_BASE64 (App Store profile for com.nada.nadaZikrakanm)"
+            MISSING_SECRETS=$((MISSING_SECRETS + 1))
+          else
+            echo "  [OK] BUILD_PROVISION_PROFILE_BASE64 is set."
+          fi
+
+          if [ -z "$WIDGET_PROVISION_PROFILE_BASE64" ]; then
+            echo "::error::Missing secret: WIDGET_PROVISION_PROFILE_BASE64 (App Store profile for com.nada.nadaZikrakanm.PrayerTimesWidget)"
+            MISSING_SECRETS=$((MISSING_SECRETS + 1))
+          else
+            echo "  [OK] WIDGET_PROVISION_PROFILE_BASE64 is set."
+          fi
+
+          if [ $MISSING_SECRETS -gt 0 ]; then
+            echo "=================================================="
+            echo " FATAL: Missing $MISSING_SECRETS required signing secret(s)!"
+            echo " TestFlight IPAs require valid Apple Distribution credentials."
+            echo " An unsigned or sideloaded IPA will NOT be created."
+            echo " Please configure the required secrets in Repository Settings -> Secrets and variables -> Actions."
+            echo " Consult docs/IOS_TESTFLIGHT_BUILD.md for instructions."
+            echo "=================================================="
+            exit 1
+          fi
+
+          echo "All required signing secrets are present."
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 3. Resolve App Version and Build Number
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Resolve App Version & Build
+        id: versioning
+        run: |
+          PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //g' | tr -d '[:space:]')
+          PUBSPEC_NAME=$(echo "$PUBSPEC_VERSION" | cut -d'+' -f1)
+          PUBSPEC_BUILD=$(echo "$PUBSPEC_VERSION" | cut -d'+' -f2)
+
+          INPUT_NAME="${{ github.event.inputs.build_name }}"
+          INPUT_BUILD="${{ github.event.inputs.build_number }}"
+
+          FINAL_VERSION="${INPUT_NAME:-$PUBSPEC_NAME}"
+          FINAL_BUILD="${INPUT_BUILD:-$PUBSPEC_BUILD}"
+
+          ARTIFACT_BASE_NAME="Nada-iOS-v${FINAL_VERSION}-build${FINAL_BUILD}"
+
+          echo "final_version=$FINAL_VERSION" >> $GITHUB_OUTPUT
+          echo "final_build=$FINAL_BUILD" >> $GITHUB_OUTPUT
+          echo "artifact_name=$ARTIFACT_BASE_NAME" >> $GITHUB_OUTPUT
+
+          echo "=================================================="
+          echo " Version: $FINAL_VERSION"
+          echo " Build:   $FINAL_BUILD"
+          echo " Artifact Base Name: $ARTIFACT_BASE_NAME"
+          echo "=================================================="
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 4. Set up Environment (Java, Flutter, CocoaPods)
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Print Flutter & Dart Environment
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Install CocoaPods Dependencies
+        run: |
+          cd ios
+          pod install --repo-update
+          cd ..
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 5. Set up Apple Keychain and Certificates
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Configure Apple Keychain and Import Certificate
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # Use user-provided keychain password or generate a secure random one
+          KC_PASSWORD="${KEYCHAIN_PASSWORD:-$(uuidgen)}"
+          echo "KC_PASSWORD=$KC_PASSWORD" >> $GITHUB_ENV
+
+          KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
+          CERTIFICATE_PATH="$RUNNER_TEMP/distribution_cert.p12"
+
+          echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$CERTIFICATE_PATH"
+
+          # Create dedicated temporary keychain
+          security create-keychain -p "$KC_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KC_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Import p12 certificate
+          security import "$CERTIFICATE_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+
+          # Grant access to codesign tools
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KC_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Set user search list to prioritize temporary keychain
+          security list-keychain -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
+          security default-keychain -s "$KEYCHAIN_PATH"
+
+          # Detect Distribution Identity Name
+          SIGNING_IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -o 'Apple Distribution:.*' | head -1 || true)
+          if [ -z "$SIGNING_IDENTITY" ]; then
+            SIGNING_IDENTITY=$(security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -o 'iPhone Distribution:.*' | head -1 || true)
+          fi
+
+          if [ -z "$SIGNING_IDENTITY" ]; then
+            echo "::error::Could not find a valid Apple Distribution or iPhone Distribution identity in the imported .p12 certificate!"
+            security find-identity -v -p codesigning "$KEYCHAIN_PATH"
+            exit 1
+          fi
+
+          echo "Found Signing Identity: $SIGNING_IDENTITY"
+          echo "SIGNING_IDENTITY=$SIGNING_IDENTITY" >> $GITHUB_ENV
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 6. Install & Validate Provisioning Profiles
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Install & Validate Provisioning Profiles
+        env:
+          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+          WIDGET_PROVISION_PROFILE_BASE64: ${{ secrets.WIDGET_PROVISION_PROFILE_BASE64 }}
+        run: |
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+
+          RUNNER_PP_RAW="$RUNNER_TEMP/runner_raw.mobileprovision"
+          WIDGET_PP_RAW="$RUNNER_TEMP/widget_raw.mobileprovision"
+          RUNNER_PLIST="$RUNNER_TEMP/runner_pp.plist"
+          WIDGET_PLIST="$RUNNER_TEMP/widget_pp.plist"
+
+          echo "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o "$RUNNER_PP_RAW"
+          echo "$WIDGET_PROVISION_PROFILE_BASE64" | base64 --decode -o "$WIDGET_PP_RAW"
+
+          # Decode CMS cryptographic container into readable XML plist
+          security cms -D -i "$RUNNER_PP_RAW" > "$RUNNER_PLIST"
+          security cms -D -i "$WIDGET_PP_RAW" > "$WIDGET_PLIST"
+
+          # Inspect Runner profile using Python
+          RUNNER_INSPECT=$(python3 -c "
+          import plistlib
+          with open('$RUNNER_PLIST', 'rb') as f:
+              p = plistlib.load(f)
+          uuid = p.get('UUID', '')
+          name = p.get('Name', '')
+          team = p.get('TeamIdentifier', [''])[0]
+          ent = p.get('Entitlements', {})
+          app_id = ent.get('application-identifier', '')
+          get_task_allow = ent.get('get-task-allow', True)
+          groups = ent.get('com.apple.security.application-groups', [])
+          print(f'{uuid}|{name}|{team}|{app_id}|{get_task_allow}|{groups}')
+          ")
+
+          IFS='|' read -r RUNNER_UUID RUNNER_NAME RUNNER_TEAM RUNNER_APP_ID RUNNER_TASK_ALLOW RUNNER_GROUPS <<< "$RUNNER_INSPECT"
+
+          # Inspect Widget profile using Python
+          WIDGET_INSPECT=$(python3 -c "
+          import plistlib
+          with open('$WIDGET_PLIST', 'rb') as f:
+              p = plistlib.load(f)
+          uuid = p.get('UUID', '')
+          name = p.get('Name', '')
+          team = p.get('TeamIdentifier', [''])[0]
+          ent = p.get('Entitlements', {})
+          app_id = ent.get('application-identifier', '')
+          get_task_allow = ent.get('get-task-allow', True)
+          groups = ent.get('com.apple.security.application-groups', [])
+          print(f'{uuid}|{name}|{team}|{app_id}|{get_task_allow}|{groups}')
+          ")
+
+          IFS='|' read -r WIDGET_UUID WIDGET_NAME WIDGET_TEAM WIDGET_APP_ID WIDGET_TASK_ALLOW WIDGET_GROUPS <<< "$WIDGET_INSPECT"
+
+          echo "=================================================="
+          echo " Provisioning Profiles Inspection"
+          echo "=================================================="
+          echo " Runner Profile Name: $RUNNER_NAME"
+          echo " Runner Profile UUID: $RUNNER_UUID"
+          echo " Runner Team ID:      $RUNNER_TEAM"
+          echo " Runner App ID:       $RUNNER_APP_ID"
+          echo " Runner get-task:     $RUNNER_TASK_ALLOW"
+          echo " -------------------------------------------------"
+          echo " Widget Profile Name: $WIDGET_NAME"
+          echo " Widget Profile UUID: $WIDGET_UUID"
+          echo " Widget Team ID:      $WIDGET_TEAM"
+          echo " Widget App ID:       $WIDGET_APP_ID"
+          echo " Widget get-task:     $WIDGET_TASK_ALLOW"
+          echo "=================================================="
+
+          # Profile Validation checks
+          if [ "$RUNNER_TASK_ALLOW" != "False" ]; then
+            echo "::error::Runner provisioning profile is a DEVELOPMENT profile (get-task-allow=true)! For TestFlight, you MUST use an App Store Distribution profile."
+            exit 1
+          fi
+
+          if [ "$WIDGET_TASK_ALLOW" != "False" ]; then
+            echo "::error::Widget provisioning profile is a DEVELOPMENT profile (get-task-allow=true)! For TestFlight, you MUST use an App Store Distribution profile."
+            exit 1
+          fi
+
+          if [[ "$RUNNER_APP_ID" != *"com.nada.nadaZikrakanm"* ]]; then
+            echo "::error::Runner profile App ID '$RUNNER_APP_ID' does not match target bundle ID 'com.nada.nadaZikrakanm'!"
+            exit 1
+          fi
+
+          if [[ "$WIDGET_APP_ID" != *"com.nada.nadaZikrakanm.PrayerTimesWidget"* ]]; then
+            echo "::error::Widget profile App ID '$WIDGET_APP_ID' does not match target bundle ID 'com.nada.nadaZikrakanm.PrayerTimesWidget'!"
+            exit 1
+          fi
+
+          # Install profiles
+          cp "$RUNNER_PP_RAW" "$HOME/Library/MobileDevice/Provisioning Profiles/${RUNNER_UUID}.mobileprovision"
+          cp "$WIDGET_PP_RAW" "$HOME/Library/MobileDevice/Provisioning Profiles/${WIDGET_UUID}.mobileprovision"
+
+          # Export for next steps
+          echo "TEAM_ID=$RUNNER_TEAM" >> $GITHUB_ENV
+          echo "RUNNER_PROFILE_UUID=$RUNNER_UUID" >> $GITHUB_ENV
+          echo "RUNNER_PROFILE_NAME=$RUNNER_NAME" >> $GITHUB_ENV
+          echo "WIDGET_PROFILE_UUID=$WIDGET_UUID" >> $GITHUB_ENV
+          echo "WIDGET_PROFILE_NAME=$WIDGET_NAME" >> $GITHUB_ENV
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 7. Generate Dynamic ExportOptions.plist & Configure Xcode Project
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Generate ExportOptions and Configure Xcode Signing
+        run: |
+          EXPORT_OPTIONS_PATH="$RUNNER_TEMP/ExportOptions.plist"
+
+          python3 -c "
+          import plistlib
+          export_dict = {
+              'destination': 'export',
+              'method': 'app-store',
+              'signingStyle': 'manual',
+              'signingCertificate': 'Apple Distribution',
+              'teamID': '$TEAM_ID',
+              'stripSwiftSymbols': True,
+              'uploadSymbols': True,
+              'manageAppVersionAndBuildNumber': False,
+              'provisioningProfiles': {
+                  'com.nada.nadaZikrakanm': '$RUNNER_PROFILE_UUID',
+                  'com.nada.nadaZikrakanm.PrayerTimesWidget': '$WIDGET_PROFILE_UUID'
+              }
+          }
+          with open('$EXPORT_OPTIONS_PATH', 'wb') as f:
+              plistlib.dump(export_dict, f)
+          "
+
+          echo "Generated ExportOptions.plist:"
+          cat "$EXPORT_OPTIONS_PATH"
+          echo "EXPORT_OPTIONS_PATH=$EXPORT_OPTIONS_PATH" >> $GITHUB_ENV
+
+          # Inject Team ID and signing settings for the build configurations in project.pbxproj
+          python3 -c "
+          pbx_path = 'ios/Runner.xcodeproj/project.pbxproj'
+          with open(pbx_path, 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          # Inject DEVELOPMENT_TEAM and CODE_SIGN_STYLE for Release configurations
+          replacements = [
+              ('CODE_SIGN_STYLE = Automatic;', 'CODE_SIGN_STYLE = Manual;'),
+              ('\"CODE_SIGN_IDENTITY[sdk=iphoneos*]\" = \"iPhone Developer\";', '\"CODE_SIGN_IDENTITY[sdk=iphoneos*]\" = \"Apple Distribution\";\n\t\t\t\tDEVELOPMENT_TEAM = $TEAM_ID;'),
+          ]
+          for old, new in replacements:
+              content = content.replace(old, new)
+
+          with open(pbx_path, 'w', encoding='utf-8') as f:
+              f.write(content)
+          "
+
+          # Configure Flutter release xcconfig for manual code signing
+          echo "DEVELOPMENT_TEAM = $TEAM_ID" >> ios/Flutter/Release.xcconfig
+          echo "CODE_SIGN_STYLE = Manual" >> ios/Flutter/Release.xcconfig
+          echo "CODE_SIGN_IDENTITY = Apple Distribution" >> ios/Flutter/Release.xcconfig
+          echo "PROVISIONING_PROFILE_SPECIFIER = $RUNNER_PROFILE_UUID" >> ios/Flutter/Release.xcconfig
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 8. Build iOS Archive and Export IPA
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Build iOS Release IPA
+        run: |
+          VERSION="${{ steps.versioning.outputs.final_version }}"
+          BUILD_NUM="${{ steps.versioning.outputs.final_build }}"
+
+          echo "Building iOS Archive with Flutter..."
+          flutter build ipa --release \
+            --build-name="$VERSION" \
+            --build-number="$BUILD_NUM" \
+            --export-options-plist="$EXPORT_OPTIONS_PATH"
+
+          # Locate the output IPA
+          IPA_SRC=$(ls build/ios/ipa/*.ipa | head -n 1)
+          if [ -z "$IPA_SRC" ] || [ ! -f "$IPA_SRC" ]; then
+            echo "::error::Flutter failed to produce an .ipa file!"
+            exit 1
+          fi
+
+          FINAL_IPA="build/ios/ipa/${{ steps.versioning.outputs.artifact_name }}.ipa"
+          mv "$IPA_SRC" "$FINAL_IPA"
+          echo "Successfully generated: $FINAL_IPA"
+          echo "FINAL_IPA_PATH=$FINAL_IPA" >> $GITHUB_ENV
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 9. Deep Build & Distribution Signing Validation
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Validate Generated IPA
+        run: |
+          IPA_PATH="$FINAL_IPA_PATH"
+          echo "=================================================="
+          echo " Validating Final IPA: $IPA_PATH"
+          echo "=================================================="
+
+          # 1. Size check
+          FILE_SIZE=$(stat -f%z "$IPA_PATH")
+          echo "IPA File Size: $FILE_SIZE bytes"
+          if [ "$FILE_SIZE" -lt 1000000 ]; then
+            echo "::error::IPA file is suspiciously small (< 1 MB). Likely corrupt!"
+            exit 1
+          fi
+
+          # 2. Unpack IPA for deep inspection
+          VERIFY_DIR="$RUNNER_TEMP/verify_ipa"
+          mkdir -p "$VERIFY_DIR"
+          unzip -q "$IPA_PATH" -d "$VERIFY_DIR"
+
+          APP_PATH="$VERIFY_DIR/Payload/Runner.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "::error::Payload/Runner.app not found inside IPA!"
+            exit 1
+          fi
+
+          # 3. Verify App Bundle ID
+          APP_BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP_PATH/Info.plist")
+          echo "Runner CFBundleIdentifier: $APP_BUNDLE_ID"
+          if [ "$APP_BUNDLE_ID" != "com.nada.nadaZikrakanm" ]; then
+            echo "::error::Bundle Identifier '$APP_BUNDLE_ID' does not match expected 'com.nada.nadaZikrakanm'!"
+            exit 1
+          fi
+
+          # 4. Verify Version & Build
+          APP_VER=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$APP_PATH/Info.plist")
+          APP_BUILD=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$APP_PATH/Info.plist")
+          EXPECTED_VER="${{ steps.versioning.outputs.final_version }}"
+          EXPECTED_BUILD="${{ steps.versioning.outputs.final_build }}"
+
+          echo "App Version: $APP_VER (Expected: $EXPECTED_VER)"
+          echo "App Build:   $APP_BUILD (Expected: $EXPECTED_BUILD)"
+
+          if [ "$APP_VER" != "$EXPECTED_VER" ]; then
+            echo "::error::Version mismatch: got $APP_VER, expected $EXPECTED_VER"
+            exit 1
+          fi
+
+          if [ "$APP_BUILD" != "$EXPECTED_BUILD" ]; then
+            echo "::error::Build number mismatch: got $APP_BUILD, expected $EXPECTED_BUILD"
+            exit 1
+          fi
+
+          # 5. Verify App Extensions
+          WIDGET_PATH="$APP_PATH/PlugIns/PrayerTimesWidgetExtension.appex"
+          if [ ! -d "$WIDGET_PATH" ]; then
+            echo "::error::PrayerTimesWidgetExtension.appex NOT found inside Runner.app/PlugIns!"
+            exit 1
+          fi
+          WIDGET_BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$WIDGET_PATH/Info.plist")
+          echo "Widget CFBundleIdentifier: $WIDGET_BUNDLE_ID"
+          if [ "$WIDGET_BUNDLE_ID" != "com.nada.nadaZikrakanm.PrayerTimesWidget" ]; then
+            echo "::error::Widget Bundle ID '$WIDGET_BUNDLE_ID' does not match expected 'com.nada.nadaZikrakanm.PrayerTimesWidget'!"
+            exit 1
+          fi
+
+          # 6. Verify Embedded Provisioning Profiles
+          if [ ! -f "$APP_PATH/embedded.mobileprovision" ]; then
+            echo "::error::embedded.mobileprovision missing from Runner.app!"
+            exit 1
+          fi
+          if [ ! -f "$WIDGET_PATH/embedded.mobileprovision" ]; then
+            echo "::error::embedded.mobileprovision missing from PrayerTimesWidgetExtension.appex!"
+            exit 1
+          fi
+
+          # Verify get-task-allow in embedded profile is false (Distribution)
+          security cms -D -i "$APP_PATH/embedded.mobileprovision" > "$VERIFY_DIR/embedded_runner.plist"
+          RUNNER_EMBEDDED_TASK_ALLOW=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:get-task-allow" "$VERIFY_DIR/embedded_runner.plist")
+          echo "Embedded Profile get-task-allow: $RUNNER_EMBEDDED_TASK_ALLOW"
+          if [ "$RUNNER_EMBEDDED_TASK_ALLOW" != "false" ]; then
+            echo "::error::Embedded profile has get-task-allow = true! This is NOT a distribution build."
+            exit 1
+          fi
+
+          # 7. Code Signing Verification
+          echo "Verifying Code Signatures..."
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+          codesign --verify --deep --strict --verbose=2 "$WIDGET_PATH"
+
+          SIGN_AUTHORITY=$(codesign -d -vvv "$APP_PATH" 2>&1 | grep "Authority=" | head -n 1)
+          echo "Code Sign Authority: $SIGN_AUTHORITY"
+          if [[ "$SIGN_AUTHORITY" != *"Distribution"* ]]; then
+            echo "::error::Code signature authority is not an Apple Distribution certificate!"
+            exit 1
+          fi
+
+          # 8. Architecture Check
+          ARCHS=$(lipo -info "$APP_PATH/Runner")
+          echo "Binary Architectures: $ARCHS"
+          if [[ "$ARCHS" != *"arm64"* ]]; then
+            echo "::error::Runner binary is missing arm64 architecture!"
+            exit 1
+          fi
+
+          echo "=================================================="
+          echo " VALIDATION PASSED: Production TestFlight IPA Ready!"
+          echo "=================================================="
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 10. Package & Upload GitHub Artifacts
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Zip xcarchive for Diagnostic Artifact
+        if: always()
+        run: |
+          if [ -d "build/ios/archive/Runner.xcarchive" ]; then
+            cd build/ios/archive
+            zip -r -q "Runner.xcarchive.zip" Runner.xcarchive
+            cd ../../..
+          fi
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.versioning.outputs.artifact_name }}
+          path: nada-zikr/build/ios/ipa/*.ipa
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload xcarchive Diagnostic Artifact
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: ${{ steps.versioning.outputs.artifact_name }}-xcarchive
+          path: nada-zikr/build/ios/archive/Runner.xcarchive.zip
+          retention-days: 14
+          if-no-files-found: ignore
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 11. Optional Direct TestFlight Upload
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Upload to App Store Connect / TestFlight
+        if: ${{ (inputs.upload_testflight == true || github.event_name == 'push') && env.APPSTORE_PRIVATE_KEY != '' }}
+        uses: apple-actions/upload-testflight-build@v1
+        env:
+          APPSTORE_PRIVATE_KEY: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+        with:
+          app-path: ${{ env.FINAL_IPA_PATH }}
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 12. Cleanup Keychain & Secrets
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Clean up temporary signing keychain
+        if: always()
+        run: |
+          if [ -n "$KEYCHAIN_PATH" ] && [ -f "$KEYCHAIN_PATH" ]; then
+            security delete-keychain "$KEYCHAIN_PATH" || true
+          fi
+          rm -rf "$RUNNER_TEMP"/* || true

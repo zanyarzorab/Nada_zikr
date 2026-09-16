@@ -48,3 +48,17 @@ app.*.map.json
 android/key.properties
 *.jks
 *.keystore
+
+# Apple Developer & iOS release signing — NEVER commit these
+*.p12
+*.cer
+*.crt
+*.der
+*.p8
+*.mobileprovision
+*.provisionprofile
+*.keychain
+*.keychain-db
+*.ipa
+*.xcarchive
+
