@@ -29,7 +29,7 @@ class AppHaptics {
     } catch (_) {}
   }
 
-  /// Sustained vibration (for resets, pocket mode target alarms)
+  /// Sustained vibration (for resets, target reached alarms)
   static Future<void> vibrate() async {
     if (!StorageService.isHapticEnabled()) return;
     try {

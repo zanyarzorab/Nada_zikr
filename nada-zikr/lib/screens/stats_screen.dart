@@ -44,7 +44,7 @@ class _StatsScreenState extends State<StatsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final local = AppLocalizations.of(context)!;
+    final local = AppLocalizations.of(context) ?? AppLocalizations(const Locale('en'));
     final locale = Localizations.localeOf(context);
     return Scaffold(
       appBar: AppBar(title: Text(local.translate('stats'))),

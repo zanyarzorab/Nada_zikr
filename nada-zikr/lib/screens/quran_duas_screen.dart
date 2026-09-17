@@ -987,7 +987,9 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
                             color: Color(0xFF34D399), size: 14),
                         const SizedBox(width: 5),
                         Text(
-                          isKurdish ? 'خوێندنەوە' : 'Recite',
+                          isKurdish
+                              ? 'خوێندنەوە'
+                              : (isArabic ? 'تكرار' : 'Recite'),
                           style: const TextStyle(
                             color: Color(0xFF34D399),
                             fontSize: 11,
@@ -1002,7 +1004,7 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
                 // Copy Action
                 _buildActionIconButton(
                   icon: Icons.copy_rounded,
-                  label: isKurdish ? 'کۆپی' : 'Copy',
+                  label: isKurdish ? 'کۆپی' : (isArabic ? 'نسخ' : 'Copy'),
                   onTap: () {
                     AppHaptics.lightImpact();
                     final textToCopy = '${dua.arabic}\n\n'

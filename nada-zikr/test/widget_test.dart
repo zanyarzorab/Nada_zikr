@@ -100,8 +100,8 @@ void main() {
     expect(NotificationService.localizedPrayerTitle(prayerId: 'sunrise'), 'Sunrise Time');
   });
 
-  test('Notification service uses upgraded v8 channel and handles permissions safely', () async {
-    expect(NotificationService.channelVersion, 'prayer_alert_v8');
+  test('Notification service uses upgraded channel and handles permissions safely', () async {
+    expect(NotificationService.channelVersion, 'prayer_alert_v10');
     final exact = await NotificationService.canScheduleExactNotifications();
     expect(exact, isA<bool>());
     final notifs = await NotificationService.areNotificationsEnabled();

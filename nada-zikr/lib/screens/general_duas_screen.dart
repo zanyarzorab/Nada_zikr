@@ -1222,9 +1222,13 @@ class _GeneralDuasScreenState extends State<GeneralDuasScreen> {
                               ? (reciteCount > 0
                                   ? 'خوێندراوە ($reciteCount)'
                                   : 'خوێندنەوە')
-                              : (reciteCount > 0
-                                  ? 'Recited ($reciteCount)'
-                                  : 'Recite'),
+                              : (isArabic
+                                  ? (reciteCount > 0
+                                      ? 'تمت القراءة ($reciteCount)'
+                                      : 'قراءة')
+                                  : (reciteCount > 0
+                                      ? 'Recited ($reciteCount)'
+                                      : 'Recite')),
                           style: const TextStyle(
                             color: Color(0xFF34D399),
                             fontSize: 11,
@@ -1251,7 +1255,7 @@ class _GeneralDuasScreenState extends State<GeneralDuasScreen> {
                 // Copy Action
                 _buildActionIconButton(
                   icon: Icons.copy_rounded,
-                  label: isKurdish ? 'کۆپی' : 'Copy',
+                  label: isKurdish ? 'کۆپی' : (isArabic ? 'نسخ' : 'Copy'),
                   onTap: () {
                     AppHaptics.lightImpact();
                     final textToCopy = '💫 دوعای پیرۆزی فەرموودە:\n\n'
@@ -1271,8 +1275,10 @@ class _GeneralDuasScreenState extends State<GeneralDuasScreen> {
                             Text(
                               isKurdish
                                   ? 'دوعاکە کۆپیکرا بۆ کلیپبۆرد'
-                                  : 'Dua copied to clipboard',
-                              style: isKurdish
+                                  : (isArabic
+                                      ? 'تم نسخ الدعاء إلى الحافظة'
+                                      : 'Dua copied to clipboard'),
+                              style: (isKurdish || isArabic)
                                   ? AppTheme.kurdishText(
                                       color: Colors.white, fontSize: 12)
                                   : AppTheme.englishText(
@@ -1293,7 +1299,7 @@ class _GeneralDuasScreenState extends State<GeneralDuasScreen> {
                 // Share Card Action
                 _buildActionIconButton(
                   icon: Icons.share_rounded,
-                  label: isKurdish ? 'کارت' : 'Card',
+                  label: isKurdish ? 'کارت' : (isArabic ? 'بطاقة' : 'Card'),
                   isPrimary: true,
                   onTap: () {
                     AppHaptics.lightImpact();

@@ -198,9 +198,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     final lang = AppLocalizations.languageCode;
     final isRtl = lang == 'ku' || lang == 'ar';
 
-    return Directionality(
-      textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
-      child: MaterialApp(
+    return MaterialApp(
         title: 'نەدا: قورئان و یادی خوا',
         onGenerateTitle: (context) =>
             AppLocalizations.of(context)?.translate('appFullTitle') ??
@@ -262,6 +260,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             thickness: 1,
           ),
         ),
+        builder: (context, child) {
+          return Directionality(
+            textDirection: isRtl ? TextDirection.rtl : TextDirection.ltr,
+            child: child ?? const SizedBox.shrink(),
+          );
+        },
         home: FutureBuilder<bool>(
           future: StorageService.isFirstLaunch(),
           builder: (context, snapshot) {
@@ -278,8 +282,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             return const MainAppScreen();
           },
         ),
-      ),
-    );
+      );
   }
 }
 

@@ -25,23 +25,34 @@ class AppLocalizations {
   }
 
   static AppLocalizations? of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+    final instance = Localizations.of<AppLocalizations>(context, AppLocalizations);
+    if (instance != null) return instance;
+    if (_currentStrings.isNotEmpty) {
+      return AppLocalizations(Locale(_languageCode)).._localizedStrings = _currentStrings;
+    }
+    return null;
   }
 
   Future<bool> load() async {
-    final resolvedLanguageCode = _languageCode;
+    final resolvedLanguageCode =
+        locale.languageCode.isNotEmpty ? locale.languageCode : _languageCode;
+    _languageCode = resolvedLanguageCode;
     locale = Locale(resolvedLanguageCode);
 
-    final path = 'assets/lang/$resolvedLanguageCode.json';
-    final jsonString = await rootBundle.loadString(path);
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
-    _localizedStrings = jsonMap.map((key, value) => MapEntry(key, value.toString()));
-    _currentStrings = _localizedStrings;
+    try {
+      final path = 'assets/lang/$resolvedLanguageCode.json';
+      final jsonString = await rootBundle.loadString(path);
+      final Map<String, dynamic> jsonMap = json.decode(jsonString);
+      _localizedStrings = jsonMap.map((key, value) => MapEntry(key, value.toString()));
+      _currentStrings = _localizedStrings;
+    } catch (e) {
+      debugPrint('Error loading localization for $resolvedLanguageCode: $e');
+    }
     return true;
   }
 
   String translate(String key) {
-    return _localizedStrings[key] ?? key;
+    return _localizedStrings[key] ?? _currentStrings[key] ?? _fallbackStrings[key] ?? key;
   }
 
   static const LocalizationsDelegate<AppLocalizations> delegate =

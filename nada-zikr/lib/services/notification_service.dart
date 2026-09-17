@@ -16,7 +16,7 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
-  static const String channelVersion = 'prayer_alert_v9';
+  static const String channelVersion = 'prayer_alert_v10';
 
   static Future<void> initialize() async {
     tz_data.initializeTimeZones();
@@ -238,8 +238,6 @@ class NotificationService {
 
         for (final item in items) {
           final mode = prayerModes[item.id] ?? 'azan';
-          // Skip disabled prayers entirely (e.g. silent/off) to save alarm quota and battery
-          if (mode == 'silent') continue;
 
           final scheduledDate = tz.TZDateTime(
             loc,
@@ -250,10 +248,12 @@ class NotificationService {
             item.time.minute,
           );
 
+          // If mode is 'azan', ensure we have a valid audible sound even if global soundId was silent/vibrate
+          final effectiveSoundId = (item.id == 'fajr' && fajrSoundId == 'azan_fajr')
+              ? 'azan_fajr'
+              : ((soundId == 'silent' || soundId == 'vibrate') ? 'makkah' : soundId);
+
           if (scheduledDate.isAfter(nowInLoc)) {
-            final effectiveSoundId = (item.id == 'fajr' && fajrSoundId == 'azan_fajr')
-                ? 'azan_fajr'
-                : soundId;
             pendingAlarms.add(_PendingAlarm(
               item: item,
               scheduledDate: scheduledDate,
@@ -266,19 +266,22 @@ class NotificationService {
           }
 
           // Pre-azan reminder if configured (for 5 daily prayers, excluding sunrise)
-          if (preAzanMinutes > 0 && item.id != 'sunrise') {
+          if (preAzanMinutes > 0 && item.id != 'sunrise' && mode != 'silent') {
             final reminderDate = scheduledDate.subtract(Duration(minutes: preAzanMinutes));
             if (reminderDate.isAfter(nowInLoc)) {
               pendingAlarms.add(_PendingAlarm(
                 item: item,
                 scheduledDate: reminderDate,
-                soundId: soundId,
+                soundId: effectiveSoundId,
                 mode: mode,
                 locationName: locName,
                 isPreAzan: true,
                 minutesBefore: preAzanMinutes,
               ));
             }
+          } else {
+            // Explicitly cancel pre-reminder for silent prayers or when pre-reminder is disabled
+            await _plugin.cancel(id: _preReminderNotificationId(item));
           }
         }
       } catch (_) {
@@ -301,6 +304,7 @@ class NotificationService {
             scheduledDate: alarm.scheduledDate,
             minutesBefore: alarm.minutesBefore,
             locationName: alarm.locationName,
+            mode: alarm.mode,
             canExact: canExact,
           );
         } else {
@@ -462,7 +466,11 @@ class NotificationService {
       audioAttributesUsage: usesAzan
           ? AudioAttributesUsage.alarm
           : AudioAttributesUsage.notification,
-      category: AndroidNotificationCategory.alarm,
+      category: usesAzan
+          ? AndroidNotificationCategory.alarm
+          : (isSilent
+              ? AndroidNotificationCategory.status
+              : AndroidNotificationCategory.reminder),
       fullScreenIntent: false,
       visibility: NotificationVisibility.public,
       channelAction: AndroidNotificationChannelAction.createIfNotExists,
@@ -479,7 +487,9 @@ class NotificationService {
       sound: usesAzan
           ? '$resourceName.wav'
           : (usesVibration ? 'silent.wav' : null),
-      interruptionLevel: InterruptionLevel.timeSensitive,
+      interruptionLevel: isSilent
+          ? InterruptionLevel.passive
+          : InterruptionLevel.timeSensitive,
     );
 
     final exactAllowed = canExact ?? await canScheduleExactNotifications();
@@ -579,9 +589,22 @@ class NotificationService {
     required tz.TZDateTime scheduledDate,
     required int minutesBefore,
     required String locationName,
+    required String mode,
     bool? canExact,
   }) async {
-    const channelId = '${channelVersion}_pre_prayer_reminder';
+    final bool usesAzan = mode == 'azan';
+    final bool usesVibration = mode == 'vibrate';
+    final bool isSilent = mode == 'silent';
+
+    // If prayer is in silent mode, cancel any pre-reminder and do not schedule
+    if (isSilent) {
+      await _plugin.cancel(id: _preReminderNotificationId(item));
+      return;
+    }
+
+    final channelId = usesVibration
+        ? '${channelVersion}_pre_prayer_reminder_vibrate'
+        : '${channelVersion}_pre_prayer_reminder';
     final channelTitle = localizedPreReminderTitle();
 
     final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
@@ -594,8 +617,8 @@ class NotificationService {
             channelTitle,
             description: 'Notification sent before prayer time',
             importance: Importance.high,
-            playSound: true,
-            enableVibration: true,
+            playSound: usesAzan,
+            enableVibration: usesVibration || usesAzan,
             audioAttributesUsage: AudioAttributesUsage.notification,
           ),
         );
@@ -608,8 +631,8 @@ class NotificationService {
       channelDescription: 'Notification sent before prayer time',
       importance: Importance.high,
       priority: Priority.high,
-      playSound: true,
-      enableVibration: true,
+      playSound: usesAzan,
+      enableVibration: usesVibration || usesAzan,
       category: AndroidNotificationCategory.reminder,
       visibility: NotificationVisibility.public,
       channelAction: AndroidNotificationChannelAction.createIfNotExists,
@@ -617,12 +640,13 @@ class NotificationService {
       showWhen: true,
     );
 
-    const ios = DarwinNotificationDetails(
+    final ios = DarwinNotificationDetails(
       presentAlert: true,
       presentBanner: true,
       presentList: true,
       presentBadge: true,
-      presentSound: true,
+      presentSound: usesAzan || usesVibration,
+      sound: usesVibration ? 'silent.wav' : null,
       interruptionLevel: InterruptionLevel.timeSensitive,
     );
 
@@ -728,22 +752,32 @@ class NotificationService {
   /// so users can easily test their device sound, DND, and permission settings.
   static Future<void> showTestPrayerNotification() async {
     final soundId = await StorageService.getAzanSound();
-    final safeSound = (soundId == 'silent' || soundId == 'vibrate')
+    final isSilent = soundId == 'silent';
+    final isVibrate = soundId == 'vibrate';
+    final safeSound = (isSilent || isVibrate)
         ? 'makkah'
         : AzanAudioService.resolveSafeSoundId(soundId);
     final resourceName = _androidSoundResource(safeSound);
 
     // Actively play the selected azan audio in-app with AVAudioSessionCategory.playback
     // so the sound plays loud and clear out of the device speakers on iOS,
-    // bypassing the physical silent switch and foreground notification sound suppression.
-    try {
-      await AzanAudioService.instance.play(safeSound);
-    } catch (_) {}
+    // only if the user hasn't selected silent or vibrate.
+    if (!isSilent && !isVibrate) {
+      try {
+        await AzanAudioService.instance.play(safeSound);
+      } catch (_) {}
+    } else if (isVibrate) {
+      await HapticFeedback.vibrate();
+    }
 
     final vibrationPattern =
         Int64List.fromList([0, 1000, 500, 1000, 500, 1000, 500, 1000]);
 
-    final channelId = '${channelVersion}_test_prayer_sound_$resourceName';
+    final channelId = isSilent
+        ? '${channelVersion}_test_prayer_silent'
+        : (isVibrate
+            ? '${channelVersion}_test_prayer_vibrate'
+            : '${channelVersion}_test_prayer_sound_$resourceName');
     const channelTitle = 'Test Prayer Alert';
 
     final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
@@ -755,12 +789,18 @@ class NotificationService {
             channelId,
             channelTitle,
             description: channelTitle,
-            importance: Importance.max,
-            playSound: true,
-            sound: RawResourceAndroidNotificationSound(resourceName),
-            enableVibration: true,
-            vibrationPattern: vibrationPattern,
-            audioAttributesUsage: AudioAttributesUsage.alarm,
+            importance: isSilent ? Importance.low : Importance.max,
+            playSound: !isSilent && !isVibrate,
+            sound: (!isSilent && !isVibrate)
+                ? RawResourceAndroidNotificationSound(resourceName)
+                : null,
+            enableVibration: isVibrate || (!isSilent && !isVibrate),
+            vibrationPattern: (isVibrate || (!isSilent && !isVibrate))
+                ? vibrationPattern
+                : null,
+            audioAttributesUsage: (!isSilent && !isVibrate)
+                ? AudioAttributesUsage.alarm
+                : AudioAttributesUsage.notification,
           ),
         );
       } catch (_) {}
@@ -770,14 +810,24 @@ class NotificationService {
       channelId,
       channelTitle,
       channelDescription: channelTitle,
-      importance: Importance.max,
-      priority: Priority.max,
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound(resourceName),
-      enableVibration: true,
-      vibrationPattern: vibrationPattern,
-      audioAttributesUsage: AudioAttributesUsage.alarm,
-      category: AndroidNotificationCategory.alarm,
+      importance: isSilent ? Importance.low : Importance.max,
+      priority: isSilent ? Priority.low : Priority.max,
+      playSound: !isSilent && !isVibrate,
+      sound: (!isSilent && !isVibrate)
+          ? RawResourceAndroidNotificationSound(resourceName)
+          : null,
+      enableVibration: isVibrate || (!isSilent && !isVibrate),
+      vibrationPattern: (isVibrate || (!isSilent && !isVibrate))
+          ? vibrationPattern
+          : null,
+      audioAttributesUsage: (!isSilent && !isVibrate)
+          ? AudioAttributesUsage.alarm
+          : AudioAttributesUsage.notification,
+      category: (!isSilent && !isVibrate)
+          ? AndroidNotificationCategory.alarm
+          : (isSilent
+              ? AndroidNotificationCategory.status
+              : AndroidNotificationCategory.reminder),
       fullScreenIntent: false,
       visibility: NotificationVisibility.public,
       channelAction: AndroidNotificationChannelAction.createIfNotExists,
@@ -789,9 +839,13 @@ class NotificationService {
       presentBanner: true,
       presentList: true,
       presentBadge: true,
-      presentSound: true,
-      sound: '$resourceName.wav',
-      interruptionLevel: InterruptionLevel.timeSensitive,
+      presentSound: !isSilent,
+      sound: (!isSilent && !isVibrate)
+          ? '$resourceName.wav'
+          : (isVibrate ? 'silent.wav' : null),
+      interruptionLevel: isSilent
+          ? InterruptionLevel.passive
+          : InterruptionLevel.timeSensitive,
     );
 
     final title = localizedPrayerTitle();

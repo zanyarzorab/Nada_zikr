@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nada_zikrakanm/models/app_data.dart';
 import 'package:nada_zikrakanm/screens/reading_screen.dart';
+import 'package:nada_zikrakanm/services/storage_service.dart';
 import 'package:nada_zikrakanm/app_localizations.dart';
 
 class _TestAppLocDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -62,6 +65,12 @@ class _TestWidgetsLocDelegate extends LocalizationsDelegate<WidgetsLocalizations
 }
 
 void main() {
+  setUpAll(() async {
+    final dir = await Directory.systemTemp.createTemp('reading_test_hive_');
+    Hive.init(dir.path);
+    await StorageService.initialize();
+  });
+
   final ayatKursiCat = AppData.azkarCategories.firstWhere((c) => c.id == 'ayat_kursi');
 
   testWidgets('ReadingScreen defaults to Kurdish meaning when locale is Kurdish and toggles to English on tap',
@@ -159,5 +168,56 @@ void main() {
     expect(find.text('English'), findsOneWidget);
     expect(find.textContaining('خوا ئه‌و خوایه‌یه‌'), findsOneWidget);
     expect(find.textContaining('Allah - there is no deity except Him'), findsNothing);
+  });
+
+  testWidgets('ReadingScreen displays Arabic tap count, how many left, and navigation buttons in Arabic locale',
+      (tester) async {
+    tester.view.physicalSize = const Size(400, 1200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('ar'),
+        supportedLocales: const [Locale('ku'), Locale('en'), Locale('ar')],
+        localizationsDelegates: const [
+          _TestAppLocDelegate('ar'),
+          _TestMaterialLocDelegate(),
+          _TestCupertinoLocDelegate(),
+          _TestWidgetsLocDelegate(),
+        ],
+        home: ReadingScreen(category: ayatKursiCat),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    // Verify Arabic Repeat header: 'العدد: 1'
+    expect(find.text('العدد: 1'), findsOneWidget);
+
+    // Verify Arabic tap instruction: 'اضغط مرة واحدة'
+    expect(find.text('اضغط مرة واحدة'), findsOneWidget);
+
+    // Verify navigation buttons: 'السابق', 'تسبيح', 'التالي'
+    expect(find.text('السابق'), findsOneWidget);
+    expect(find.text('تسبيح'), findsOneWidget);
+    expect(find.text('التالي'), findsOneWidget);
+
+    // Count 1 time to reach repeat count
+    await tester.tap(find.text('تسبيح'));
+    await tester.pumpAndSettle();
+
+    // Verify Arabic completed label: 'تم الانتهاء'
+    expect(find.text('تم الانتهاء'), findsOneWidget);
+
+    // Tap count again to advance to next zikr
+    await tester.tap(find.text('تسبيح'));
+    await tester.pumpAndSettle();
+
+    // Verify next zikr also displays Arabic repeat header
+    expect(find.textContaining('العدد:'), findsOneWidget);
+    expect(find.text('السابق'), findsOneWidget);
+    expect(find.text('تسبيح'), findsOneWidget);
+    expect(find.text('التالي'), findsOneWidget);
   });
 }

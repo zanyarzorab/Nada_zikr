@@ -75,12 +75,12 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   Future<void> _changeLanguage(String code) async {
+    if (_currentLang == code) return;
+    if (mounted) {
+      setState(() => _currentLang = code);
+    }
     AppLocalizations.setLanguageCode(code);
     await StorageService.saveSetting('language', code);
-    setState(() => _currentLang = code);
-    if (mounted) {
-      setState(() {});
-    }
   }
 
 
@@ -957,7 +957,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     }
   }
 
-  void _showLanguagePickerSheet(BuildContext context, bool isKurdish) {
+  Future<void> _showLanguagePickerSheet(BuildContext context, bool isKurdish) async {
     final languages = [
       {
         'code': 'ku',
@@ -982,14 +982,14 @@ class _SettingsScreenState extends State<SettingsScreen>
       },
     ];
 
-    showModalBottomSheet<void>(
+    final selectedCode = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (ctx) {
         return Container(
           constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.85,
+            maxHeight: MediaQuery.of(ctx).size.height * 0.85,
           ),
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -1067,12 +1067,9 @@ class _SettingsScreenState extends State<SettingsScreen>
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: GestureDetector(
-                    onTap: () async {
+                    onTap: () {
                       AppHaptics.selectionClick();
-                      await _changeLanguage(code);
-                      if (ctx.mounted) {
-                        Navigator.pop(ctx);
-                      }
+                      Navigator.pop(ctx, code);
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
@@ -1185,6 +1182,10 @@ class _SettingsScreenState extends State<SettingsScreen>
     );
   },
 );
+
+    if (selectedCode != null && selectedCode != _currentLang) {
+      await _changeLanguage(selectedCode);
+    }
   }
 
   Widget _buildSettingToggle(String label, String description, bool value, Function(bool) onChanged, bool isKurdish) {

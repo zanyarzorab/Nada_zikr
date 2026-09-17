@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final local = AppLocalizations.of(context)!;
+    final local = AppLocalizations.of(context) ?? AppLocalizations(const Locale('en'));
     final pages = [
       const HomeScreen(),
       const HistoryScreen(),

@@ -172,9 +172,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
     final loc = AppLocalizations.of(context);
     final lang = loc?.locale.languageCode ?? 'ku';
     final isKurdish = lang == 'ku';
+    final isArabic = lang == 'ar';
 
     if (_completed) {
-      return _buildCompletedScreen(isKurdish, loc);
+      return _buildCompletedScreen(isKurdish, isArabic, loc);
     }
 
     if (_azkarList.isEmpty) {
@@ -237,7 +238,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
                           children: [
                             Text(
                               widget.category.getTitle(lang),
-                              style: isKurdish
+                              style: (isKurdish || isArabic)
                                   ? AppTheme.kurdishTitle(
                                       fontSize: 15, color: AppColors.cream)
                                   : AppTheme.englishText(
@@ -432,8 +433,8 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                                     showEnglish
                                                         ? (isKurdish
                                                             ? 'کوردی'
-                                                            : 'Kurdish')
-                                                        : 'English',
+                                                            : (isArabic ? 'كردي' : 'Kurdish'))
+                                                        : (isArabic ? 'الإنجليزية' : 'English'),
                                                     style: TextStyle(
                                                       fontSize: 9.5,
                                                       color: showEnglish
@@ -505,11 +506,18 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                   Text(
                                     isKurdish
                                         ? 'ژمارە: ${current.repeatLabel}'
-                                        : 'Repeat: ${current.repeatLabel}',
-                                    style: AppTheme.englishText(
-                                        fontSize: 11,
-                                        color: AppColors.faintText,
-                                        fontWeight: FontWeight.w600),
+                                        : (isArabic
+                                            ? 'العدد: ${current.repeatLabel}'
+                                            : 'Repeat: ${current.repeatLabel}'),
+                                    style: (isKurdish || isArabic)
+                                        ? AppTheme.kurdishText(
+                                            fontSize: 11,
+                                            color: AppColors.faintText,
+                                            fontWeight: FontWeight.w600)
+                                        : AppTheme.englishText(
+                                            fontSize: 11,
+                                            color: AppColors.faintText,
+                                            fontWeight: FontWeight.w600),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
@@ -520,10 +528,22 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                   const SizedBox(height: 6),
                                   Text(
                                     _repeatCount >= current.repeat
-                                        ? (isKurdish ? 'تەواوبوو' : 'Completed')
+                                        ? (isKurdish
+                                            ? 'تەواوبوو'
+                                            : (isArabic
+                                                ? 'تم الانتهاء'
+                                                : 'Completed'))
                                         : (() {
                                             final remaining =
                                                 current.repeat - _repeatCount;
+                                            if (isArabic) {
+                                              if (remaining == 1) return 'اضغط مرة واحدة';
+                                              if (remaining == 2) return 'اضغط مرتين';
+                                              if (remaining >= 3 && remaining <= 10) {
+                                                return 'اضغط $remaining مرات';
+                                              }
+                                              return 'اضغط $remaining مرة';
+                                            }
                                             if (remaining == 1) {
                                               return isKurdish
                                                   ? 'یەک جار بکە'
@@ -533,7 +553,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                                 ? 'بۆ $remaining جار بکە'
                                                 : 'Tap $remaining times';
                                           }()),
-                                    style: isKurdish
+                                    style: (isKurdish || isArabic)
                                         ? AppTheme.kurdishText(
                                             color: AppColors.cream,
                                             fontSize: 12)
@@ -606,7 +626,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                       : (lang == 'ar' ? 'السابق' : 'Back'),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: isKurdish
+                                  style: (isKurdish || isArabic)
                                       ? AppTheme.kurdishTitle(
                                           fontSize: 14,
                                           color: AppColors.faintText)
@@ -642,10 +662,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                             child: Text(
                               isKurdish
                                   ? 'ژماردن'
-                                  : (lang == 'ar' ? 'تسبيح' : 'Count'),
+                                  : (isArabic ? 'تسبيح' : 'Count'),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: isKurdish
+                              style: (isKurdish || isArabic)
                                   ? AppTheme.kurdishTitle(
                                       fontSize: 15, color: AppColors.darkBg)
                                   : AppTheme.englishTitle(
@@ -681,10 +701,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                                 Text(
                                   isKurdish
                                   ? 'دواتر'
-                                  : (lang == 'ar' ? 'التالي' : 'Next'),
+                                  : (isArabic ? 'التالي' : 'Next'),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: isKurdish
+                                  style: (isKurdish || isArabic)
                                       ? AppTheme.kurdishTitle(
                                           fontSize: 14,
                                           color: AppColors.cream)
@@ -712,7 +732,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
     );
   }
 
-  Widget _buildCompletedScreen(bool isKurdish, AppLocalizations? loc) {
+  Widget _buildCompletedScreen(bool isKurdish, bool isArabic, AppLocalizations? loc) {
     return Scaffold(
       backgroundColor: AppColors.darkBg,
       body: Center(
@@ -728,8 +748,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                 Text(
                   isKurdish
                       ? 'خوای گەورە پاداشتت بداتەوە!'
-                      : 'Session Completed!',
-                  style: isKurdish
+                      : (isArabic
+                          ? 'جزاك الله خيراً وتقبل منك!'
+                          : 'Session Completed!'),
+                  style: (isKurdish || isArabic)
                       ? AppTheme.kurdishTitle(fontSize: 22, color: AppColors.gold)
                       : AppTheme.englishTitle(
                           fontSize: 22, color: AppColors.gold),
@@ -739,8 +761,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                 Text(
                   isKurdish
                       ? 'هەموو زیکرەکانی ئەم بەشەت بە سەرکەوتوویی خوێندەوە.'
-                      : 'You have completed all Azkar in this category.',
-                  style: isKurdish
+                      : (isArabic
+                          ? 'لقد أكملت قراءة جميع أذكار هذا القسم بنجاح.'
+                          : 'You have completed all Azkar in this category.'),
+                  style: (isKurdish || isArabic)
                       ? AppTheme.kurdishText(
                           color: AppColors.mutedText, fontSize: 14)
                       : AppTheme.englishText(
@@ -759,8 +783,10 @@ class _ReadingScreenState extends State<ReadingScreen> {
                   ),
                   onPressed: () => Navigator.pop(context),
                   child: Text(
-                    isKurdish ? 'گەڕانەوە بۆ سەرەتا' : 'Return Home',
-                    style: isKurdish
+                    isKurdish
+                        ? 'گەڕانەوە بۆ سەرەتا'
+                        : (isArabic ? 'العودة للرئيسية' : 'Return Home'),
+                    style: (isKurdish || isArabic)
                         ? AppTheme.kurdishTitle(
                             fontSize: 15, color: AppColors.darkBg)
                         : AppTheme.englishTitle(

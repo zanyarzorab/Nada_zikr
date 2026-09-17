@@ -100,6 +100,8 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
       final mode = StorageService.getPrayerNotificationModes()[nextId] ?? 'azan';
       if (mode == 'azan') {
         unawaited(AzanAudioService.instance.playSelected(prayerId: nextId));
+      } else if (mode == 'vibrate') {
+        unawaited(HapticFeedback.vibrate());
       }
     }
   }
@@ -118,6 +120,12 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
     const modes = ['azan', 'silent', 'vibrate'];
     final next = modes[(modes.indexOf(current) + 1) % modes.length];
     await StorageService.savePrayerNotificationMode(prayerId, next);
+    if (next == 'azan') {
+      final currentSound = await StorageService.getAzanSound();
+      if (currentSound == 'silent' || currentSound == 'vibrate') {
+        await StorageService.saveAzanSound('makkah');
+      }
+    }
     await NotificationService.rescheduleUpcomingPrayerAzans();
     if (next == 'vibrate') {
       await HapticFeedback.vibrate();
