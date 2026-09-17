@@ -8,13 +8,16 @@ import '../services/quran_service.dart';
 import '../services/storage_service.dart';
 import '../widgets/app_theme.dart';
 import '../widgets/dua_card_generator.dart';
+import '../widgets/focused_reading_sheet.dart';
+import '../widgets/spiritual_content_card.dart';
+import '../widgets/spiritual_detail_sheet.dart';
 import 'quran_screen.dart';
 
 /// Premier Quranic Duas Explorer & Supplications Hub
 class QuranDuasScreen extends StatefulWidget {
   final String? initialSurah;
 
-  const QuranDuasScreen({Key? key, this.initialSurah}) : super(key: key);
+  const QuranDuasScreen({super.key, this.initialSurah});
 
   @override
   State<QuranDuasScreen> createState() => _QuranDuasScreenState();
@@ -56,7 +59,7 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
     await _loadFavorites();
   }
 
-  /// Open exact Ayah in Holy Quran reader with Tafsiri Asan
+  /// Open exact Ayah in Holy Quran reader with Tafsir
   Future<void> _openQuranAyah(int surahNumber, int ayahNumber) async {
     AppHaptics.lightImpact();
     try {
@@ -83,6 +86,47 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _copyDua(QuranDuaItem dua, bool isKurdish, bool isArabic) {
+    AppHaptics.lightImpact();
+    final surahLabel = isKurdish
+        ? dua.surahNameKu
+        : (isArabic ? dua.surahNameAr : dua.surah);
+
+    final text = '💫 دوعای پیرۆزی قورئانی پیرۆز:\n\n'
+        '«${dua.arabic}»\n\n'
+        '📖 تەفسیری ئاسان (کوردی):\n${dua.kurdishMeaning}\n\n'
+        '🌐 English Translation:\n${dua.englishMeaning}\n\n'
+        'سەرچاوە: $surahLabel : ئایەتی ${dua.ayah}\n'
+        'لە ئەپی نەدا (Nada) 🌟';
+
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_rounded,
+                color: Color(0xFF34D399), size: 18),
+            const SizedBox(width: 10),
+            Text(
+              isKurdish
+                  ? 'دوعاکە کۆپیکرا بۆ کلیپبۆرد'
+                  : (isArabic
+                      ? 'تم نسخ الدعاء إلى الحافظة'
+                      : 'Dua copied to clipboard'),
+              style: (isKurdish || isArabic)
+                  ? AppTheme.kurdishText(color: Colors.white, fontSize: 12)
+                  : AppTheme.englishText(color: Colors.white, fontSize: 12),
+            ),
+          ],
+        ),
+        backgroundColor: AppColors.panelColor,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -124,13 +168,14 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
               final query = _searchQuery.trim().toLowerCase();
               if (query.isEmpty) return matchesSurah;
 
-              final matchesSearch = d.kurdishMeaning.toLowerCase().contains(query) ||
-                  d.englishMeaning.toLowerCase().contains(query) ||
-                  d.arabic.toLowerCase().contains(query) ||
-                  d.surah.toLowerCase().contains(query) ||
-                  d.surahNameKu.toLowerCase().contains(query) ||
-                  d.surahNameAr.toLowerCase().contains(query) ||
-                  d.ayah.toLowerCase().contains(query);
+              final matchesSearch =
+                  d.kurdishMeaning.toLowerCase().contains(query) ||
+                      d.englishMeaning.toLowerCase().contains(query) ||
+                      d.arabic.toLowerCase().contains(query) ||
+                      d.surah.toLowerCase().contains(query) ||
+                      d.surahNameKu.toLowerCase().contains(query) ||
+                      d.surahNameAr.toLowerCase().contains(query) ||
+                      d.ayah.toLowerCase().contains(query);
 
               return matchesSurah && matchesSearch;
             }).toList();
@@ -140,366 +185,65 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
               slivers: [
                 // Top App Bar
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(18, 12, 18, 14),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Header Navigation Row
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () => Navigator.pop(context),
-                              child: Container(
-                                width: 42,
-                                height: 42,
-                                decoration: BoxDecoration(
-                                  color: AppColors.panelColor,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: AppColors.panelBorderColor),
-                                ),
-                                child: Center(
-                                  child: Icon(Icons.arrow_back_ios_new_rounded,
-                                      color: AppColors.cream, size: 18),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          isKurdish
-                                              ? 'دوعاکانی قورئانی پیرۆز'
-                                              : (isArabic
-                                                  ? 'أدعية القرآن الكريم'
-                                                  : 'Quranic Supplications'),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: isKurdish
-                                              ? AppTheme.kurdishTitle(
-                                                  fontSize: 18,
-                                                  color: AppColors.cream)
-                                              : AppTheme.englishTitle(
-                                                  fontSize: 18,
-                                                  color: AppColors.cream),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 7, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFF10B981)
-                                              .withValues(alpha: 0.18),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border: Border.all(
-                                            color: const Color(0xFF10B981)
-                                                .withValues(alpha: 0.4),
-                                            width: 0.8,
-                                          ),
-                                        ),
-                                        child: Text(
-                                           isKurdish ? '70 دوعا' : '70 Duas',
-                                          style: const TextStyle(
-                                            color: Color(0xFF34D399),
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    isKurdish
-                                        ? 'دوعا پیرۆزەکان بە دەقی عوسمانی و تەفسیری ئاسان'
-                                        : (isArabic
-                                            ? '70 دعاء مبارك من آيات الذكر الحكيم'
-                                            : '70 authentic supplications from the Holy Quran'),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: isKurdish
-                                        ? AppTheme.kurdishText(
-                                            fontSize: 11,
-                                            color: AppColors.mutedText)
-                                        : AppTheme.englishText(
-                                            fontSize: 11,
-                                            color: AppColors.mutedText),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            // Favorites Filter Toggle
-                            GestureDetector(
-                              onTap: () {
-                                AppHaptics.lightImpact();
-                                setState(() {
-                                  _showFavoritesOnly = !_showFavoritesOnly;
-                                });
-                              },
-                              child: Container(
-                                width: 42,
-                                height: 42,
-                                decoration: BoxDecoration(
-                                  color: _showFavoritesOnly
-                                      ? const Color(0xFFEF4444)
-                                          .withValues(alpha: 0.2)
-                                      : AppColors.panelColor,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: _showFavoritesOnly
-                                        ? const Color(0xFFEF4444)
-                                        : AppColors.panelBorderColor,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    _showFavoritesOnly
-                                        ? Icons.favorite_rounded
-                                        : Icons.favorite_border_rounded,
-                                    color: _showFavoritesOnly
-                                        ? const Color(0xFFF87171)
-                                        : AppColors.mutedText,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        // Search Bar
-                        Container(
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: AppColors.panelColor,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                              color: _isSearching
-                                  ? const Color(0xFF10B981)
-                                  : AppColors.panelBorderColor,
-                            ),
-                          ),
-                          child: TextField(
-                            controller: _searchController,
-                            onChanged: (val) {
-                              setState(() {
-                                _searchQuery = val;
-                              });
-                            },
-                            onTap: () => setState(() => _isSearching = true),
-                            style: AppTheme.kurdishText(
-                                color: AppColors.cream, fontSize: 13),
-                            decoration: InputDecoration(
-                              hintText: isKurdish
-                                  ? 'گەڕان لە دەقی دوعاکان، مانا یان سوورەت...'
-                                  : (isArabic
-                                      ? 'بحث في نصوص الأدعية، المعنى أو السور...'
-                                      : 'Search supplications, meaning or Surah...'),
-                              hintStyle: isKurdish
-                                  ? AppTheme.kurdishText(
-                                      color: AppColors.faintText, fontSize: 12)
-                                  : AppTheme.englishText(
-                                      color: AppColors.faintText, fontSize: 12),
-                              prefixIcon: Icon(Icons.search_rounded,
-                                  color: _searchQuery.isNotEmpty
-                                      ? const Color(0xFF10B981)
-                                      : AppColors.mutedText,
-                                  size: 20),
-                              suffixIcon: _searchQuery.isNotEmpty
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        _searchController.clear();
-                                        setState(() {
-                                          _searchQuery = '';
-                                        });
-                                      },
-                                      child: Icon(Icons.close_rounded,
-                                          color: AppColors.mutedText, size: 18),
-                                    )
-                                  : null,
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 16),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: _buildHeader(context, isKurdish, isArabic),
                 ),
 
-                // Featured "Dua of the Day" Banner (if not searching)
-                if (_searchQuery.isEmpty &&
-                    _selectedSurah == 'all' &&
-                    !_showFavoritesOnly &&
-                    dailyDua != null)
+                // Search Bar (if activated)
+                if (_isSearching)
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(18, 0, 18, 16),
-                      child: _buildDuaOfTheDayBanner(
-                          context, dailyDua, isKurdish, isArabic),
-                    ),
+                    child: _buildSearchBar(isKurdish, isArabic),
                   ),
 
-                // Surah Filter Chip Strip
+                // Surahs Horizontal Filter Chips
                 SliverToBoxAdapter(
-                  child: Container(
-                    height: 40,
-                    margin: const EdgeInsets.only(bottom: 14),
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      itemCount: surahsMap.keys.length + 1,
-                      itemBuilder: (context, idx) {
-                        if (idx == 0) {
-                          final isSelected = _selectedSurah == 'all';
-                          return GestureDetector(
-                            onTap: () {
-                              AppHaptics.lightImpact();
-                              setState(() => _selectedSurah = 'all');
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.only(left: 8),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                color: isSelected
-                                    ? const Color(0xFF10B981)
-                                    : AppColors.panelColor,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: isSelected
-                                      ? const Color(0xFF10B981)
-                                      : AppColors.panelBorderColor,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  isKurdish
-                                      ? 'هەمووی (${allDuas.length})'
-                                      : (isArabic
-                                          ? 'الكل (${allDuas.length})'
-                                          : 'All (${allDuas.length})'),
-                                  style: TextStyle(
-                                    color: isSelected
-                                        ? Colors.white
-                                        : AppColors.cream,
-                                    fontSize: 12,
-                                    fontWeight: isSelected
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-
-                        final surahName = surahsMap.keys.elementAt(idx - 1);
-                        final count = surahsMap[surahName] ?? 0;
-                        final isSelected = _selectedSurah == surahName;
-
-                        // Display formatted Kurdish or standard name
-                        final sampleDua = allDuas.firstWhere(
-                          (d) => d.surah == surahName,
-                          orElse: () => QuranDuaItem(
-                            id: 0,
-                            surah: surahName,
-                            ayah: '',
-                            arabic: '',
-                            easyTajweed: '',
-                            kurdishMeaning: '',
-                          ),
-                        );
-                        final displayName = isKurdish
-                            ? sampleDua.surahNameKu
-                            : (isArabic ? sampleDua.surahNameAr : surahName);
-
-                        return GestureDetector(
-                          onTap: () {
-                            AppHaptics.lightImpact();
-                            setState(() => _selectedSurah = surahName);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 8),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? const Color(0xFF10B981)
-                                  : AppColors.panelColor,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: isSelected
-                                    ? const Color(0xFF10B981)
-                                    : AppColors.panelBorderColor,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                '$displayName ($count)',
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? Colors.white
-                                      : AppColors.cream,
-                                  fontSize: 12,
-                                  fontWeight: isSelected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  child: _buildSurahChips(
+                      surahsMap, allDuas, allDuas.length, lang, isKurdish, isArabic),
                 ),
 
-                // Dua Count Header Info
+                // Quranic Dua of the Day Hero Banner (Only when not searching & not filtered)
+                if (!_isSearching &&
+                    !_showFavoritesOnly &&
+                    dailyDua != null &&
+                    _selectedSurah == 'all')
+                  SliverToBoxAdapter(
+                    child: _buildDuaOfTheDayBanner(
+                        context, dailyDua, isKurdish, isArabic),
+                  ),
+
+                // Section Title / Results counter
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          isKurdish
-                              ? 'ئەنجامەکان (${filteredDuas.length} دوعا)'
-                              : (isArabic
-                                  ? 'الأدعية (${filteredDuas.length})'
-                                  : 'Results (${filteredDuas.length})'),
-                          style: AppTheme.kurdishText(
+                          _showFavoritesOnly
+                              ? (isKurdish
+                                  ? 'دوعا هەڵبژێردراوەکانم'
+                                  : (isArabic
+                                      ? 'الأدعية المفضلة'
+                                      : 'Saved Supplications'))
+                              : (isKurdish
+                                  ? '${filteredDuas.length} دوعای قورئانی'
+                                  : (isArabic
+                                      ? '${filteredDuas.length} دعاء قرآني'
+                                      : '${filteredDuas.length} Quranic Duas')),
+                          style: TextStyle(
                             color: AppColors.mutedText,
                             fontSize: 12,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        if (_showFavoritesOnly)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFEF4444)
-                                  .withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
+                        if (_selectedSurah != 'all')
+                          GestureDetector(
+                            onTap: () => setState(() => _selectedSurah = 'all'),
                             child: Text(
-                              isKurdish ? 'دڵخوازەکان' : 'Favorites',
-                              style: const TextStyle(
-                                  color: Color(0xFFF87171), fontSize: 10),
+                              isKurdish
+                                  ? 'پاککردنەوەی فلتەر'
+                                  : (isArabic ? 'إلغاء التصفية' : 'Clear filter'),
+                              style: TextStyle(
+                                  fontSize: 11, color: AppColors.gold),
                             ),
                           ),
                       ],
@@ -509,46 +253,96 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
 
                 // Duas List
                 if (filteredDuas.isEmpty)
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(32),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.menu_book_rounded,
-                                color: AppColors.faintText, size: 56),
-                            const SizedBox(height: 14),
-                            Text(
-                              isKurdish
-                                  ? 'هیچ دوعایەک نەدۆزرایەوە'
-                                  : 'No supplications found',
-                              style: AppTheme.kurdishText(
-                                  color: AppColors.cream, fontSize: 15),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  SliverToBoxAdapter(
+                    child: _buildEmptyState(isKurdish),
                   )
                 else
                   SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(18, 8, 18, 32),
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           final dua = filteredDuas[index];
                           final isFav = _favoriteIds.contains(dua.id);
-                          final reciteCount = _reciteCounters[dua.id] ?? 0;
+                          final reciteCount =
+                              _reciteCounters[dua.id] ?? 0;
 
-                          return _buildDuaCard(
-                            context: context,
-                            dua: dua,
-                            isKurdish: isKurdish,
-                            isArabic: isArabic,
-                            isFav: isFav,
+                          final surahLabel = isKurdish
+                              ? dua.surahNameKu
+                              : (isArabic ? dua.surahNameAr : dua.surah);
+
+                          final hasKurdish =
+                              dua.kurdishMeaning.trim().isNotEmpty;
+                          final hasEnglish =
+                              dua.englishMeaning.trim().isNotEmpty;
+                          final bool preferEnglish =
+                              _showEnglishMode ?? (lang == 'en');
+                          final bool isDisplayingEnglish =
+                              (preferEnglish && hasEnglish) || !hasKurdish;
+
+                          return SpiritualContentCard(
+                            arabic: dua.arabic,
+                            isAyah: true,
+                            kurdishMeaning: dua.kurdishMeaning,
+                            englishMeaning: dua.englishMeaning,
+                            source: '📖 $surahLabel : ${dua.ayah}',
+                            categoryTag: '$surahLabel : ${dua.ayah}',
+                            categoryTagIcon: Icons.auto_stories_rounded,
+                            onCategoryTap: () => _openQuranAyah(
+                                dua.surahNumber, dua.ayahNumber),
+                            onOpenInQuran: () => _openQuranAyah(
+                                dua.surahNumber, dua.ayahNumber),
+                            isFavorite: isFav,
+                            onToggleFavorite: () =>
+                                _toggleFavorite(dua.id),
                             reciteCount: reciteCount,
+                            onReciteChanged: (newCount) {
+                              setState(() {
+                                _reciteCounters[dua.id] = newCount;
+                              });
+                            },
+                            onRecite: () {
+                              AppHaptics.lightImpact();
+                              setState(() {
+                                _reciteCounters[dua.id] = reciteCount + 1;
+                              });
+                            },
+                            onShareCard: () {
+                              AppHaptics.lightImpact();
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => DuaCardGeneratorDialog(
+                                    azkar: dua.toAzkar()),
+                              );
+                            },
+                            onCopy: () => _copyDua(dua, isKurdish, isArabic),
+                            onFocusRead: () async {
+                              final newCount = await FocusedReadingSheet.show(
+                                context,
+                                arabic: dua.arabic,
+                                kurdishMeaning: dua.kurdishMeaning,
+                                englishMeaning: dua.englishMeaning,
+                                source: '📖 $surahLabel : ${dua.ayah}',
+                                title: surahLabel,
+                                initialCount: reciteCount,
+                                lang: lang,
+                                isAyah: true,
+                              );
+                              if (newCount != null && mounted) {
+                                setState(() {
+                                  _reciteCounters[dua.id] = newCount;
+                                });
+                              }
+                            },
+                            lang: lang,
+                            meaningBadgeKurdishLabel: '📖 تەفسیری ئاسان (کوردی)',
+                            isDisplayingEnglish: isDisplayingEnglish,
+                            onToggleLanguage: () {
+                              AppHaptics.selectionClick();
+                              setState(() {
+                                _showEnglishMode = !isDisplayingEnglish;
+                              });
+                            },
                           );
                         },
                         childCount: filteredDuas.length,
@@ -563,501 +357,141 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
     );
   }
 
-  /// Dua Card Widget
-  Widget _buildDuaCard({
-    required BuildContext context,
-    required QuranDuaItem dua,
-    required bool isKurdish,
-    required bool isArabic,
-    required bool isFav,
-    required int reciteCount,
-  }) {
-    final surahLabel = isKurdish
-        ? dua.surahNameKu
-        : (isArabic ? dua.surahNameAr : dua.surah);
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: AppColors.panelColor,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          color: reciteCount > 0
-              ? const Color(0xFF10B981).withValues(alpha: 0.5)
-              : AppColors.panelBorderColor,
-          width: reciteCount > 0 ? 1.2 : 1.0,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
-            blurRadius: 12,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+  // ════════════════════════════════════════════════════════════════════════════
+  // HEADER
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildHeader(BuildContext context, bool isKurdish, bool isArabic) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+      child: Row(
         children: [
-          // Header Bar with Surah tag (tappable to jump to Quran), ID badge and Favorite Heart
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
-            child: Row(
-              children: [
-                // Tappable Surah & Ayah Badge (Opens exact Ayah in Quran reader)
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
-                    child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.14),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: const Color(0xFF10B981).withValues(alpha: 0.35),
-                          width: 0.8,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.auto_stories_rounded,
-                              color: Color(0xFF34D399), size: 13),
-                          const SizedBox(width: 6),
-                          Flexible(
-                            child: Text(
-                              '$surahLabel : ${dua.ayah}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Color(0xFF34D399),
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Icon(
-                            isKurdish
-                                ? Icons.chevron_left_rounded
-                                : Icons.chevron_right_rounded,
-                            color: const Color(0xFF34D399).withValues(alpha: 0.7),
-                            size: 14,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                // Dua Number Badge
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: AppColors.darkBg,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: AppColors.panelBorderColor),
-                  ),
-                  child: Text(
-                    '#${dua.id}',
-                    style: TextStyle(
-                      color: AppColors.mutedText,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                // Favorite Button
-                GestureDetector(
-                  onTap: () => _toggleFavorite(dua.id),
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: isFav
-                          ? const Color(0xFFEF4444).withValues(alpha: 0.15)
-                          : AppColors.darkBg,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isFav
-                            ? const Color(0xFFEF4444).withValues(alpha: 0.4)
-                            : AppColors.panelBorderColor,
-                      ),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        isFav
-                            ? Icons.favorite_rounded
-                            : Icons.favorite_border_rounded,
-                        color: isFav
-                            ? const Color(0xFFF87171)
-                            : AppColors.mutedText,
-                        size: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Central Arabic Dua Calligraphy Card (Tapping text also jumps to Quran)
+          // Back button
           GestureDetector(
-            onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
+            onTap: () => Navigator.pop(context),
+            behavior: HitTestBehavior.opaque,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 14),
-              padding: const EdgeInsets.all(18),
+              width: 38,
+              height: 38,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    const Color(0xFF0F261F).withValues(alpha: 0.7),
-                    const Color(0xFF131C24),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(16),
+                color: AppColors.panelColor,
+                shape: BoxShape.circle,
                 border: Border.all(
-                  color: const Color(0xFF10B981).withValues(alpha: 0.22),
+                  color: AppColors.panelBorderColor.withValues(alpha: 0.6),
                 ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    dua.arabic,
-                    textAlign: TextAlign.center,
-                    style: AppTheme.arabicTitle(
-                      color: const Color(0xFFF3E8C8),
-                      fontSize: 21,
-                      height: 1.85,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.open_in_new_rounded,
-                          color: const Color(0xFF34D399).withValues(alpha: 0.7),
-                          size: 11),
-                      const SizedBox(width: 4),
-                      Text(
-                        isKurdish
-                            ? 'لە قورئاندا بیبینە'
-                            : (isArabic
-                                ? 'عرض الآية في المصحف'
-                                : 'View in Quran'),
-                        style: TextStyle(
-                          color: const Color(0xFF34D399).withValues(alpha: 0.75),
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (reciteCount > 0) ...[
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        isKurdish
-                            ? 'خوێندراوەتەوە: $reciteCount جار'
-                            : 'Recited: $reciteCount times',
-                        style: const TextStyle(
-                          color: Color(0xFF34D399),
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
+              child: Center(
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  size: 16,
+                  color: AppColors.cream,
+                ),
               ),
             ),
           ),
-
-          // Meaning Section: toggle between Kurdish Tafsir and English Translation
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 14, 18, 14),
-            child: () {
-              final lang = AppLocalizations.languageCode;
-              final hasKurdish = dua.kurdishMeaning.trim().isNotEmpty;
-              final hasEnglish = dua.englishMeaning.trim().isNotEmpty;
-              final hasBoth = hasKurdish && hasEnglish;
-              final bool preferEnglish = _showEnglishMode ?? (lang == 'en');
-              final bool isDisplayingEnglish =
-                  (preferEnglish && hasEnglish) || !hasKurdish;
-              final bool hasContent = hasKurdish || hasEnglish;
-
-              if (!hasContent) return const SizedBox.shrink();
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: AlignmentDirectional.centerStart,
-                          child: GestureDetector(
-                            onTap: hasBoth
-                                ? () {
-                                    AppHaptics.selectionClick();
-                                    setState(() {
-                                      _showEnglishMode = !isDisplayingEnglish;
-                                    });
-                                  }
-                                : null,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 3),
-                              decoration: BoxDecoration(
-                                color: isDisplayingEnglish
-                                    ? const Color(0xFF3B82F6)
-                                        .withValues(alpha: 0.16)
-                                    : AppColors.gold.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(6),
-                                border: Border.all(
-                                  color: isDisplayingEnglish
-                                      ? const Color(0xFF60A5FA)
-                                          .withValues(alpha: 0.45)
-                                      : AppColors.gold.withValues(alpha: 0.35),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    isDisplayingEnglish
-                                        ? Icons.language_rounded
-                                        : Icons.menu_book_rounded,
-                                    size: 13,
-                                    color: isDisplayingEnglish
-                                        ? const Color(0xFF93C5FD)
-                                        : AppColors.gold,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    isDisplayingEnglish
-                                        ? (isKurdish
-                                            ? 'مانای ئینگلیزی'
-                                            : (isArabic
-                                                ? 'الترجمة بالإنجليزية'
-                                                : 'English Translation'))
-                                        : (isKurdish
-                                            ? '📖 تەفسیری ئاسان (کوردی)'
-                                            : (isArabic
-                                                ? 'تفسير ميسر (بالكردية)'
-                                                : 'Kurdish Tafsir')),
-                                    style: isDisplayingEnglish
-                                        ? const TextStyle(
-                                            fontSize: 10.5,
-                                            color: Color(0xFF93C5FD),
-                                            fontWeight: FontWeight.bold,
-                                          )
-                                        : AppTheme.kurdishText(
-                                            fontSize: 10.5,
-                                            color: AppColors.gold,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                  ),
-                                  if (hasBoth) ...[
-                                    const SizedBox(width: 5),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 1),
-                                      decoration: BoxDecoration(
-                                        color: isDisplayingEnglish
-                                            ? const Color(0xFF3B82F6)
-                                                .withValues(alpha: 0.25)
-                                            : AppColors.gold
-                                                .withValues(alpha: 0.2),
-                                        borderRadius:
-                                            BorderRadius.circular(4),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Icon(
-                                            Icons.swap_horiz_rounded,
-                                            size: 11,
-                                            color: isDisplayingEnglish
-                                                ? const Color(0xFF93C5FD)
-                                                : AppColors.gold,
-                                          ),
-                                          const SizedBox(width: 2),
-                                          Text(
-                                            isDisplayingEnglish
-                                                ? (isKurdish
-                                                    ? 'کوردی'
-                                                    : 'Kurdish')
-                                                : 'English',
-                                            style: TextStyle(
-                                              fontSize: 9,
-                                              color: isDisplayingEnglish
-                                                  ? const Color(0xFF93C5FD)
-                                                  : AppColors.gold,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    isDisplayingEnglish
-                        ? dua.englishMeaning
-                        : dua.kurdishMeaning,
-                    textAlign: isDisplayingEnglish
-                        ? TextAlign.left
-                        : TextAlign.right,
-                    textDirection: isDisplayingEnglish
-                        ? TextDirection.ltr
-                        : TextDirection.rtl,
-                    style: isDisplayingEnglish
-                        ? AppTheme.englishText(
-                            color: AppColors.cream.withValues(alpha: 0.95),
-                            fontSize: 14,
-                          ).copyWith(height: 1.65)
-                        : AppTheme.kurdishText(
-                            color: AppColors.cream.withValues(alpha: 0.95),
-                            fontSize: 14,
-                            height: 1.65,
-                          ),
-                  ),
-                ],
-              );
-            }(),
-          ),
-
-          // Action Toolbar (Recite, Copy, Share Card)
-          Container(
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
-            decoration: BoxDecoration(
-              color: AppColors.darkBg.withValues(alpha: 0.4),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(22),
-                bottomRight: Radius.circular(22),
-              ),
-              border: Border(
-                top: BorderSide(
-                    color: AppColors.panelBorderColor.withValues(alpha: 0.5)),
-              ),
-            ),
-            child: Row(
+          const SizedBox(width: 12),
+          // Title & Subtitle
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Quick Tap Counter Button
-                GestureDetector(
-                  onTap: () {
-                    AppHaptics.lightImpact();
-                    setState(() {
-                      _reciteCounters[dua.id] = reciteCount + 1;
-                    });
-                  },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF10B981).withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.3),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.touch_app_rounded,
-                            color: Color(0xFF34D399), size: 14),
-                        const SizedBox(width: 5),
-                        Text(
-                          isKurdish
-                              ? 'خوێندنەوە'
-                              : (isArabic ? 'تكرار' : 'Recite'),
-                          style: const TextStyle(
-                            color: Color(0xFF34D399),
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                Text(
+                  isKurdish
+                      ? 'دوعاکانی قورئانی پیرۆز'
+                      : (isArabic
+                          ? 'أدعية القرآن الكريم'
+                          : 'Quranic Supplications'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: isKurdish
+                      ? AppTheme.kurdishTitle(
+                          fontSize: 17, color: AppColors.cream)
+                      : AppTheme.englishTitle(
+                          fontSize: 17, color: AppColors.cream),
                 ),
-                const Spacer(),
-                // Copy Action
-                _buildActionIconButton(
-                  icon: Icons.copy_rounded,
-                  label: isKurdish ? 'کۆپی' : (isArabic ? 'نسخ' : 'Copy'),
-                  onTap: () {
-                    AppHaptics.lightImpact();
-                    final textToCopy = '${dua.arabic}\n\n'
-                        '📖 تەفسیری ئاسان:\n${dua.kurdishMeaning}\n\n'
-                        '🌐 English Translation:\n${dua.englishMeaning}\n\n'
-                        '[ $surahLabel • ${dua.ayah} ]\n'
-                        'لە ئەپی نەدا (Nada) 🌟';
-                    Clipboard.setData(ClipboardData(text: textToCopy));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Row(
-                          children: [
-                            const Icon(Icons.check_circle_rounded,
-                                color: Color(0xFF34D399), size: 18),
-                            const SizedBox(width: 10),
-                            Text(
-                              isKurdish
-                                  ? 'دەق و تەفسیری دوعاکە کۆپی کرا'
-                                  : 'Dua text & translation copied',
-                              style: isKurdish
-                                  ? AppTheme.kurdishText(
-                                      color: Colors.white, fontSize: 12)
-                                  : AppTheme.englishText(
-                                      color: Colors.white, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        backgroundColor: AppColors.panelColor,
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(width: 8),
-                // Share Card Action (Generates Card & Share)
-                _buildActionIconButton(
-                  icon: Icons.share_rounded,
-                  label: isKurdish ? 'کارت' : 'Card',
-                  isPrimary: true,
-                  onTap: () {
-                    AppHaptics.lightImpact();
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => DuaCardGeneratorDialog(
-                        azkar: dua.toAzkar(),
-                      ),
-                    );
-                  },
+                Text(
+                  isKurdish
+                      ? '70 دوعای پیرۆز بە تەفسیری ئاسان'
+                      : (isArabic
+                          ? '70 دعاء مبارك من آيات الذكر الحكيم'
+                          : '70 authentic supplications from the Holy Quran'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: isKurdish
+                      ? AppTheme.kurdishText(
+                          fontSize: 11, color: AppColors.mutedText)
+                      : AppTheme.englishText(
+                          fontSize: 11, color: AppColors.mutedText),
                 ),
               ],
+            ),
+          ),
+          // Search Button
+          GestureDetector(
+            onTap: () {
+              AppHaptics.lightImpact();
+              setState(() {
+                _isSearching = !_isSearching;
+                if (!_isSearching) {
+                  _searchQuery = '';
+                  _searchController.clear();
+                }
+              });
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: _isSearching
+                    ? AppColors.gold.withValues(alpha: 0.15)
+                    : AppColors.panelColor,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _isSearching
+                      ? AppColors.gold
+                      : AppColors.panelBorderColor.withValues(alpha: 0.6),
+                ),
+              ),
+              child: Icon(
+                _isSearching ? Icons.close_rounded : Icons.search_rounded,
+                size: 18,
+                color: _isSearching ? AppColors.gold : AppColors.cream,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          // Favorites Filter Toggle
+          GestureDetector(
+            onTap: () {
+              AppHaptics.selectionClick();
+              setState(() {
+                _showFavoritesOnly = !_showFavoritesOnly;
+              });
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: _showFavoritesOnly
+                    ? const Color(0xFFE11D48).withValues(alpha: 0.15)
+                    : AppColors.panelColor,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _showFavoritesOnly
+                      ? const Color(0xFFE11D48)
+                      : AppColors.panelBorderColor.withValues(alpha: 0.6),
+                ),
+              ),
+              child: Icon(
+                _showFavoritesOnly
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
+                size: 18,
+                color: _showFavoritesOnly
+                    ? const Color(0xFFF43F5E)
+                    : AppColors.mutedText,
+              ),
             ),
           ),
         ],
@@ -1065,118 +499,231 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
     );
   }
 
-  /// Action icon button helper
-  Widget _buildActionIconButton({
-    required IconData icon,
+  // ════════════════════════════════════════════════════════════════════════════
+  // SEARCH BAR
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildSearchBar(bool isKurdish, bool isArabic) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 4, 16, 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      decoration: BoxDecoration(
+        color: AppColors.panelColor,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.gold.withValues(alpha: 0.4)),
+      ),
+      child: TextField(
+        controller: _searchController,
+        autofocus: true,
+        style: TextStyle(color: AppColors.cream, fontSize: 13.5),
+        decoration: InputDecoration(
+          hintText: isKurdish
+              ? 'گەڕان لە دوعاکان، سوورەت یان ئایەت...'
+              : (isArabic
+                  ? 'ابحث في نصوص الأدعية أو السور...'
+                  : 'Search supplications, surahs, or ayahs...'),
+          hintStyle: TextStyle(color: AppColors.faintText, fontSize: 12.5),
+          border: InputBorder.none,
+          icon: Icon(Icons.search_rounded, color: AppColors.gold, size: 18),
+          suffixIcon: _searchQuery.isNotEmpty
+              ? IconButton(
+                  icon: Icon(Icons.clear_rounded,
+                      color: AppColors.cream, size: 16),
+                  onPressed: () {
+                    _searchController.clear();
+                    setState(() => _searchQuery = '');
+                  },
+                )
+              : null,
+        ),
+        onChanged: (val) => setState(() => _searchQuery = val),
+      ),
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // SURAHS FILTER CHIPS
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildSurahChips(Map<String, int> surahsMap, List<QuranDuaItem> allDuas,
+      int totalCount, String lang, bool isKurdish, bool isArabic) {
+    return Container(
+      height: 38,
+      margin: const EdgeInsets.only(top: 4, bottom: 8),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        physics: const BouncingScrollPhysics(),
+        children: [
+          _buildFilterChip(
+            label: isKurdish
+                ? 'هەمووی ($totalCount)'
+                : (isArabic ? 'الكل ($totalCount)' : 'All ($totalCount)'),
+            isSelected: _selectedSurah == 'all',
+            onTap: () {
+              AppHaptics.selectionClick();
+              setState(() => _selectedSurah = 'all');
+            },
+            isKurdish: isKurdish,
+          ),
+          ...surahsMap.entries.map((entry) {
+            final isSelected = _selectedSurah == entry.key;
+            final sampleDua = allDuas.firstWhere(
+              (d) => d.surah == entry.key,
+              orElse: () => allDuas.first,
+            );
+            final localizedSurahName = sampleDua.getSurahName(lang);
+            return _buildFilterChip(
+              label: '$localizedSurahName (${entry.value})',
+              isSelected: isSelected,
+              onTap: () {
+                AppHaptics.selectionClick();
+                setState(() => _selectedSurah = entry.key);
+              },
+              isKurdish: isKurdish,
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterChip({
     required String label,
+    required bool isSelected,
     required VoidCallback onTap,
-    bool isPrimary = false,
+    required bool isKurdish,
   }) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        margin: const EdgeInsets.only(right: 7),
+        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
         decoration: BoxDecoration(
-          color: isPrimary
-              ? const Color(0xFF10B981).withValues(alpha: 0.22)
-              : AppColors.panelColor,
-          borderRadius: BorderRadius.circular(9),
+          color: isSelected ? AppColors.gold : AppColors.panelColor,
+          borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: isPrimary
-                ? const Color(0xFF10B981).withValues(alpha: 0.45)
-                : AppColors.panelBorderColor,
+            color: isSelected
+                ? AppColors.gold
+                : AppColors.panelBorderColor.withValues(alpha: 0.5),
+            width: 0.8,
           ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: isPrimary ? const Color(0xFF34D399) : AppColors.cream,
-              size: 14,
+        child: Center(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: isSelected ? AppColors.darkBg : AppColors.cream,
+              fontSize: 11.5,
+              fontWeight:
+                  isSelected ? FontWeight.bold : FontWeight.normal,
             ),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: isPrimary ? const Color(0xFF34D399) : AppColors.cream,
-                fontSize: 11,
-                fontWeight: isPrimary ? FontWeight.w600 : FontWeight.normal,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  /// Featured Dua of the Day Hero Banner
+  // ════════════════════════════════════════════════════════════════════════════
+  // QURANIC DUA OF THE DAY (CALM SPOTLIGHT)
+  // ════════════════════════════════════════════════════════════════════════════
   Widget _buildDuaOfTheDayBanner(BuildContext context, QuranDuaItem dua,
       bool isKurdish, bool isArabic) {
+    final loc = AppLocalizations.of(context);
+    final lang = loc?.locale.languageCode ?? AppLocalizations.languageCode;
     final surahLabel = isKurdish
         ? dua.surahNameKu
         : (isArabic ? dua.surahNameAr : dua.surah);
+    final isFav = _favoriteIds.contains(dua.id);
+    final reciteCount = _reciteCounters[dua.id] ?? 0;
 
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF0F3B2C),
-            Color(0xFF132A22),
-            Color(0xFF131C24),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: const Color(0xFF10B981).withValues(alpha: 0.4),
-          width: 1.2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF10B981).withValues(alpha: 0.15),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    return GestureDetector(
+      onTap: () {
+        AppHaptics.lightImpact();
+        SpiritualDetailSheet.show(
+          context,
+          arabic: dua.arabic,
+          kurdishMeaning: dua.kurdishMeaning,
+          englishMeaning: dua.englishMeaning,
+          source: '📖 $surahLabel : ${dua.ayah}',
+          categoryTag: '$surahLabel : ${dua.ayah}',
+          isFavorite: isFav,
+          onToggleFavorite: () => _toggleFavorite(dua.id),
+          reciteCount: reciteCount,
+          onReciteChanged: (newCount) {
+            setState(() {
+              _reciteCounters[dua.id] = newCount;
+            });
+          },
+          onShareCard: () {
+            AppHaptics.lightImpact();
+            showDialog(
+              context: context,
+              builder: (ctx) => DuaCardGeneratorDialog(azkar: dua.toAzkar()),
+            );
+          },
+          onCopy: () => _copyDua(dua, isKurdish, isArabic),
+          onOpenInQuran: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
+          onFocusRead: () async {
+            final newCount = await FocusedReadingSheet.show(
+              context,
+              arabic: dua.arabic,
+              kurdishMeaning: dua.kurdishMeaning,
+              englishMeaning: dua.englishMeaning,
+              source: '📖 $surahLabel : ${dua.ayah}',
+              title: surahLabel,
+              initialCount: reciteCount,
+              lang: lang,
+              isAyah: true,
+            );
+            if (newCount != null && mounted) {
+              setState(() {
+                _reciteCounters[dua.id] = newCount;
+              });
+            }
+          },
+          lang: lang,
+          isAyah: true,
+        );
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(16, 6, 16, 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.panelColor,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isFav
+                ? AppColors.gold.withValues(alpha: 0.5)
+                : AppColors.gold.withValues(alpha: 0.35),
+            width: 1,
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Banner Top Tag
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: AppColors.gold.withValues(alpha: 0.2),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: AppColors.gold.withValues(alpha: 0.4)),
-                  ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.auto_awesome_rounded,
-                          color: AppColors.gold, size: 13),
-                      const SizedBox(width: 5),
+                          color: AppColors.gold, size: 15),
+                      const SizedBox(width: 6),
                       Flexible(
                         child: Text(
                           isKurdish
-                              ? 'دوعای قورئانیی ڕۆژ'
+                              ? 'دوعای قورئانیی ئەمڕۆ'
                               : (isArabic
                                   ? 'دعاء اليوم من القرآن'
-                                  : 'Quranic Dua of the Day'),
+                                  : 'Daily Quranic Dua'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: AppColors.gold,
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -1184,297 +731,175 @@ class _QuranDuasScreenState extends State<QuranDuasScreen> {
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              // Tappable Surah reference on banner
-              Flexible(
-                child: GestureDetector(
-                  onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF10B981).withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: const Color(0xFF10B981).withValues(alpha: 0.4),
-                        width: 0.8,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.auto_stories_rounded,
-                            color: Color(0xFF34D399), size: 12),
-                        const SizedBox(width: 5),
-                        Flexible(
-                          child: Text(
-                            '$surahLabel : ${dua.ayah}',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Color(0xFF34D399),
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          // Arabic Text (Tapping jumps to Quran reader)
-          GestureDetector(
-            onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
-            child: Text(
-              dua.arabic,
-              textAlign: TextAlign.center,
-              style: AppTheme.arabicTitle(
-                color: const Color(0xFFFDE68A),
-                fontSize: 20,
-                height: 1.8,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          // Meaning Section: toggle between Kurdish Tafsir and English Translation
-          () {
-            final lang = AppLocalizations.languageCode;
-            final hasKurdish = dua.kurdishMeaning.trim().isNotEmpty;
-            final hasEnglish = dua.englishMeaning.trim().isNotEmpty;
-            final hasBoth = hasKurdish && hasEnglish;
-            final bool preferEnglish = _showEnglishMode ?? (lang == 'en');
-            final bool isDisplayingEnglish =
-                (preferEnglish && hasEnglish) || !hasKurdish;
-            final bool hasContent = hasKurdish || hasEnglish;
-
-            if (!hasContent) return const SizedBox.shrink();
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+                const SizedBox(width: 8),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Flexible(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: AlignmentDirectional.centerStart,
-                        child: GestureDetector(
-                          onTap: hasBoth
-                              ? () {
-                                  AppHaptics.selectionClick();
-                                  setState(() {
-                                    _showEnglishMode = !isDisplayingEnglish;
-                                  });
-                                }
-                              : null,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 3),
-                            decoration: BoxDecoration(
-                              color: isDisplayingEnglish
-                                  ? const Color(0xFF3B82F6)
-                                      .withValues(alpha: 0.16)
-                                  : AppColors.gold.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(
-                                color: isDisplayingEnglish
-                                    ? const Color(0xFF60A5FA)
-                                        .withValues(alpha: 0.45)
-                                    : AppColors.gold.withValues(alpha: 0.35),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  isDisplayingEnglish
-                                      ? Icons.language_rounded
-                                      : Icons.menu_book_rounded,
-                                  size: 13,
-                                  color: isDisplayingEnglish
-                                      ? const Color(0xFF93C5FD)
-                                      : AppColors.gold,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  isDisplayingEnglish
-                                      ? (isKurdish
-                                          ? 'مانای ئینگلیزی'
-                                          : (isArabic
-                                              ? 'الترجمة بالإنجليزية'
-                                              : 'English Translation'))
-                                      : (isKurdish
-                                          ? '📖 تەفسیری ئاسان (کوردی)'
-                                          : (isArabic
-                                              ? 'تفسير ميسر (بالكردية)'
-                                              : 'Kurdish Tafsir')),
-                                  style: isDisplayingEnglish
-                                      ? const TextStyle(
-                                          fontSize: 10.5,
-                                          color: Color(0xFF93C5FD),
-                                          fontWeight: FontWeight.bold,
-                                        )
-                                      : AppTheme.kurdishText(
-                                          fontSize: 10.5,
-                                          color: AppColors.gold,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                ),
-                                if (hasBoth) ...[
-                                  const SizedBox(width: 5),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4, vertical: 1),
-                                    decoration: BoxDecoration(
-                                      color: isDisplayingEnglish
-                                          ? const Color(0xFF3B82F6)
-                                              .withValues(alpha: 0.25)
-                                          : AppColors.gold
-                                              .withValues(alpha: 0.2),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          Icons.swap_horiz_rounded,
-                                          size: 11,
-                                          color: isDisplayingEnglish
-                                              ? const Color(0xFF93C5FD)
-                                              : AppColors.gold,
-                                        ),
-                                        const SizedBox(width: 2),
-                                        Text(
-                                          isDisplayingEnglish
-                                              ? (isKurdish
-                                                  ? 'کوردی'
-                                                  : 'Kurdish')
-                                              : 'English',
-                                          style: TextStyle(
-                                            fontSize: 9,
-                                            color: isDisplayingEnglish
-                                                ? const Color(0xFF93C5FD)
-                                                : AppColors.gold,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  isDisplayingEnglish
-                      ? dua.englishMeaning
-                      : dua.kurdishMeaning,
-                  textAlign: isDisplayingEnglish
-                      ? TextAlign.left
-                      : TextAlign.right,
-                  textDirection: isDisplayingEnglish
-                      ? TextDirection.ltr
-                      : TextDirection.rtl,
-                  style: isDisplayingEnglish
-                      ? AppTheme.englishText(
-                          color: AppColors.cream.withValues(alpha: 0.95),
-                          fontSize: 13,
-                        ).copyWith(height: 1.55)
-                      : AppTheme.kurdishText(
-                          color: AppColors.cream.withValues(alpha: 0.95),
-                          fontSize: 13,
-                          height: 1.6,
-                        ),
-                ),
-              ],
-            );
-          }(),
-          const SizedBox(height: 14),
-          // Banner bottom actions
-          Wrap(
-            alignment: WrapAlignment.end,
-            spacing: 8,
-            runSpacing: 6,
-            children: [
-              GestureDetector(
-                onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.panelColor,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: AppColors.panelBorderColor,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.menu_book_rounded,
-                          color: Color(0xFF34D399), size: 13),
-                      const SizedBox(width: 5),
-                      Text(
-                        isKurdish ? 'خوێندنەوە لە قورئان' : 'Read in Quran',
-                        style: const TextStyle(
-                          color: Color(0xFF34D399),
+                    GestureDetector(
+                      onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
+                      child: Text(
+                        '$surahLabel : ${dua.ayah}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: AppColors.gold,
                           fontSize: 11,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                    ),
+                    const SizedBox(width: 6),
+                    // Recite count badge
+                    if (reciteCount > 0) ...[
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          '$reciteCount',
+                          style: const TextStyle(
+                            color: Color(0xFF34D399),
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
                     ],
-                  ),
+                    GestureDetector(
+                      onTap: () => _toggleFavorite(dua.id),
+                      behavior: HitTestBehavior.opaque,
+                      child: Icon(
+                        isFav
+                            ? Icons.bookmark_rounded
+                            : Icons.bookmark_outline_rounded,
+                        size: 18,
+                        color: isFav
+                            ? const Color(0xFFF43F5E)
+                            : AppColors.veryFaintText.withValues(alpha: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              dua.arabic,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right,
+              style: AppTheme.quranAyahText(
+                color: const Color(0xFFFFFBEB),
+                fontSize: 19,
+                height: 1.9,
+              ),
+            ),
+            if (dua.kurdishMeaning.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Text(
+                lang == 'en' && dua.englishMeaning.isNotEmpty
+                    ? dua.englishMeaning
+                    : dua.kurdishMeaning,
+                textDirection:
+                    lang == 'en' ? TextDirection.ltr : TextDirection.rtl,
+                textAlign: lang == 'en' ? TextAlign.left : TextAlign.right,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: AppColors.cream.withValues(alpha: 0.8),
+                  fontSize: 12,
+                  height: 1.5,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  AppHaptics.lightImpact();
-                  showDialog(
-                    context: context,
-                    builder: (ctx) =>
-                        DuaCardGeneratorDialog(azkar: dua.toAzkar()),
-                  );
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF10B981).withValues(alpha: 0.25),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: const Color(0xFF10B981).withValues(alpha: 0.4),
-                    ),
-                  ),
+            ],
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => _openQuranAyah(dua.surahNumber, dua.ayahNumber),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.share_rounded,
-                          color: Color(0xFF34D399), size: 13),
-                      const SizedBox(width: 5),
+                      Icon(Icons.auto_stories_outlined,
+                          size: 13, color: AppColors.mutedText),
+                      const SizedBox(width: 4),
                       Text(
-                        isKurdish ? 'هاوبەشکردنی کارت' : 'Share Card',
-                        style: const TextStyle(
-                          color: Color(0xFF34D399),
+                        isKurdish
+                            ? 'لە قورئاندا بیبینە'
+                            : (isArabic ? 'عرض في القرآن' : 'View in Quran'),
+                        style: TextStyle(
+                          color: AppColors.mutedText,
                           fontSize: 11,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      isKurdish
+                          ? 'دەست لێبدە بۆ زیاتر'
+                          : (isArabic ? 'اضغط للمزيد' : 'Tap for more'),
+                      style: TextStyle(
+                        color: AppColors.gold.withValues(alpha: 0.7),
+                        fontSize: 10,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Icon(
+                      isKurdish
+                          ? Icons.chevron_left_rounded
+                          : Icons.chevron_right_rounded,
+                      size: 14,
+                      color: AppColors.gold.withValues(alpha: 0.7),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // EMPTY STATE
+  // ════════════════════════════════════════════════════════════════════════════
+  Widget _buildEmptyState(bool isKurdish) {
+    return Container(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            _showFavoritesOnly
+                ? Icons.favorite_border_rounded
+                : Icons.search_off_rounded,
+            size: 48,
+            color: AppColors.faintText,
+          ),
+          const SizedBox(height: 14),
+          Text(
+            _showFavoritesOnly
+                ? (isKurdish
+                    ? 'هیچ دوعایەکت لە دڵخوازەکان دیاری نەکردووە'
+                    : 'No saved supplications yet')
+                : (isKurdish
+                    ? 'هیچ دوعایەک بەم ناوەوە نەدۆزرایەوە'
+                    : 'No supplications found'),
+            textAlign: TextAlign.center,
+            style: isKurdish
+                ? AppTheme.kurdishText(
+                    color: AppColors.mutedText, fontSize: 13.5)
+                : AppTheme.englishText(
+                    color: AppColors.mutedText, fontSize: 13.5),
           ),
         ],
       ),

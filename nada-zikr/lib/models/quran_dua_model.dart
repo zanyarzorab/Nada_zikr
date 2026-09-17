@@ -118,6 +118,13 @@ class QuranDuaItem {
     return map[surah] ?? 'سورة $surah';
   }
 
+  /// Returns localized Surah title based on current language (Kurdish, Arabic, or English)
+  String getSurahName(String lang) {
+    if (lang == 'ku') return surahNameKu;
+    if (lang == 'ar') return surahNameAr;
+    return surah;
+  }
+
   /// Surah index number in the Holy Quran (1 to 114)
   int get surahNumber {
     if (ayah.contains(':')) {
