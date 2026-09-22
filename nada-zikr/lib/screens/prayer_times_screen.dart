@@ -617,7 +617,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
 
                           const SizedBox(height: 16),
 
-                          // DATE BAR WITH GREGORIAN & HIJRI SWITCHER
+                          // DATE BAR WITH WEEKDAY, GREGORIAN & HIJRI
                           Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 12),
@@ -644,6 +644,21 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
                                 ),
                                 Column(
                                   children: [
+                                    Text(
+                                      _getWeekdayName(_selectedDate.weekday, lang),
+                                      style: isKurdish
+                                          ? AppTheme.kurdishTitle(
+                                              fontSize: 14,
+                                              color: AppColors.gold,
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                          : AppTheme.englishTitle(
+                                              fontSize: 14,
+                                              color: AppColors.gold,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                    ),
+                                    const SizedBox(height: 4),
                                     Text(
                                       '${_selectedDate.year}-${_selectedDate.month.toString().padLeft(2, '0')}-${_selectedDate.day.toString().padLeft(2, '0')}',
                                       style: AppTheme.englishTitle(
@@ -802,6 +817,25 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen>
         ),
       ),
     );
+  }
+
+  String _getWeekdayName(int weekday, String lang) {
+    const kuDays = [
+      'دووشەممە', 'سێشەممە', 'چوارشەممە', 'پێنجشەممە',
+      'هەینی', 'شەممە', 'یەکشەممە',
+    ];
+    const arDays = [
+      'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس',
+      'الجمعة', 'السبت', 'الأحد',
+    ];
+    const enDays = [
+      'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+      'Friday', 'Saturday', 'Sunday',
+    ];
+    final index = weekday - 1; // DateTime.weekday: 1=Mon, 7=Sun
+    if (lang == 'ku') return kuDays[index];
+    if (lang == 'ar') return arDays[index];
+    return enDays[index];
   }
 
   IconData _getPrayerIcon(String id) {
