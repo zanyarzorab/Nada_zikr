@@ -1,0 +1,286 @@
+name: Build SideStore & iLoader IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      flutter_channel:
+        description: 'Flutter release channel'
+        required: false
+        default: 'stable'
+        type: choice
+        options:
+          - 'stable'
+          - 'beta'
+      create_release:
+        description: 'Publish IPAs directly to GitHub Releases (simplifies iPhone Safari download)'
+        required: false
+        default: true
+        type: boolean
+      tag_name:
+        description: 'Custom release tag name (e.g. v1.0.0-sideload). Leave blank to auto-generate'
+        required: false
+        default: ''
+        type: string
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sidestore-ipa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-sideload-ipa:
+    name: Build Sideloadable iOS IPA
+    runs-on: macos-14
+
+    defaults:
+      run:
+        working-directory: nada-zikr
+
+    steps:
+      # ─────────────────────────────────────────────────────────────────────────
+      # 1. Checkout Repository
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 2. Extract Version Metadata
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Resolve App Version & Build Number
+        id: meta
+        run: |
+          PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //g' | tr -d '[:space:]')
+          VERSION_NAME=$(echo "$PUBSPEC_VERSION" | cut -d'+' -f1)
+          BUILD_NUM=$(echo "$PUBSPEC_VERSION" | cut -d'+' -f2)
+
+          INPUT_TAG="${{ github.event.inputs.tag_name }}"
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+          elif [ "${{ github.ref_type }}" = "tag" ]; then
+            TAG="${{ github.ref_name }}"
+          else
+            TAG="v${VERSION_NAME}-build.${BUILD_NUM}-sideload"
+          fi
+
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "build_num=$BUILD_NUM" >> $GITHUB_OUTPUT
+          echo "release_tag=$TAG" >> $GITHUB_OUTPUT
+
+          echo "=================================================="
+          echo " App Version: $VERSION_NAME (Build $BUILD_NUM)"
+          echo " Release Tag: $TAG"
+          echo "=================================================="
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 3. Setup Flutter & CocoaPods
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ github.event.inputs.flutter_channel || 'stable' }}
+          cache: true
+
+      - name: Validate Flutter Environment
+        run: |
+          flutter --version
+          flutter doctor -v
+
+      - name: Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: Install CocoaPods
+        run: |
+          cd ios
+          pod install --repo-update
+          cd ..
+
+      - name: Verify Runner Workspace
+        run: |
+          test -d ios/Runner.xcworkspace
+          echo "Runner.xcworkspace verified."
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 4. Build iOS Runner.app (Unsigned)
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Build Flutter iOS (--no-codesign)
+        run: |
+          flutter build ios \
+            --release \
+            --no-codesign
+
+      - name: Verify Application Bundle
+        run: |
+          APP_PATH="build/ios/iphoneos/Runner.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "::error::Runner.app not found at $APP_PATH"
+            exit 1
+          fi
+          echo "Runner.app built successfully."
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 5. Sanitize & Package Sideload-Ready IPAs
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Package Sideload-Optimized IPAs (SideStore & Full)
+        run: |
+          set -e
+          APP_SOURCE="build/ios/iphoneos/Runner.app"
+
+          echo "=== 1. Preparing clean Payload staging ==="
+          rm -rf ipa_work
+          mkdir -p ipa_work/Payload
+
+          # Copy clean Runner.app into Payload
+          cp -R "$APP_SOURCE" ipa_work/Payload/Runner.app
+
+          echo "=== 2. Stripping invalid/placeholder code signatures ==="
+          # Remove residual _CodeSignature folders and placeholder mobileprovisions
+          # This prevents SideStore / iLoader / AltStore re-signing collision errors
+          find ipa_work/Payload/Runner.app -name "_CodeSignature" -exec rm -rf {} + 2>/dev/null || true
+          find ipa_work/Payload/Runner.app -name "embedded.mobileprovision" -exec rm -rf {} + 2>/dev/null || true
+          find ipa_work/Payload/Runner.app -name ".DS_Store" -exec rm -rf {} + 2>/dev/null || true
+
+          # Set executable permissions
+          chmod -R 755 ipa_work/Payload
+
+          echo "=== 3. Packaging Nada-Zikr-Full.ipa (With Widget Extension) ==="
+          # Best for TrollStore, paid developer certs, Scarlet, or SideStore with App Extensions enabled
+          cd ipa_work
+          zip -qry -9 ../Nada-Zikr-Full.ipa Payload
+          cd ..
+
+          echo "=== 4. Packaging Nada-Zikr-SideStore.ipa (Stripped of .appex for Free Apple IDs) ==="
+          # Free Apple accounts have a strict 10 App ID limit and cannot sign appex extensions.
+          # Stripping PlugIns makes it 100% plug-and-play for standard SideStore / AltStore / iLoader users.
+          rm -rf ipa_work/Payload/Runner.app/PlugIns
+          cd ipa_work
+          zip -qry -9 ../Nada-Zikr-SideStore.ipa Payload
+          cd ..
+
+          # Cleanup work dir
+          rm -rf ipa_work
+
+          echo "=== 5. Verifying Generated IPAs ==="
+          ls -lh Nada-Zikr-*.ipa
+
+          SIDESTORE_SIZE=$(ls -lh Nada-Zikr-SideStore.ipa | awk '{print $5}')
+          FULL_SIZE=$(ls -lh Nada-Zikr-Full.ipa | awk '{print $5}')
+
+          SIDESTORE_SHA=$(shasum -a 256 Nada-Zikr-SideStore.ipa | awk '{print $1}')
+          FULL_SHA=$(shasum -a 256 Nada-Zikr-Full.ipa | awk '{print $1}')
+
+          echo "sidestore_size=$SIDESTORE_SIZE" >> $GITHUB_ENV
+          echo "full_size=$FULL_SIZE" >> $GITHUB_ENV
+          echo "sidestore_sha=$SIDESTORE_SHA" >> $GITHUB_ENV
+          echo "full_sha=$FULL_SHA" >> $GITHUB_ENV
+
+          echo "SideStore IPA Size: $SIDESTORE_SIZE | SHA256: $SIDESTORE_SHA"
+          echo "Full IPA Size:      $FULL_SIZE | SHA256: $FULL_SHA"
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 6. Upload IPAs as GitHub Actions Artifacts
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Upload SideStore IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nada-Zikr-SideStore-IPA
+          path: nada-zikr/Nada-Zikr-SideStore.ipa
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Upload Full IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nada-Zikr-Full-IPA
+          path: nada-zikr/Nada-Zikr-Full.ipa
+          retention-days: 30
+          if-no-files-found: error
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 7. Publish to GitHub Releases (Optional / Tagged)
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Publish GitHub Release
+        if: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.create_release == 'true') || github.ref_type == 'tag' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.release_tag }}
+          name: "Nada Dhikr iOS Sideload (${{ steps.meta.outputs.release_tag }})"
+          draft: false
+          prerelease: false
+          make_latest: true
+          generate_release_notes: false
+          body: |
+            ## 📱 Nada Dhikr - iOS Sideload Packages (${{ steps.meta.outputs.release_tag }})
+
+            Ready for sideloading with **SideStore**, **iLoader**, **AltStore**, **Sideloadly**, and **TrollStore**!
+
+            ---
+
+            ### 📦 Download Packages
+
+            | Package | Best For | Size | SHA256 |
+            | :--- | :--- | :--- | :--- |
+            | **`Nada-Zikr-SideStore.ipa`** *(Recommended)* | **SideStore, iLoader, AltStore** (Free 7-day Apple ID). Stripped of `.appex` to prevent App ID limits & signing errors. | `${{ env.sidestore_size }}` | `${{ env.sidestore_sha }}` |
+            | **`Nada-Zikr-Full.ipa`** | **TrollStore, Paid Developer Certs, Scarlet, ESign**. Includes Home Screen `PrayerTimesWidget.appex`. | `${{ env.full_size }}` | `${{ env.full_sha }}` |
+
+            ---
+
+            ### 🚀 Installation Guide
+
+            #### 📲 Option 1: SideStore (Direct on iPhone)
+            1. Open Safari on your iPhone, open this Release, and download `Nada-Zikr-SideStore.ipa`.
+            2. Turn on your **WireGuard SideStore VPN**.
+            3. Open **SideStore** -> tap the **+** (Plus) icon in the top left -> select `Nada-Zikr-SideStore.ipa`.
+            4. Wait for SideStore to sign and install the app!
+
+            #### 💻 Option 2: iLoader / Sideloadly / AltStore (PC or Mac)
+            1. Download `Nada-Zikr-SideStore.ipa` to your computer.
+            2. Connect your iPhone via USB.
+            3. Drag and drop the `.ipa` into **iLoader** or **Sideloadly**.
+            4. Enter your Apple ID and click **Start** / **Install**.
+            5. On iPhone, navigate to: `Settings > General > VPN & Device Management` and trust your developer certificate.
+
+            #### ⚡ Option 3: TrollStore (iOS 14.0 - 16.6.1 / 17.0)
+            1. Download `Nada-Zikr-Full.ipa` in Safari.
+            2. Tap the share button -> **Open in TrollStore**.
+            3. Enjoy full permanent app installation with widget extensions and zero revokes!
+          files: |
+            nada-zikr/Nada-Zikr-SideStore.ipa
+            nada-zikr/Nada-Zikr-Full.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ─────────────────────────────────────────────────────────────────────────
+      # 8. GitHub Actions Job Step Summary
+      # ─────────────────────────────────────────────────────────────────────────
+      - name: Generate Actions Summary
+        run: |
+          cat << 'EOF' >> $GITHUB_STEP_SUMMARY
+          # 🎉 iOS Sideload IPA Build Complete!
+
+          Both **SideStore/iLoader** and **Full/TrollStore** IPAs were built and packaged successfully.
+
+          ### 📦 Built IPAs
+          - **`Nada-Zikr-SideStore.ipa`** (${{ env.sidestore_size }}): Optimized for free 7-day Apple ID sideloading via **SideStore**, **iLoader**, and **AltStore**.
+          - **`Nada-Zikr-Full.ipa`** (${{ env.full_size }}): Full bundle with prayer times widget extension for **TrollStore** and paid Apple certificates.
+
+          ### 🔑 SHA256 Checksums
+          ```text
+          SideStore IPA: ${{ env.sidestore_sha }}
+          Full IPA:      ${{ env.full_sha }}
+          ```
+
+          ### 📲 How to Install:
+          1. **SideStore (No PC needed)**:
+             - Enable the SideStore WireGuard VPN profile.
+             - Open SideStore > Tap **+** > Choose `Nada-Zikr-SideStore.ipa`.
+          2. **iLoader / Sideloadly (PC / Mac)**:
+             - Connect your device via USB.
+             - Drag and drop `Nada-Zikr-SideStore.ipa` and hit Start.
+          3. **TrollStore (Permanent)**:
+             - Share `Nada-Zikr-Full.ipa` directly to TrollStore.
+          EOF
